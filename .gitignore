@@ -1,0 +1,8 @@
+test_output
+.idea
+.DS_Store
+
+# Sequel Pro
+*.sql
+*.spfs
+*.log
