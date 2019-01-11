@@ -25,9 +25,9 @@
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
-          <stringProp name="LoopController.loops">1</stringProp>
+          <stringProp name="LoopController.loops">2</stringProp>
         </elementProp>
-        <stringProp name="ThreadGroup.num_threads">1</stringProp>
+        <stringProp name="ThreadGroup.num_threads">5</stringProp>
         <stringProp name="ThreadGroup.ramp_time">1</stringProp>
         <boolProp name="ThreadGroup.scheduler">false</boolProp>
         <stringProp name="ThreadGroup.duration"></stringProp>
@@ -47,6 +47,18 @@
           <stringProp name="HTTPSampler.connect_timeout"></stringProp>
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
         </ConfigTestElement>
+        <hashTree/>
+        <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="Timeseries Metadata CSV" enabled="true">
+          <stringProp name="filename">./data/ts_meta.csv</stringProp>
+          <stringProp name="fileEncoding">UTF-8</stringProp>
+          <stringProp name="variableNames"></stringProp>
+          <boolProp name="ignoreFirstLine">true</boolProp>
+          <stringProp name="delimiter">;</stringProp>
+          <boolProp name="quotedData">false</boolProp>
+          <boolProp name="recycle">true</boolProp>
+          <boolProp name="stopThread">true</boolProp>
+          <stringProp name="shareMode">shareMode.all</stringProp>
+        </CSVDataSet>
         <hashTree/>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Health Check" enabled="true">
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
@@ -68,39 +80,8 @@
         </HTTPSamplerProxy>
         <hashTree/>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Create Timeseries" enabled="true">
-          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
-          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
-            <collectionProp name="Arguments.arguments">
-              <elementProp name="" elementType="HTTPArgument">
-                <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                <stringProp name="Argument.value">{&#xd;
-    &quot;moduleId&quot;: &quot;HEC-HMS&quot;,&#xd;
-    &quot;valueType&quot;: &quot;Scalar&quot;,&#xd;
-    &quot;parameter&quot;: {&#xd;
-        &quot;parameterId&quot;: &quot;O.Precipitation&quot;,&#xd;
-        &quot;variable&quot;: &quot;Precipitation&quot;,&#xd;
-        &quot;unit&quot;: &quot;mm&quot;,&#xd;
-        &quot;parameterType&quot;: &quot;Instantaneous&quot;&#xd;
-    },&#xd;
-    &quot;location&quot;: {&#xd;
-        &quot;locationId&quot;: &quot;wdias_hanwella&quot;,&#xd;
-        &quot;name&quot;: &quot;Hanwella&quot;,&#xd;
-        &quot;lat&quot;: 6.909722222,&#xd;
-        &quot;lon&quot;: 80.08166667&#xd;
-    },&#xd;
-    &quot;timeseriesType&quot;: &quot;ExternalHistorical&quot;,&#xd;
-    &quot;timeStep&quot;: {&#xd;
-        &quot;timeStepId&quot;: &quot;each_15_min&quot;,&#xd;
-        &quot;unit&quot;: &quot;Minute&quot;,&#xd;
-        &quot;multiplier&quot;: 15&#xd;
-    },&#xd;
-    &quot;tags&quot;: [&#xd;
-        &quot;Test1&quot;&#xd;
-    ]&#xd;
-}</stringProp>
-                <stringProp name="Argument.metadata">=</stringProp>
-              </elementProp>
-            </collectionProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+            <collectionProp name="Arguments.arguments"/>
           </elementProp>
           <stringProp name="HTTPSampler.domain"></stringProp>
           <stringProp name="HTTPSampler.port"></stringProp>
@@ -125,6 +106,7 @@
             <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
             <boolProp name="Assertion.assume_success">false</boolProp>
             <intProp name="Assertion.test_type">8</intProp>
+            <boolProp name="com.blazemeter.jmeter.debugger.engine.Debugger">true</boolProp>
           </ResponseAssertion>
           <hashTree/>
           <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor - TimeseriesId" enabled="true">
@@ -132,6 +114,14 @@
             <stringProp name="JSONPostProcessor.jsonPathExprs">$.timeseriesId</stringProp>
             <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
           </JSONPostProcessor>
+          <hashTree/>
+          <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="csv_to_timeseries_metadata_json .groovy" enabled="true">
+            <stringProp name="scriptLanguage">groovy</stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="filename">./scripts/csv_to_timeseries_metadata_json.groovy</stringProp>
+            <stringProp name="cacheKey">true</stringProp>
+            <stringProp name="script"></stringProp>
+          </JSR223PreProcessor>
           <hashTree/>
         </hashTree>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get Timeseries" enabled="true">
@@ -174,7 +164,7 @@
             <stringProp name="parameters"></stringProp>
             <stringProp name="script">String timeseriesId = vars.get(&quot;timeseriesId&quot;);
 log.info(&quot;TimeseriesId:&quot;, timeseriesId);
-if(timeseriesId != &quot;9b88fdccb297d5bb0fb95d1754626810b051c6aea741294d8cbd65af28414537&quot;){
+if(timeseriesId.length() != 64){
 	AssertionResult.setFailureMessage(&quot;The Timeseries Id is wrong&quot;);
 	AssertionResult.setFailure(true);
 }
@@ -211,10 +201,10 @@ if(timeseriesId != &quot;9b88fdccb297d5bb0fb95d1754626810b051c6aea741294d8cbd65a
             <boolProp name="quotedData">false</boolProp>
             <boolProp name="recycle">true</boolProp>
             <boolProp name="stopThread">false</boolProp>
-            <stringProp name="shareMode">shareMode.group</stringProp>
+            <stringProp name="shareMode">shareMode.thread</stringProp>
           </CSVDataSet>
           <hashTree/>
-          <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="CSV TS to JSON .groovy" enabled="true">
+          <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="csv_ts_to_json_array .groovy" enabled="true">
             <stringProp name="cacheKey">true</stringProp>
             <stringProp name="filename">./scripts/csv_ts_to_json_array.groovy</stringProp>
             <stringProp name="parameters"></stringProp>
@@ -464,7 +454,7 @@ if(timeseriesId != &quot;9b88fdccb297d5bb0fb95d1754626810b051c6aea741294d8cbd65a
           <stringProp name="fileEncoding">UTF-8</stringProp>
           <stringProp name="variableNames"></stringProp>
           <boolProp name="ignoreFirstLine">true</boolProp>
-          <stringProp name="delimiter">,</stringProp>
+          <stringProp name="delimiter">;</stringProp>
           <boolProp name="quotedData">false</boolProp>
           <boolProp name="recycle">true</boolProp>
           <boolProp name="stopThread">true</boolProp>
@@ -634,18 +624,6 @@ if(timeseriesId != &quot;9b88fdccb297d5bb0fb95d1754626810b051c6aea741294d8cbd65a
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
         </HTTPSamplerProxy>
         <hashTree>
-          <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV Data Set Config" enabled="true">
-            <stringProp name="filename">./data/ts_1.csv</stringProp>
-            <stringProp name="fileEncoding">UTF-8</stringProp>
-            <stringProp name="variableNames"></stringProp>
-            <boolProp name="ignoreFirstLine">true</boolProp>
-            <stringProp name="delimiter">,</stringProp>
-            <boolProp name="quotedData">false</boolProp>
-            <boolProp name="recycle">true</boolProp>
-            <boolProp name="stopThread">false</boolProp>
-            <stringProp name="shareMode">shareMode.group</stringProp>
-          </CSVDataSet>
-          <hashTree/>
           <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="CSV TS to JSON .groovy" enabled="true">
             <stringProp name="cacheKey">true</stringProp>
             <stringProp name="filename"></stringProp>

@@ -14,7 +14,7 @@ file.eachLine { line, number ->
 }
 
 def jsonBuilder = new JsonBuilder()
-jsonBuilder(
+jsonBuilder (
 	pointList.collect { point ->
 		[
 			time: point.time,
