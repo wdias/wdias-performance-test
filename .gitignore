@@ -1,5 +1,6 @@
 test_output
 .idea
+*.iml
 .DS_Store
 apache-jmeter-*
 groovy-*

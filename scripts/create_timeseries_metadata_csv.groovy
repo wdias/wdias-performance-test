@@ -28,7 +28,7 @@ file.write("id; moduleId; valueType; parameter; location; timeseriesType; timeSt
 def id = 1
 moduleIds.each { moduleId ->
     locations.each { l ->
-        def location = "{\"locationId\":\"${l.locationId}\",\"name\":\"${l.name}\",\"lat\":${l.lat},\"lon\":${l.lon}"
+        def location = "{\"locationId\":\"${l.locationId}\",\"name\":\"${l.name}\",\"lat\":${l.lat},\"lon\":${l.lon}}"
         file.append("${id}; ${moduleId}; Scalar; ${parameter}; ${location}; ExternalHistorical; ${timeStep}")
         id++
         if (id <= moduleIds.size() * locations.size()) {
