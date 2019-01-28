@@ -25,6 +25,14 @@
         <stringProp name="ThreadGroup.delay"></stringProp>
       </ThreadGroup>
       <hashTree>
+        <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="create_timeseries_metadata_csv .groovy" enabled="true">
+          <stringProp name="cacheKey">false</stringProp>
+          <stringProp name="filename">./scripts/create_timeseries_metadata_csv.groovy</stringProp>
+          <stringProp name="parameters"></stringProp>
+          <stringProp name="script"></stringProp>
+          <stringProp name="scriptLanguage">groovy</stringProp>
+        </JSR223Sampler>
+        <hashTree/>
         <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="create_timeseries_to_1hr_csv .groovy" enabled="true">
           <stringProp name="cacheKey">false</stringProp>
           <stringProp name="filename">./scripts/create_timeseries_to_1hr_csv.groovy</stringProp>
