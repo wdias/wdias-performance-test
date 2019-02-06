@@ -1,5 +1,11 @@
 import groovy.json.JsonBuilder
 
+def reqSizeMap = [
+        24  : 'ts_1hr',
+        288 : 'ts_5min',
+        1440: 'ts_1min'
+]
+
 class Point {
     String time;
     float value
@@ -7,7 +13,9 @@ class Point {
 
 List<Point> pointList = new ArrayList<>()
 
-def file = new File('./data/ts_1.csv')
+def reqSize = vars.get("reqSize") as Integer
+//log.info("Req Size:" + reqSizeMap.get(reqSize))
+def file = new File("./data/${reqSizeMap.get(reqSize)}.csv")
 file.eachLine { line, number ->
     if (number == 1)
         return
@@ -27,7 +35,7 @@ jsonBuilder(
         }
 )
 
-// println jsonBuilder.toPrettyString()
+// log.info("Message:" + vars.get(jsonBuilder.toPrettyString()))
 
 sampler.addNonEncodedArgument("", jsonBuilder.toPrettyString(), "")
 sampler.setPostBodyRaw(true)

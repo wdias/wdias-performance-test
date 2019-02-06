@@ -4,6 +4,7 @@ test_output
 .DS_Store
 apache-jmeter-*
 groovy-*
+*.jtl
 
 # Sequel Pro
 *.sql
