@@ -11,7 +11,7 @@ jsonBuilder {
     timeseriesType vars.get("timeseriesType").trim()
     timeStep jsonSlurper.parseText(vars.get("timeStep").trim())
 }
-// log.info("Message:" + vars.get(jsonBuilder.toPrettyString()));
+// log.info("Message:" + jsonBuilder.toPrettyString());
 
 sampler.addNonEncodedArgument("", jsonBuilder.toPrettyString(), "")
 sampler.setPostBodyRaw(true)

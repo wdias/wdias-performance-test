@@ -52,9 +52,9 @@ List<Variable> variablesList = [new Variable(
 
 def jsonBuilder = new JsonBuilder()
 jsonBuilder {
-    extensionId "transformation_aggregate_accumulative"
-    extension "Transformation"
-    function "AggregateAccumulative"
+    extensionId "validation_min_non_missing_values_check_on_time"
+    extension "Validation"
+    function "MinNonMissingValuesCheck"
     variables variablesList.collect { Variable v ->
         [
                 variableId: v.variableId,
@@ -69,16 +69,20 @@ jsonBuilder {
         ]
     }
     inputVariables jsonSlurper.parseText("[\"Input\"]")
-    outputVariables jsonSlurper.parseText("[\"Output\"]")
     trigger jsonSlurper.parseText('''
         [{
-            "trigger_type": "OnChange",
-            "trigger_on": ["Input"]
+            "trigger_type": "OnTime",
+            "trigger_on": ["*/10 * * * *"]
         }]
      ''')
-    options {
-        ignoringMissing "True"
-    }
+    options jsonSlurper.parseText('''{
+         "checkRelativePeriod": {
+            "unit": "hour",
+            "start": -12,
+            "end": 0
+        },
+        "minNumberOfValues": 12
+    }''')
 }
 //log.info("Message:" + jsonBuilder.toPrettyString())
 
