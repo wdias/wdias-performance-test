@@ -1,3 +1,6 @@
+// def DOMAIN = "wdias.com"
+def DOMAIN = vars.get("DOMAIN") as String
+
 def nullTrustManager = [
     checkClientTrusted: { chain, authType ->  },
     checkServerTrusted: { chain, authType ->  },
@@ -7,7 +10,7 @@ def nullTrustManager = [
 def nullHostnameVerifier = [
     verify: { hostname, session -> 
         //true 
-        hostname.endsWith('noondv.com')
+        hostname.endsWith(DOMAIN)
     }
 ]
 
@@ -17,8 +20,6 @@ javax.net.ssl.HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory(
 javax.net.ssl.HttpsURLConnection.setDefaultHostnameVerifier(nullHostnameVerifier as javax.net.ssl.HostnameVerifier)
 // -- Disable SSL: https://gist.github.com/barata0/63705c0bcdd1054af2405e90c06f6b71
 
-def DOMAIN = "noondv.com"
-//def DOMAIN = vars.get("DOMAIN") as String
 def requestId = "ScalarRequest"
 //def requestId =  vars.get("requestId").trim()
 
