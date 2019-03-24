@@ -16,14 +16,20 @@
         <collectionProp name="Arguments.arguments">
           <elementProp name="DOMAIN" elementType="Argument">
             <stringProp name="Argument.name">DOMAIN</stringProp>
-            <stringProp name="Argument.value">${__P(DOMAIN,noondv.com)}</stringProp>
+            <stringProp name="Argument.value">${__P(DOMAIN,wdias.com)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
-          <elementProp name="valueType" elementType="Argument">
-            <stringProp name="Argument.name">valueType</stringProp>
+          <elementProp name="DataType" elementType="Argument">
+            <stringProp name="Argument.name">DataType</stringProp>
             <stringProp name="Argument.value">${__P(valueType,Grid)}</stringProp>
-            <stringProp name="Argument.desc">Scalar, Vector, Grid</stringProp>
+            <stringProp name="Argument.desc">Possible values: Scalar, Vector, Grid</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="reqSize" elementType="Argument">
+            <stringProp name="Argument.name">reqSize</stringProp>
+            <stringProp name="Argument.value">${__P(reqSize,24)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+            <stringProp name="Argument.desc">Hourly=24, 5Min=288, 1Min=1440</stringProp>
           </elementProp>
         </collectionProp>
       </Arguments>
@@ -87,17 +93,6 @@
         <stringProp name="ThreadGroup.delay"></stringProp>
       </ThreadGroup>
       <hashTree>
-        <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
-          <collectionProp name="Arguments.arguments">
-            <elementProp name="reqSize" elementType="Argument">
-              <stringProp name="Argument.name">reqSize</stringProp>
-              <stringProp name="Argument.value">${__P(reqSize,1440)}</stringProp>
-              <stringProp name="Argument.desc">Hourly=24, 5Min=288, 1Min=1440</stringProp>
-              <stringProp name="Argument.metadata">=</stringProp>
-            </elementProp>
-          </collectionProp>
-        </Arguments>
-        <hashTree/>
         <ConfigTestElement guiclass="HttpDefaultsGui" testclass="ConfigTestElement" testname="HTTP Request Defaults" enabled="true">
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
             <collectionProp name="Arguments.arguments"/>
@@ -111,6 +106,15 @@
           <stringProp name="HTTPSampler.connect_timeout"></stringProp>
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
         </ConfigTestElement>
+        <hashTree/>
+        <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+          <collectionProp name="HeaderManager.headers">
+            <elementProp name="" elementType="Header">
+              <stringProp name="Header.name">Content-Type</stringProp>
+              <stringProp name="Header.value">application/json</stringProp>
+            </elementProp>
+          </collectionProp>
+        </HeaderManager>
         <hashTree/>
         <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="Timeseries Metadata CSV" enabled="true">
           <stringProp name="filename">./data/ts_meta.csv</stringProp>
@@ -240,7 +244,7 @@ if(timeseriesId.length() != 64){
         </hashTree>
         <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If Scalar Or Vector" enabled="true">
           <stringProp name="TestPlan.comments">https://stackoverflow.com/a/50207085</stringProp>
-          <stringProp name="IfController.condition">${__groovy((!vars.get(&apos;valueType&apos;).equals(&apos;Grid&apos;)),)}</stringProp>
+          <stringProp name="IfController.condition">${__groovy((!vars.get(&apos;DataType&apos;).equals(&apos;Grid&apos;)),)}</stringProp>
           <boolProp name="IfController.evaluateAll">false</boolProp>
           <boolProp name="IfController.useExpression">true</boolProp>
         </IfController>
@@ -253,8 +257,8 @@ if(timeseriesId.length() != 64){
             <stringProp name="HTTPSampler.port"></stringProp>
             <stringProp name="HTTPSampler.protocol">https</stringProp>
             <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-            <stringProp name="HTTPSampler.path">/status/public/hc</stringProp>
-            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <stringProp name="HTTPSampler.path">/import/json/raw/9b88fdccb297d5bb0fb95d1754626810b051c6aea741294d8cbd65af28414537</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
             <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
             <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
@@ -276,7 +280,7 @@ if(timeseriesId.length() != 64){
         </hashTree>
         <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If Scalar Or Vector" enabled="true">
           <stringProp name="TestPlan.comments">https://stackoverflow.com/a/50207085</stringProp>
-          <stringProp name="IfController.condition">${__groovy((!vars.get(&apos;valueType&apos;).equals(&apos;Grid&apos;)),)}</stringProp>
+          <stringProp name="IfController.condition">${__groovy((vars.get(&apos;DataType&apos;).equals(&apos;Grid&apos;)),)}</stringProp>
           <boolProp name="IfController.evaluateAll">false</boolProp>
           <boolProp name="IfController.useExpression">true</boolProp>
         </IfController>
@@ -360,23 +364,6 @@ if(timeseriesId.length() != 64){
         <stringProp name="Unit">S</stringProp>
       </com.blazemeter.jmeter.threads.concurrency.ConcurrencyThreadGroup>
       <hashTree>
-        <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="Import User Defined Variables" enabled="true">
-          <collectionProp name="Arguments.arguments">
-            <elementProp name="reqSize" elementType="Argument">
-              <stringProp name="Argument.name">reqSize</stringProp>
-              <stringProp name="Argument.value">${__P(reqSize,24)}</stringProp>
-              <stringProp name="Argument.desc">Hourly=24, 5Min=288, 1Min=1440</stringProp>
-              <stringProp name="Argument.metadata">=</stringProp>
-            </elementProp>
-            <elementProp name="valueType" elementType="Argument">
-              <stringProp name="Argument.name">valueType</stringProp>
-              <stringProp name="Argument.value">${__P(valueType,Scalar)}</stringProp>
-              <stringProp name="Argument.desc">Scalar, Vector, Grid</stringProp>
-              <stringProp name="Argument.metadata">=</stringProp>
-            </elementProp>
-          </collectionProp>
-        </Arguments>
-        <hashTree/>
         <ConfigTestElement guiclass="HttpDefaultsGui" testclass="ConfigTestElement" testname="HTTP Request Defaults" enabled="true">
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
             <collectionProp name="Arguments.arguments"/>
@@ -1021,17 +1008,6 @@ if(timeseriesId.length() != 64){
         <stringProp name="ThreadGroup.delay"></stringProp>
       </ThreadGroup>
       <hashTree>
-        <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
-          <collectionProp name="Arguments.arguments">
-            <elementProp name="reqSize" elementType="Argument">
-              <stringProp name="Argument.name">reqSize</stringProp>
-              <stringProp name="Argument.value">${__P(reqSize,24)}</stringProp>
-              <stringProp name="Argument.desc">Hourly=24, 5Min=288, 1Min=1440</stringProp>
-              <stringProp name="Argument.metadata">=</stringProp>
-            </elementProp>
-          </collectionProp>
-        </Arguments>
-        <hashTree/>
         <ConfigTestElement guiclass="HttpDefaultsGui" testclass="ConfigTestElement" testname="HTTP Request Defaults" enabled="true">
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
             <collectionProp name="Arguments.arguments"/>
@@ -1286,17 +1262,6 @@ if(timeseriesId.length() != 64){
         <stringProp name="Unit">M</stringProp>
       </com.blazemeter.jmeter.threads.concurrency.ConcurrencyThreadGroup>
       <hashTree>
-        <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
-          <collectionProp name="Arguments.arguments">
-            <elementProp name="reqSize" elementType="Argument">
-              <stringProp name="Argument.name">reqSize</stringProp>
-              <stringProp name="Argument.value">${__P(reqSize,24)}</stringProp>
-              <stringProp name="Argument.desc">Hourly=24, 5Min=288, 1Min=1440</stringProp>
-              <stringProp name="Argument.metadata">=</stringProp>
-            </elementProp>
-          </collectionProp>
-        </Arguments>
-        <hashTree/>
         <ConfigTestElement guiclass="HttpDefaultsGui" testclass="ConfigTestElement" testname="HTTP Request Defaults" enabled="true">
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
             <collectionProp name="Arguments.arguments"/>
@@ -1421,17 +1386,6 @@ if(timeseriesId.length() != 64){
         <stringProp name="Unit">S</stringProp>
       </com.blazemeter.jmeter.threads.concurrency.ConcurrencyThreadGroup>
       <hashTree>
-        <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
-          <collectionProp name="Arguments.arguments">
-            <elementProp name="reqSize" elementType="Argument">
-              <stringProp name="Argument.name">reqSize</stringProp>
-              <stringProp name="Argument.value">${__P(reqSize,24)}</stringProp>
-              <stringProp name="Argument.desc">Hourly=24, 5Min=288, 1Min=1440</stringProp>
-              <stringProp name="Argument.metadata">=</stringProp>
-            </elementProp>
-          </collectionProp>
-        </Arguments>
-        <hashTree/>
         <ConfigTestElement guiclass="HttpDefaultsGui" testclass="ConfigTestElement" testname="HTTP Request Defaults" enabled="true">
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
             <collectionProp name="Arguments.arguments"/>
@@ -1987,17 +1941,6 @@ if(timeseriesId.length() != 64){
         <stringProp name="Unit">M</stringProp>
       </com.blazemeter.jmeter.threads.concurrency.ConcurrencyThreadGroup>
       <hashTree>
-        <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
-          <collectionProp name="Arguments.arguments">
-            <elementProp name="reqSize" elementType="Argument">
-              <stringProp name="Argument.name">reqSize</stringProp>
-              <stringProp name="Argument.value">${__P(reqSize,24)}</stringProp>
-              <stringProp name="Argument.desc">Hourly=24, 5Min=288, 1Min=1440</stringProp>
-              <stringProp name="Argument.metadata">=</stringProp>
-            </elementProp>
-          </collectionProp>
-        </Arguments>
-        <hashTree/>
         <ConfigTestElement guiclass="HttpDefaultsGui" testclass="ConfigTestElement" testname="HTTP Request Defaults" enabled="true">
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
             <collectionProp name="Arguments.arguments"/>
