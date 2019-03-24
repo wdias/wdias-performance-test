@@ -1,3 +1,4 @@
+import org.apache.jmeter.protocol.http.control.Header
 import groovy.json.JsonBuilder
 
 def reqSizeMap = [
@@ -37,5 +38,6 @@ jsonBuilder(
 
 // log.info("Message:" + vars.get(jsonBuilder.toPrettyString()))
 
+sampler.getHeaderManager().add(new Header("Content-Type","application/json"));
 sampler.addNonEncodedArgument("", jsonBuilder.toPrettyString(), "")
 sampler.setPostBodyRaw(true)
