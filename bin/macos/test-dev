@@ -5,6 +5,7 @@ set -e
 # - Shold be able to toggle tst for Scalar, Vector & Grid
 # - Should be able to run dev and production mode
 test_run() {
+  # usage: $progName run <DATA_TYPE> <REQ_TYPE>
   source "${BASH_SOURCE%/*}/test.conf"
   DATA_TYPE=$(get-data-type $1)
   REQ_SIZE=$(get-req-size $2)
@@ -23,10 +24,19 @@ toggle_enabled() {
 }
 
 test_enable() {
+  # usage: $progName enable <MODULE> <DATA_TYPE>
+  # (dev)  $progName enable <MODULE>
   source "${BASH_SOURCE%/*}/test.conf"
   MODULE=$(get-module $1)
   echo "Enable module (${ENV}): Module=${MODULE}"
   $(toggle_enabled WDIAS-${MODULE} true)
+  MODULE=$(echo "${MODULE}" | tr '[:upper:]' '[:lower:]')
+  if [[ "${ENV}" == "prod" ]]; then
+    DATA_TYPE=$(get-data-type $2 | tr '[:upper:]' '[:lower:]')
+    $(toggle_enabled tst-timer-${MODULE}-${ENV}-${DATA_TYPE} true)
+  else
+    $(toggle_enabled tst-timer-${MODULE}-${ENV} true)
+  fi
 }
 
 test_disable() {
@@ -34,6 +44,13 @@ test_disable() {
   MODULE=$(get-module $1)
   echo "Disable module (${ENV}): Module=${MODULE}"
   $(toggle_enabled WDIAS-${MODULE} false)
+  MODULE=$(echo "${MODULE}" | tr '[:upper:]' '[:lower:]')
+  if [[ "${ENV}" == "prod" ]]; then
+    DATA_TYPE=$(get-data-type $2 | tr '[:upper:]' '[:lower:]')
+    $(toggle_enabled tst-timer-${MODULE}-${ENV}-${DATA_TYPE} false)
+  else
+    $(toggle_enabled tst-timer-${MODULE}-${ENV} false)
+  fi
 }
 
 test_help() {
