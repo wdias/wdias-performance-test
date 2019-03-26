@@ -4,6 +4,37 @@ set -e
 # - Should be able to run cases separately Import, Export, Extension & All
 # - Shold be able to toggle tst for Scalar, Vector & Grid
 # - Should be able to run dev and production mode
+test_run() {
+  source "${BASH_SOURCE%/*}/test.conf"
+  DATA_TYPE=$(get-data-type $1)
+  REQ_SIZE=$(get-req-size $2)
+  echo "Running performance test (${ENV}): DataType=${DATA_TYPE}, ReqSize=${REQ_SIZE}"
+
+  # ${JMETER} -n -t wdias_performance_test.jmx -l testresults.jtl -j non-ui.log -JDataType=${DATA_TYPE} -JreqSize=${REQ_SIZE}
+}
+
+test_enable() {
+  source "${BASH_SOURCE%/*}/test.conf"
+  MODULE=$(get-module $1)
+  echo "Enable module (${ENV}): Module=${MODULE}"
+
+}
+
+test_help() {
+  echo "-h | --help: Usage
+  $progName enable <MODULE>
+    - MODULE: import(i) | export(e) | extension(x) | all(a)
+  $progName up <MODULE> <DATA_TYPE> <REQ_SIZE>
+    - DATA_TYPE: scalar(s) | vector(v) | grid(g)
+    - REQ_SIZE: 24(1) | 288(2) | 1044(3)
+  NOTE: Modify test.conf as necessary
+  e.g.
+  $progName up import scalar 24
+  or
+  $progName up i s 1
+  "
+}
+
 contains() {
   # usage: contains 'item1 item2' 'item1'
   [[ $1 =~ (^| )$2($| ) ]] && echo 'yes' || echo 'no'
@@ -58,31 +89,6 @@ get-req-size() {
       exit 1
     ;;
   esac
-}
-
-test_up() {
-  source "${BASH_SOURCE%/*}/test.conf"
-  MODULE=$(get-module $1)
-  DATA_TYPE=$(get-data-type $2)
-  REQ_SIZE=$(get-req-size $3)
-  echo "Running performance test (${ENV}): ${MODULE}, ${DATA_TYPE}, ${REQ_SIZE}"
-
-  ${JMETER} -n -t wdias_performance_test.jmx -l testresults.jtl -j non-ui.log -JDataType=${DATA_TYPE} -JreqSize=${REQ_SIZE}
-}
-
-test_help() {
-  echo "-h | --help: Usage
-
-  $progName up <MODULE> <DATA_TYPE> <REQ_SIZE>
-    - MODULE: import(i) | export(e) | extension(x) | all(a)
-    - DATA_TYPE: scalar(s) | vector(v) | grid(g)
-    - REQ_SIZE: 24(1) | 288(2) | 1044(3)
-  NOTE: Modify test.conf as necessary
-  e.g.
-  $progName up import scalar 24
-  or
-  $progName up i s 1
-  "
 }
 
 test_cmd=$1
