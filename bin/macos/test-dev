@@ -1,0 +1,102 @@
+#!/bin/bash
+set -e
+# TODO:
+# - Should be able to run cases separately Import, Export, Extension & All
+# - Shold be able to toggle tst for Scalar, Vector & Grid
+# - Should be able to run dev and production mode
+contains() {
+  # usage: contains 'item1 item2' 'item1'
+  [[ $1 =~ (^| )$2($| ) ]] && echo 'yes' || echo 'no'
+}
+get-module() {
+  case $1 in 
+    import|i) 
+      echo "Import"
+    ;;
+    export|e) 
+      echo "Export"
+    ;;
+    Extension|i) 
+      echo "Extension"
+    ;;
+    *)
+      echo "Invalid module: $1" >&2
+      exit 1
+    ;;
+  esac
+}
+get-data-type(){
+  case $1 in 
+    scalar|s) 
+      echo "Scalar"
+    ;;
+    vector|v) 
+      echo "Vector"
+    ;;
+    grid|g) 
+      echo "Grid"
+    ;;
+    *)
+      echo "Invalid data type: $1" >&2
+      exit 1
+    ;;
+  esac
+}
+get-req-size() {
+  case $1 in 
+    24|1) 
+      echo "24"
+    ;;
+    288|2) 
+      echo "288"
+    ;;
+    1044|3) 
+      echo "1044"
+    ;;
+    *)
+      echo "Invalid req size: $1" >&2
+      exit 1
+    ;;
+  esac
+}
+
+test_up() {
+  source "${BASH_SOURCE%/*}/test.conf"
+  MODULE=$(get-module $1)
+  DATA_TYPE=$(get-data-type $2)
+  REQ_SIZE=$(get-req-size $3)
+  echo "Running performance test (${ENV}): ${MODULE}, ${DATA_TYPE}, ${REQ_SIZE}"
+
+  ${JMETER} -n -t wdias_performance_test.jmx -l testresults.jtl -j non-ui.log -JDataType=${DATA_TYPE} -JreqSize=${REQ_SIZE}
+}
+
+test_help() {
+  echo "-h | --help: Usage
+
+  $progName up <MODULE> <DATA_TYPE> <REQ_SIZE>
+    - MODULE: import(i) | export(e) | extension(x) | all(a)
+    - DATA_TYPE: scalar(s) | vector(v) | grid(g)
+    - REQ_SIZE: 24(1) | 288(2) | 1044(3)
+  NOTE: Modify test.conf as necessary
+  e.g.
+  $progName up import scalar 24
+  or
+  $progName up i s 1
+  "
+}
+
+test_cmd=$1
+case $test_cmd in
+  "" | "-h" | "--help")
+    test_help
+    ;;
+  *)
+    shift
+    test_${test_cmd} $@
+    if [ $? = 127 ]; then
+      echo "'${test_cmd}' command not found." >&2
+      echo "List available commands with '$progName --help'" >&2
+      exit 1
+    fi
+    ;;
+esac
