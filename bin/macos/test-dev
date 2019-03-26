@@ -23,7 +23,12 @@ update_tst_feedback() {
   echo "${!VAR}" >&2
   REPLACE="tst-timer-${2}, ${!VAR})}"
   echo "${REPLACE}" >&2
+  # Configure tst-timer for the concurrency thread group
   grep -Fn "$1" $JMETER_TEST_FILE | cut -f1 -d: | xargs -o -I {} expr {} + 3 | xargs -o -I {} sed -i '' "{}s/${SEARCH}/${REPLACE}/g" $JMETER_TEST_FILE
+  # Configure Hold time/Running time
+  VAR_HOLD=TST_HOLD_${2}
+  grep -Fn "$1" $JMETER_TEST_FILE | cut -f1 -d: | xargs -o -I {} expr {} + 6 | xargs -o -I {} sed -i '' "{}s/>.*</>${!VAR_HOLD}</g" $JMETER_TEST_FILE
+
 }
 
 toggle_enabled() {
