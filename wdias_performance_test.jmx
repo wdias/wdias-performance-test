@@ -575,7 +575,7 @@ if(timeseriesId.length() != 64){
             <hashTree/>
           </hashTree>
         </hashTree>
-        <kg.apc.jmeter.timers.VariableThroughputTimer guiclass="kg.apc.jmeter.timers.VariableThroughputTimerGui" testclass="kg.apc.jmeter.timers.VariableThroughputTimer" testname="tst-timer-debug-mini" enabled="true">
+        <kg.apc.jmeter.timers.VariableThroughputTimer guiclass="kg.apc.jmeter.timers.VariableThroughputTimerGui" testclass="kg.apc.jmeter.timers.VariableThroughputTimer" testname="tst-timer-import-dev" enabled="true">
           <collectionProp name="load_profile">
             <collectionProp name="1759787457">
               <stringProp name="1">1</stringProp>
@@ -630,7 +630,7 @@ if(timeseriesId.length() != 64){
           </collectionProp>
         </kg.apc.jmeter.timers.VariableThroughputTimer>
         <hashTree/>
-        <kg.apc.jmeter.timers.VariableThroughputTimer guiclass="kg.apc.jmeter.timers.VariableThroughputTimerGui" testclass="kg.apc.jmeter.timers.VariableThroughputTimer" testname="tst-timer-debug" enabled="false">
+        <kg.apc.jmeter.timers.VariableThroughputTimer guiclass="kg.apc.jmeter.timers.VariableThroughputTimerGui" testclass="kg.apc.jmeter.timers.VariableThroughputTimer" testname="tst-timer-import-debug" enabled="false">
           <collectionProp name="load_profile">
             <collectionProp name="1816922875">
               <stringProp name="1">1</stringProp>
@@ -680,7 +680,7 @@ if(timeseriesId.length() != 64){
           </collectionProp>
         </kg.apc.jmeter.timers.VariableThroughputTimer>
         <hashTree/>
-        <kg.apc.jmeter.timers.VariableThroughputTimer guiclass="kg.apc.jmeter.timers.VariableThroughputTimerGui" testclass="kg.apc.jmeter.timers.VariableThroughputTimer" testname="tst-timer-production-scalar" enabled="false">
+        <kg.apc.jmeter.timers.VariableThroughputTimer guiclass="kg.apc.jmeter.timers.VariableThroughputTimerGui" testclass="kg.apc.jmeter.timers.VariableThroughputTimer" testname="tst-timer-import-prod-scalar" enabled="false">
           <collectionProp name="load_profile">
             <collectionProp name="1305206028">
               <stringProp name="1">1</stringProp>
@@ -740,7 +740,7 @@ if(timeseriesId.length() != 64){
           </collectionProp>
         </kg.apc.jmeter.timers.VariableThroughputTimer>
         <hashTree/>
-        <kg.apc.jmeter.timers.VariableThroughputTimer guiclass="kg.apc.jmeter.timers.VariableThroughputTimerGui" testclass="kg.apc.jmeter.timers.VariableThroughputTimer" testname="tst-timer-production-vector" enabled="false">
+        <kg.apc.jmeter.timers.VariableThroughputTimer guiclass="kg.apc.jmeter.timers.VariableThroughputTimerGui" testclass="kg.apc.jmeter.timers.VariableThroughputTimer" testname="tst-timer-import-prod-vector" enabled="false">
           <collectionProp name="load_profile">
             <collectionProp name="1305206028">
               <stringProp name="1">1</stringProp>
@@ -800,7 +800,7 @@ if(timeseriesId.length() != 64){
           </collectionProp>
         </kg.apc.jmeter.timers.VariableThroughputTimer>
         <hashTree/>
-        <kg.apc.jmeter.timers.VariableThroughputTimer guiclass="kg.apc.jmeter.timers.VariableThroughputTimerGui" testclass="kg.apc.jmeter.timers.VariableThroughputTimer" testname="tst-timer-production-grid" enabled="false">
+        <kg.apc.jmeter.timers.VariableThroughputTimer guiclass="kg.apc.jmeter.timers.VariableThroughputTimerGui" testclass="kg.apc.jmeter.timers.VariableThroughputTimer" testname="tst-timer-import-prod-grid" enabled="false">
           <collectionProp name="load_profile">
             <collectionProp name="1305206028">
               <stringProp name="1">1</stringProp>
