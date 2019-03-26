@@ -28,7 +28,6 @@ update_tst_feedback() {
   # Configure Hold time/Running time
   VAR_HOLD=TST_HOLD_${2}
   grep -Fn "$1" $JMETER_TEST_FILE | cut -f1 -d: | xargs -o -I {} expr {} + 6 | xargs -o -I {} sed -i '' "{}s/>.*</>${!VAR_HOLD}</g" $JMETER_TEST_FILE
-
 }
 
 toggle_enabled() {
@@ -54,20 +53,27 @@ test_enable() {
     $(update_tst_feedback WDIAS-${MODULE} ${MODULE_L}_${ENV}_${DATA_TYPE_L})
   else
     $(toggle_enabled tst-timer-${MODULE_L}-${ENV} true)
+    $(update_tst_feedback WDIAS-${MODULE} ${MODULE_L}_${ENV})
   fi
 }
 
 test_disable() {
+  # usage: $progName enable <MODULE> <DATA_TYPE>
+  # (dev)  $progName enable <MODULE>
   source "${BASH_SOURCE%/*}/test.conf"
   MODULE=$(get-module $1)
   echo "Disable module (${ENV}): Module=${MODULE}"
   $(toggle_enabled WDIAS-${MODULE} false)
-  MODULE=$(echo "${MODULE}" | tr '[:upper:]' '[:lower:]')
+  MODULE_L=$(echo "${MODULE}" | tr '[:upper:]' '[:lower:]')
   if [[ "${ENV}" == "prod" ]]; then
-    DATA_TYPE=$(get-data-type $2 | tr '[:upper:]' '[:lower:]')
-    $(toggle_enabled tst-timer-${MODULE}-${ENV}-${DATA_TYPE} false)
+    DATA_TYPE_L=$(get-data-type $2 | tr '[:upper:]' '[:lower:]')
+    $(toggle_enabled tst-timer-${MODULE_L}_${ENV}_${DATA_TYPE_L} false)
+    # Configure with dev
+    $(update_tst_feedback WDIAS-${MODULE} ${MODULE_L}_dev)
   else
-    $(toggle_enabled tst-timer-${MODULE}-${ENV} false)
+    $(toggle_enabled tst-timer-${MODULE_L}-${ENV} false)
+    # Configure with dev
+    $(update_tst_feedback WDIAS-${MODULE} ${MODULE_L}_dev)
   fi
 }
 
