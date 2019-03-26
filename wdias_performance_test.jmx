@@ -680,7 +680,7 @@ if(timeseriesId.length() != 64){
           </collectionProp>
         </kg.apc.jmeter.timers.VariableThroughputTimer>
         <hashTree/>
-        <kg.apc.jmeter.timers.VariableThroughputTimer guiclass="kg.apc.jmeter.timers.VariableThroughputTimerGui" testclass="kg.apc.jmeter.timers.VariableThroughputTimer" testname="tst-timer-production" enabled="false">
+        <kg.apc.jmeter.timers.VariableThroughputTimer guiclass="kg.apc.jmeter.timers.VariableThroughputTimerGui" testclass="kg.apc.jmeter.timers.VariableThroughputTimer" testname="tst-timer-production-scalar" enabled="false">
           <collectionProp name="load_profile">
             <collectionProp name="1305206028">
               <stringProp name="1">1</stringProp>
@@ -734,6 +734,126 @@ if(timeseriesId.length() != 64){
             </collectionProp>
             <collectionProp name="1048152468">
               <stringProp reference="../../collectionProp[10]/stringProp"/>
+              <stringProp name="48625">100</stringProp>
+              <stringProp name="1629">30</stringProp>
+            </collectionProp>
+          </collectionProp>
+        </kg.apc.jmeter.timers.VariableThroughputTimer>
+        <hashTree/>
+        <kg.apc.jmeter.timers.VariableThroughputTimer guiclass="kg.apc.jmeter.timers.VariableThroughputTimerGui" testclass="kg.apc.jmeter.timers.VariableThroughputTimer" testname="tst-timer-production-vector" enabled="false">
+          <collectionProp name="load_profile">
+            <collectionProp name="1305206028">
+              <stringProp name="1">1</stringProp>
+              <stringProp name="48625">100</stringProp>
+              <stringProp name="1567">10</stringProp>
+            </collectionProp>
+            <collectionProp name="546596851">
+              <stringProp name="48625">100</stringProp>
+              <stringProp name="48625">100</stringProp>
+              <stringProp name="53">5</stringProp>
+            </collectionProp>
+            <collectionProp name="1454814602">
+              <stringProp name="48625">100</stringProp>
+              <stringProp name="52469">500</stringProp>
+              <stringProp name="1572">15</stringProp>
+            </collectionProp>
+            <collectionProp name="2050980947">
+              <stringProp name="52469">500</stringProp>
+              <stringProp name="52469">500</stringProp>
+              <stringProp name="53">5</stringProp>
+            </collectionProp>
+            <collectionProp name="873431597">
+              <stringProp name="52469">500</stringProp>
+              <stringProp name="1507423">1000</stringProp>
+              <stringProp name="1572">15</stringProp>
+            </collectionProp>
+            <collectionProp name="1235327251">
+              <stringProp name="1507423">1000</stringProp>
+              <stringProp name="1507423">1000</stringProp>
+              <stringProp name="53">5</stringProp>
+            </collectionProp>
+            <collectionProp name="172779673">
+              <stringProp name="1507423">1000</stringProp>
+              <stringProp name="1537214">2000</stringProp>
+              <stringProp name="1572">15</stringProp>
+            </collectionProp>
+            <collectionProp name="-139338624">
+              <stringProp name="1537214">2000</stringProp>
+              <stringProp name="1537214">2000</stringProp>
+              <stringProp name="1567">10</stringProp>
+            </collectionProp>
+            <collectionProp name="-1257784615">
+              <stringProp name="1537214">2000</stringProp>
+              <stringProp name="1567005">3000</stringProp>
+              <stringProp name="1572">15</stringProp>
+            </collectionProp>
+            <collectionProp name="-1569901945">
+              <stringProp name="1567005">3000</stringProp>
+              <stringProp name="1567005">3000</stringProp>
+              <stringProp name="1572">15</stringProp>
+            </collectionProp>
+            <collectionProp name="1048152468">
+              <stringProp name="1567005">3000</stringProp>
+              <stringProp name="48625">100</stringProp>
+              <stringProp name="1629">30</stringProp>
+            </collectionProp>
+          </collectionProp>
+        </kg.apc.jmeter.timers.VariableThroughputTimer>
+        <hashTree/>
+        <kg.apc.jmeter.timers.VariableThroughputTimer guiclass="kg.apc.jmeter.timers.VariableThroughputTimerGui" testclass="kg.apc.jmeter.timers.VariableThroughputTimer" testname="tst-timer-production-grid" enabled="false">
+          <collectionProp name="load_profile">
+            <collectionProp name="1305206028">
+              <stringProp name="1">1</stringProp>
+              <stringProp name="48625">100</stringProp>
+              <stringProp name="1567">10</stringProp>
+            </collectionProp>
+            <collectionProp name="546596851">
+              <stringProp name="48625">100</stringProp>
+              <stringProp name="48625">100</stringProp>
+              <stringProp name="53">5</stringProp>
+            </collectionProp>
+            <collectionProp name="1454814602">
+              <stringProp name="48625">100</stringProp>
+              <stringProp name="52469">500</stringProp>
+              <stringProp name="1572">15</stringProp>
+            </collectionProp>
+            <collectionProp name="2050980947">
+              <stringProp name="52469">500</stringProp>
+              <stringProp name="52469">500</stringProp>
+              <stringProp name="53">5</stringProp>
+            </collectionProp>
+            <collectionProp name="873431597">
+              <stringProp name="52469">500</stringProp>
+              <stringProp name="1507423">1000</stringProp>
+              <stringProp name="1572">15</stringProp>
+            </collectionProp>
+            <collectionProp name="1235327251">
+              <stringProp name="1507423">1000</stringProp>
+              <stringProp name="1507423">1000</stringProp>
+              <stringProp name="53">5</stringProp>
+            </collectionProp>
+            <collectionProp name="172779673">
+              <stringProp name="1507423">1000</stringProp>
+              <stringProp name="1537214">2000</stringProp>
+              <stringProp name="1572">15</stringProp>
+            </collectionProp>
+            <collectionProp name="-139338624">
+              <stringProp name="1537214">2000</stringProp>
+              <stringProp name="1537214">2000</stringProp>
+              <stringProp name="1567">10</stringProp>
+            </collectionProp>
+            <collectionProp name="-1257784615">
+              <stringProp name="1537214">2000</stringProp>
+              <stringProp name="1567005">3000</stringProp>
+              <stringProp name="1572">15</stringProp>
+            </collectionProp>
+            <collectionProp name="-1569901945">
+              <stringProp name="1567005">3000</stringProp>
+              <stringProp name="1567005">3000</stringProp>
+              <stringProp name="1572">15</stringProp>
+            </collectionProp>
+            <collectionProp name="1048152468">
+              <stringProp name="1567005">3000</stringProp>
               <stringProp name="48625">100</stringProp>
               <stringProp name="1629">30</stringProp>
             </collectionProp>
