@@ -10,14 +10,30 @@ test_run() {
   REQ_SIZE=$(get-req-size $2)
   echo "Running performance test (${ENV}): DataType=${DATA_TYPE}, ReqSize=${REQ_SIZE}"
 
-  # ${JMETER} -n -t wdias_performance_test.jmx -l testresults.jtl -j non-ui.log -JDataType=${DATA_TYPE} -JreqSize=${REQ_SIZE}
+  ${JMETER} -n -t wdias_performance_test.jmx -l testresults.jtl -j non-ui.log -JDataType=${DATA_TYPE} -JreqSize=${REQ_SIZE}
+}
+
+toggle_enabled() {
+  # usage: toggle_enabled <SEARCH_PHASE> <ENABLED>
+  SEARCH=$([[ "$2" == "true" ]] && echo "false" || echo "true")
+  REPLACE=$([[ "$2" == "true" ]] && echo "true" || echo "false")
+  # https://github.com/fastfishio/express-api/
+  grep -Fn "$1" $JMETER_TEST_FILE | echo
+  grep -Fn "$1" $JMETER_TEST_FILE | cut -f1 -d: | xargs -o -I {} sed -i '' "{}s/${SEARCH}/${REPLACE}/g" $JMETER_TEST_FILE
 }
 
 test_enable() {
   source "${BASH_SOURCE%/*}/test.conf"
   MODULE=$(get-module $1)
   echo "Enable module (${ENV}): Module=${MODULE}"
+  $(toggle_enabled WDIAS-${MODULE} true)
+}
 
+test_disable() {
+  source "${BASH_SOURCE%/*}/test.conf"
+  MODULE=$(get-module $1)
+  echo "Disable module (${ENV}): Module=${MODULE}"
+  $(toggle_enabled WDIAS-${MODULE} false)
 }
 
 test_help() {
@@ -47,8 +63,11 @@ get-module() {
     export|e) 
       echo "Export"
     ;;
-    Extension|i) 
+    extension|i) 
       echo "Extension"
+    ;;
+    all|a) 
+      echo "All"
     ;;
     *)
       echo "Invalid module: $1" >&2
