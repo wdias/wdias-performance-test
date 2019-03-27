@@ -32,7 +32,7 @@ toggle_enabled() {
   # usage: toggle_enabled <SEARCH_PHASE> <ENABLED>
   SEARCH=$([[ "$2" == "true" ]] && echo "false" || echo "true")
   REPLACE=$([[ "$2" == "true" ]] && echo "true" || echo "false")
-  # https://github.com/fastfishio/express-api/
+  # https://stackoverflow.com/a/44864004/1461060
   grep -Fn "$1" $JMETER_TEST_FILE | cut -f1 -d: | xargs -o -I {} sed -i '' "{}s/${SEARCH}/${REPLACE}/g" $JMETER_TEST_FILE
 }
 
@@ -89,10 +89,6 @@ test_help() {
   "
 }
 
-contains() {
-  # usage: contains 'item1 item2' 'item1'
-  [[ $1 =~ (^| )$2($| ) ]] && echo 'yes' || echo 'no'
-}
 get-module() {
   case $1 in 
     import|i) 
