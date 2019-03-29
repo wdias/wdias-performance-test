@@ -16,7 +16,7 @@
         <collectionProp name="Arguments.arguments">
           <elementProp name="DOMAIN" elementType="Argument">
             <stringProp name="Argument.name">DOMAIN</stringProp>
-            <stringProp name="Argument.value">${__P(DOMAIN,wdias.com)}</stringProp>
+            <stringProp name="Argument.value">${__P(DOMAIN,noondv.com)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="DataType" elementType="Argument">
@@ -2492,17 +2492,67 @@ if(timeseriesId.length() != 64){
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
         </ConfigTestElement>
         <hashTree/>
+        <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+          <collectionProp name="HeaderManager.headers">
+            <elementProp name="" elementType="Header">
+              <stringProp name="Header.name">Content-Type</stringProp>
+              <stringProp name="Header.value">application/json</stringProp>
+            </elementProp>
+          </collectionProp>
+        </HeaderManager>
+        <hashTree/>
         <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="Timeseries Metadata CSV" enabled="true">
-          <stringProp name="filename">./data/ts_meta.csv</stringProp>
+          <stringProp name="filename">./data/locations.csv</stringProp>
           <stringProp name="fileEncoding">UTF-8</stringProp>
           <stringProp name="variableNames"></stringProp>
           <boolProp name="ignoreFirstLine">true</boolProp>
-          <stringProp name="delimiter">;</stringProp>
+          <stringProp name="delimiter">,</stringProp>
           <boolProp name="quotedData">false</boolProp>
           <boolProp name="recycle">true</boolProp>
           <boolProp name="stopThread">true</boolProp>
           <stringProp name="shareMode">shareMode.all</stringProp>
         </CSVDataSet>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Health Check" enabled="true">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/query/public/hc</stringProp>
+          <stringProp name="HTTPSampler.method">GET</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="Interest Area PreProcessor" enabled="true">
+          <stringProp name="scriptLanguage">groovy</stringProp>
+          <stringProp name="parameters"></stringProp>
+          <stringProp name="filename"></stringProp>
+          <stringProp name="cacheKey">true</stringProp>
+          <stringProp name="script">float lat = vars.get(&quot;lat&quot;) as Float
+float lon = vars.get(&quot;lon&quot;) as Float
+// locationId
+// lat - parallel to Equator
+// lon - perpendicular to Equator
+// lat1,lon2	lat2,lon2
+//
+// lat1,lon1	lat2,lon1
+float heigth = 2.0
+float width = 2.0
+vars.put(&quot;lat1&quot;, (lat - heigth/2).toString())
+vars.put(&quot;lat2&quot;, (lat + heigth/2).toString())
+vars.put(&quot;lon1&quot;, (lon - width/2).toString())
+vars.put(&quot;lon2&quot;, (lon + width/2).toString())
+</stringProp>
+        </JSR223PreProcessor>
         <hashTree/>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="/Location: * → Locations" enabled="true">
           <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
@@ -2551,24 +2601,24 @@ if(timeseriesId.length() != 64){
     &quot;coordinates&quot;: [&#xd;
         [&#xd;
             [&#xd;
-                79.48471069335938,&#xd;
-                6.311203650047962&#xd;
+                ${lon1},&#xd;
+                ${lat1}&#xd;
             ],&#xd;
             [&#xd;
-                81.0516357421875,&#xd;
-                6.311203650047962&#xd;
+                ${lon1},&#xd;
+                ${lat2}&#xd;
             ],&#xd;
             [&#xd;
-                81.0516357421875,&#xd;
-                7.607552723017506&#xd;
+                ${lon2},&#xd;
+                ${lat2}&#xd;
             ],&#xd;
             [&#xd;
-                79.48471069335938,&#xd;
-                7.607552723017506&#xd;
+                ${lon2},&#xd;
+                ${lat1}&#xd;
             ],&#xd;
             [&#xd;
-                79.48471069335938,&#xd;
-                6.311203650047962&#xd;
+                ${lon1},&#xd;
+                ${lat1}&#xd;
             ]&#xd;
         ]&#xd;
     ]&#xd;
@@ -2609,7 +2659,7 @@ if(timeseriesId.length() != 64){
               <elementProp name="" elementType="HTTPArgument">
                 <boolProp name="HTTPArgument.always_encode">false</boolProp>
                 <stringProp name="Argument.value">[&#xd;
-    &quot;wdias_hanwella&quot;&#xd;
+    &quot;${locationId}&quot;&#xd;
 ]</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
               </elementProp>
@@ -2647,7 +2697,7 @@ if(timeseriesId.length() != 64){
               <elementProp name="" elementType="HTTPArgument">
                 <boolProp name="HTTPArgument.always_encode">false</boolProp>
                 <stringProp name="Argument.value">[&#xd;
-    &quot;wdias_hanwella&quot;,&#xd;
+    &quot;${locationId}&quot;,&#xd;
     &quot;wdias_kaduwela&quot;&#xd;
 ]</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
@@ -2686,7 +2736,7 @@ if(timeseriesId.length() != 64){
               <elementProp name="" elementType="HTTPArgument">
                 <boolProp name="HTTPArgument.always_encode">false</boolProp>
                 <stringProp name="Argument.value">{&#xd;
-    &quot;location&quot;: &quot;wdias_hanwella&quot;&#xd;
+    &quot;location&quot;: &quot;${locationId}&quot;&#xd;
 }</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
               </elementProp>
@@ -2725,7 +2775,7 @@ if(timeseriesId.length() != 64){
                 <boolProp name="HTTPArgument.always_encode">false</boolProp>
                 <stringProp name="Argument.value">{&#xd;
     &quot;locations&quot;: [&#xd;
-        &quot;wdias_hanwella&quot;,&#xd;
+        &quot;${locationId}&quot;,&#xd;
         &quot;wdias_kaduwela&quot;&#xd;
     ]&#xd;
 }</stringProp>
@@ -2766,7 +2816,7 @@ if(timeseriesId.length() != 64){
                 <boolProp name="HTTPArgument.always_encode">false</boolProp>
                 <stringProp name="Argument.value">{&#xd;
     &quot;locations&quot;: [&#xd;
-        &quot;wdias_hanwella&quot;,&#xd;
+        &quot;${locationId}&quot;,&#xd;
         &quot;wdias_kaduwela&quot;&#xd;
     ],&#xd;
     &quot;parameter&quot;: &quot;O.Precipitation&quot;&#xd;
@@ -2812,25 +2862,25 @@ if(timeseriesId.length() != 64){
         &quot;coordinates&quot;: [&#xd;
             [&#xd;
                 [&#xd;
-                    79.48471069335938,&#xd;
-                    6.311203650047962&#xd;
-                ],&#xd;
-                [&#xd;
-                    81.0516357421875,&#xd;
-                    6.311203650047962&#xd;
-                ],&#xd;
-                [&#xd;
-                    81.0516357421875,&#xd;
-                    7.607552723017506&#xd;
-                ],&#xd;
-                [&#xd;
-                    79.48471069335938,&#xd;
-                    7.607552723017506&#xd;
-                ],&#xd;
-                [&#xd;
-                    79.48471069335938,&#xd;
-                    6.311203650047962&#xd;
-                ]&#xd;
+	                ${lon1},&#xd;
+	                ${lat1}&#xd;
+	            ],&#xd;
+	            [&#xd;
+	                ${lon1},&#xd;
+	                ${lat2}&#xd;
+	            ],&#xd;
+	            [&#xd;
+	                ${lon2},&#xd;
+	                ${lat2}&#xd;
+	            ],&#xd;
+	            [&#xd;
+	                ${lon2},&#xd;
+	                ${lat1}&#xd;
+	            ],&#xd;
+	            [&#xd;
+	                ${lon1},&#xd;
+	                ${lat1}&#xd;
+	            ]&#xd;
             ]&#xd;
         ]&#xd;
     }&#xd;
@@ -2876,25 +2926,25 @@ if(timeseriesId.length() != 64){
         &quot;coordinates&quot;: [&#xd;
             [&#xd;
                 [&#xd;
-                    79.48471069335938,&#xd;
-                    6.311203650047962&#xd;
-                ],&#xd;
-                [&#xd;
-                    81.0516357421875,&#xd;
-                    6.311203650047962&#xd;
-                ],&#xd;
-                [&#xd;
-                    81.0516357421875,&#xd;
-                    7.607552723017506&#xd;
-                ],&#xd;
-                [&#xd;
-                    79.48471069335938,&#xd;
-                    7.607552723017506&#xd;
-                ],&#xd;
-                [&#xd;
-                    79.48471069335938,&#xd;
-                    6.311203650047962&#xd;
-                ]&#xd;
+	                ${lon1},&#xd;
+	                ${lat1}&#xd;
+	            ],&#xd;
+	            [&#xd;
+	                ${lon1},&#xd;
+	                ${lat2}&#xd;
+	            ],&#xd;
+	            [&#xd;
+	                ${lon2},&#xd;
+	                ${lat2}&#xd;
+	            ],&#xd;
+	            [&#xd;
+	                ${lon2},&#xd;
+	                ${lat1}&#xd;
+	            ],&#xd;
+	            [&#xd;
+	                ${lon1},&#xd;
+	                ${lat1}&#xd;
+	            ]&#xd;
             ]&#xd;
         ]&#xd;
     },&#xd;
@@ -3003,6 +3053,43 @@ if(timeseriesId.length() != 64){
           </JSONPathAssertion>
           <hashTree/>
         </hashTree>
+        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+          <boolProp name="ResultCollector.error_logging">false</boolProp>
+          <objProp>
+            <name>saveConfig</name>
+            <value class="SampleSaveConfiguration">
+              <time>true</time>
+              <latency>true</latency>
+              <timestamp>true</timestamp>
+              <success>true</success>
+              <label>true</label>
+              <code>true</code>
+              <message>true</message>
+              <threadName>true</threadName>
+              <dataType>true</dataType>
+              <encoding>false</encoding>
+              <assertions>true</assertions>
+              <subresults>true</subresults>
+              <responseData>false</responseData>
+              <samplerData>false</samplerData>
+              <xml>false</xml>
+              <fieldNames>true</fieldNames>
+              <responseHeaders>false</responseHeaders>
+              <requestHeaders>false</requestHeaders>
+              <responseDataOnError>false</responseDataOnError>
+              <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+              <assertionsResultsToSave>0</assertionsResultsToSave>
+              <bytes>true</bytes>
+              <sentBytes>true</sentBytes>
+              <url>true</url>
+              <threadCounts>true</threadCounts>
+              <idleTime>true</idleTime>
+              <connectTime>true</connectTime>
+            </value>
+          </objProp>
+          <stringProp name="filename"></stringProp>
+        </ResultCollector>
+        <hashTree/>
       </hashTree>
     </hashTree>
   </hashTree>
