@@ -70,6 +70,7 @@ jsonBuilder {
         ]
     }
     inputVariables jsonSlurper.parseText("[\"Input\"]")
+    outputVariables jsonSlurper.parseText("[\"Input\"]")
     trigger jsonSlurper.parseText('''
         [{
             "trigger_type": "OnTime",

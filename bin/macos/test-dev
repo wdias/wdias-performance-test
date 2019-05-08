@@ -81,14 +81,14 @@ test_help() {
   $progName enable <MODULE> <DATA_TYPE>
     - MODULE: import(i) | export(e) | extension(x) | all(a)
     - DATA_TYPE: scalar(s) | vector(v) | grid(g)
-  $progName up <MODULE> <DATA_TYPE> <REQ_SIZE>
+  $progName run <MODULE> <DATA_TYPE> <REQ_SIZE>
     - DATA_TYPE: scalar(s) | vector(v) | grid(g)
     - REQ_SIZE: 24(1) | 288(2) | 1044(3)
   NOTE: Modify test.conf as necessary
   e.g.
-  $progName up import scalar 24
+  $progName run import scalar 24
   or
-  $progName up i s 1
+  $progName run i s 1
   "
 }
 
