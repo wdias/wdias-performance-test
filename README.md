@@ -24,10 +24,12 @@ Distributed performance testing based on JMeter.
   - 1 hour test run. Change with request size from 1hr, 5min to 1min. (total 3 hours)
 
 ## Help
-- Enable one of MODULE: import(i) | export(e) | extension(x) | all(a)
-  - `./bin/macos/test-dev enable import`
+- Enable one of MODULE (and DATA_TYPE on prod)
+  - MODULE: import(i) | export(e) | extension(x) | all(a)
+  - DATA_TYPE: scalar(s) | vector(v) | grid(g)
+  - `./bin/macos/test-dev enable import scalar`
 - Disable one of MODULE
-  - `./bin/macos/test-dev disable import`
+  - `./bin/macos/test-dev disable import scalar`
 - Run test case with given MODULE, DATA_TYPE and REQ_SIZE
   - MODULE: import(i) | export(e) | extension(x) | all(a)
   - DATA_TYPE: scalar(s) | vector(v) | grid(g)
@@ -38,10 +40,27 @@ It's possible to run the test cases in two modes: `prod` or `dev`. In each envir
 
 ### Prod testing
 - Change the `ENV` value to `prod` in `test.conf`
-- 
+- Change `TST_FEEDBACK_<MODULE>_prod_<DATA_TYPE>` as necessary according to Throughput Step Timer for each `tst-timer-<MODULE>_prod_<DATA_TYPE>`
+  - Format: `<INITIAL_THREADS,MAXIMUM_THREADS,NUMBER_OF_THREADS_TO_KEEP_ONDEMAND>`
+  - E.g. `"100,3000,50"` means;
+    - init concurrency thread group with 100 threads
+    - allow up to create 3000 threads in order to keep number of requests hold as mentioned in Throughput Step Timer
+    - create extra 50 threads in order to provide more threads on demand
+- Change `TST_HOLD_<MODULE>_prod_<DATA_TYPE>` as necessary
+  - The period of time that test case is running as defined in the Throughput Step Timer for each `tst-timer-<MODULE>_prod_<DATA_TYPE>`
+
+- Enable a module with given data type
+  - `./bin/macos/test-dev enable import scalar`
+- Run the test case for the scenario
+  - `./bin/macos/test-dev up import scalar 24`
+- Disable the module with given data type
+  - `./bin/macos/test-dev disable import scalar`
+
+Enable and run the test cases until it met the Test Plan conditions. If one instance can't run up to the given limits, then consider running multiple instance the same test case in order to fulfill given requirement.
+E.g. Lets consider 2nd case of Test Plan. For Import Scalar, it should be able to run at maximum of 2100 concurent requests. If it's unable to archive with one instance, then consider using 3 instances running parallel with each one is creating 2100/3 = 700 concurent requests.
 
 ### Dev testing
-
+- - Change the `ENV` value to `dev` in `test.conf`
 
 ## Support
 ### Run via Command Line

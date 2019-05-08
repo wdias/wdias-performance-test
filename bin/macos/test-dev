@@ -78,8 +78,9 @@ test_disable() {
 
 test_help() {
   echo "-h | --help: Usage
-  $progName enable <MODULE>
+  $progName enable <MODULE> <DATA_TYPE>
     - MODULE: import(i) | export(e) | extension(x) | all(a)
+    - DATA_TYPE: scalar(s) | vector(v) | grid(g)
   $progName up <MODULE> <DATA_TYPE> <REQ_SIZE>
     - DATA_TYPE: scalar(s) | vector(v) | grid(g)
     - REQ_SIZE: 24(1) | 288(2) | 1044(3)
