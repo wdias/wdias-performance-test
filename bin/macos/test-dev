@@ -45,11 +45,12 @@ test_enable() {
   $(toggle_enabled WDIAS-${MODULE} true)
   MODULE_L=$(echo "${MODULE}" | tr '[:upper:]' '[:lower:]')
   if [[ "${ENV}" == "prod" ]]; then
-    DATA_TYPE_L=$(get-data-type $2 | tr '[:upper:]' '[:lower:]')
+    DATA_TYPE_L=$(get-data-type $2) # if not found exit
+    DATA_TYPE_L=$(echo "${DATA_TYPE_L}" | tr '[:upper:]' '[:lower:]')
     $(toggle_enabled tst-timer-${MODULE_L}_${ENV}_${DATA_TYPE_L} true)
     $(update_tst_feedback WDIAS-${MODULE} ${MODULE_L}_${ENV}_${DATA_TYPE_L})
   else
-    $(toggle_enabled tst-timer-${MODULE_L}-${ENV} true)
+    $(toggle_enabled tst-timer-${MODULE_L}_${ENV} true)
     $(update_tst_feedback WDIAS-${MODULE} ${MODULE_L}_${ENV})
   fi
 }
@@ -63,12 +64,13 @@ test_disable() {
   $(toggle_enabled WDIAS-${MODULE} false)
   MODULE_L=$(echo "${MODULE}" | tr '[:upper:]' '[:lower:]')
   if [[ "${ENV}" == "prod" ]]; then
-    DATA_TYPE_L=$(get-data-type $2 | tr '[:upper:]' '[:lower:]')
+    DATA_TYPE_L=$(get-data-type $2) # if not found, exit
+    DATA_TYPE_L=$(echo "${DATA_TYPE_L}" | tr '[:upper:]' '[:lower:]')
     $(toggle_enabled tst-timer-${MODULE_L}_${ENV}_${DATA_TYPE_L} false)
     # Configure with dev
     $(update_tst_feedback WDIAS-${MODULE} ${MODULE_L}_dev)
   else
-    $(toggle_enabled tst-timer-${MODULE_L}-${ENV} false)
+    $(toggle_enabled tst-timer-${MODULE_L}_${ENV} false)
     # Configure with dev
     $(update_tst_feedback WDIAS-${MODULE} ${MODULE_L}_dev)
   fi
@@ -104,7 +106,7 @@ get-module() {
       echo "All"
     ;;
     *)
-      echo "Invalid module: $1" >&2
+      echo "Invalid module: $1 or module should be provided." >&2
       exit 1
     ;;
   esac
@@ -121,7 +123,7 @@ get-data-type(){
       echo "Grid"
     ;;
     *)
-      echo "Invalid data type: $1" >&2
+      echo "Invalid data type: $1 or data type should be provided." >&2
       exit 1
     ;;
   esac
@@ -138,7 +140,7 @@ get-req-size() {
       echo "1044"
     ;;
     *)
-      echo "Invalid req size: $1" >&2
+      echo "Invalid req size: $1 or req size should be provided." >&2
       exit 1
     ;;
   esac
