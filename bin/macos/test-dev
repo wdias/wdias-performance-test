@@ -15,6 +15,20 @@ test_run() {
   ${JMETER} -n -t wdias_performance_test.jmx -l testresults.jtl -j non-ui.log -JDataType=${DATA_TYPE} -JreqSize=${REQ_SIZE}
 }
 
+test_once() {
+  # usage: $progName once <DATA_TYPE> <REQ_TYPE> <SEARCH_PHASE>
+  source "${BASH_SOURCE%/*}/test.conf"
+  DATA_TYPE=$(get-data-type $1)
+  REQ_SIZE=$(get-req-size $2)
+  SEARCH_PHASE=$3
+  [[ -z ${SEARCH_PHASE} ]] && echo "Search Phase should provide" && exit 1 || echo "Searching for WDIAS-${SEARCH_PHASE} test case"
+  echo "Running  WDIAS-${SEARCH_PHASE} test once (${ENV}): DataType=${DATA_TYPE}, ReqSize=${REQ_SIZE}"
+  $(toggle_enabled WDIAS-${SEARCH_PHASE} true)
+  echo "Performing the test WDIAS-${SEARCH_PHASE} ..."
+  ${JMETER} -n -t wdias_performance_test.jmx -l testresults.jtl -j non-ui.log -JDataType=${DATA_TYPE} -JreqSize=${REQ_SIZE}
+  $(toggle_enabled WDIAS-${SEARCH_PHASE} false)
+}
+
 update_tst_feedback() {
   # usage: update_tst_feedback <SEARCH_PHASE> <TST_FEEDBACK_SUFFIX>
   # usage: update_tst_feedback WDIAS-Import import-prod-scalar
@@ -94,16 +108,16 @@ test_help() {
 
 get-module() {
   case $1 in 
-    import|i) 
+    Import|import|i)
       echo "Import"
     ;;
-    export|e) 
+    Export|export|e)
       echo "Export"
     ;;
-    extension|i) 
+    Extension|extension|i)
       echo "Extension"
     ;;
-    all|a) 
+    All|all|a)
       echo "All"
     ;;
     *)
@@ -114,13 +128,13 @@ get-module() {
 }
 get-data-type(){
   case $1 in 
-    scalar|s) 
+    Scalar|scalar|s)
       echo "Scalar"
     ;;
-    vector|v) 
+    Vector|vector|v)
       echo "Vector"
     ;;
-    grid|g) 
+    Grid|grid|g)
       echo "Grid"
     ;;
     *)
