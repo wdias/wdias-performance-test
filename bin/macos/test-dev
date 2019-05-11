@@ -2,36 +2,33 @@
 set -e
 # Features:
 # - Should be able to run cases separately Import, Export, Extension & All
-# - Shold be able to toggle tst for Scalar, Vector & Grid
 # - Should be able to run dev and production mode
 
 test_run() {
-  # usage: $progName run <DATA_TYPE> <REQ_TYPE>
+  # usage: $progName run <REQ_SIZE>
   source "${BASH_SOURCE%/*}/test.conf"
-  DATA_TYPE=$(get-data-type $1)
-  REQ_SIZE=$(get-req-size $2)
-  echo "Running performance test (${ENV}): DataType=${DATA_TYPE}, ReqSize=${REQ_SIZE}"
+  REQ_SIZE=$(get-req-size $1)
+  echo "Running performance test (${ENV}): ReqSize=${REQ_SIZE}"
 
-  ${JMETER} -n -t wdias_performance_test.jmx -l testresults.jtl -j non-ui.log -JDataType=${DATA_TYPE} -JreqSize=${REQ_SIZE}
+  ${JMETER} -n -t wdias_performance_test.jmx -l testresults.jtl -j non-ui.log -JreqSize=${REQ_SIZE}
 }
 
 test_once() {
-  # usage: $progName once <DATA_TYPE> <REQ_TYPE> <SEARCH_PHASE>
+  # usage: $progName once <REQ_SIZE> <SEARCH_PHASE>
   source "${BASH_SOURCE%/*}/test.conf"
-  DATA_TYPE=$(get-data-type $1)
-  REQ_SIZE=$(get-req-size $2)
-  SEARCH_PHASE=$3
+  REQ_SIZE=$(get-req-size $1)
+  SEARCH_PHASE=$2
   [[ -z ${SEARCH_PHASE} ]] && echo "Search Phase should provide" && exit 1 || echo "Searching for WDIAS-${SEARCH_PHASE} test case"
-  echo "Running  WDIAS-${SEARCH_PHASE} test once (${ENV}): DataType=${DATA_TYPE}, ReqSize=${REQ_SIZE}"
+  echo "Running  WDIAS-${SEARCH_PHASE} test once (${ENV}): ReqSize=${REQ_SIZE}"
   $(toggle_enabled WDIAS-${SEARCH_PHASE} true)
   echo "Performing the test WDIAS-${SEARCH_PHASE} ..."
-  ${JMETER} -n -t wdias_performance_test.jmx -l testresults.jtl -j non-ui.log -JDataType=${DATA_TYPE} -JreqSize=${REQ_SIZE}
+  ${JMETER} -n -t wdias_performance_test.jmx -l testresults.jtl -j non-ui.log -JreqSize=${REQ_SIZE}
   $(toggle_enabled WDIAS-${SEARCH_PHASE} false)
 }
 
 update_tst_feedback() {
   # usage: update_tst_feedback <SEARCH_PHASE> <TST_FEEDBACK_SUFFIX>
-  # usage: update_tst_feedback WDIAS-Import import-prod-scalar
+  # usage: update_tst_feedback WDIAS-Import import-prod
   SEARCH="\(tst-timer-.*\)}"
   VAR=TST_FEEDBACK_${2}
   REPLACE="tst-timer-${2}, ${!VAR})}"
@@ -58,51 +55,33 @@ test_enable() {
   echo "Enabling module (${ENV}): Module=${MODULE} ..."
   $(toggle_enabled WDIAS-${MODULE} true)
   MODULE_L=$(echo "${MODULE}" | tr '[:upper:]' '[:lower:]')
-  if [[ "${ENV}" == "prod" ]]; then
-    DATA_TYPE_L=$(get-data-type $2) # if not found exit
-    DATA_TYPE_L=$(echo "${DATA_TYPE_L}" | tr '[:upper:]' '[:lower:]')
-    $(toggle_enabled tst-timer-${MODULE_L}_${ENV}_${DATA_TYPE_L} true)
-    $(update_tst_feedback WDIAS-${MODULE} ${MODULE_L}_${ENV}_${DATA_TYPE_L})
-  else
-    $(toggle_enabled tst-timer-${MODULE_L}_${ENV} true)
-    $(update_tst_feedback WDIAS-${MODULE} ${MODULE_L}_${ENV})
-  fi
+  $(toggle_enabled tst-timer-${MODULE_L}_${ENV} true)
+  $(update_tst_feedback WDIAS-${MODULE} ${MODULE_L}_${ENV})
 }
 
 test_disable() {
-  # usage: $progName enable <MODULE> <DATA_TYPE>
-  # (dev)  $progName enable <MODULE>
+  # usage: $progName enable <MODULE>
   source "${BASH_SOURCE%/*}/test.conf"
   MODULE=$(get-module $1)
   echo "Disabling module (${ENV}): Module=${MODULE} ..."
   $(toggle_enabled WDIAS-${MODULE} false)
   MODULE_L=$(echo "${MODULE}" | tr '[:upper:]' '[:lower:]')
-  if [[ "${ENV}" == "prod" ]]; then
-    DATA_TYPE_L=$(get-data-type $2) # if not found, exit
-    DATA_TYPE_L=$(echo "${DATA_TYPE_L}" | tr '[:upper:]' '[:lower:]')
-    $(toggle_enabled tst-timer-${MODULE_L}_${ENV}_${DATA_TYPE_L} false)
-    # Configure with dev
-    $(update_tst_feedback WDIAS-${MODULE} ${MODULE_L}_dev)
-  else
-    $(toggle_enabled tst-timer-${MODULE_L}_${ENV} false)
-    # Configure with dev
-    $(update_tst_feedback WDIAS-${MODULE} ${MODULE_L}_dev)
-  fi
+  $(toggle_enabled tst-timer-${MODULE_L}_${ENV} false)
+  # Configure with dev
+  $(update_tst_feedback WDIAS-${MODULE} ${MODULE_L}_dev)
 }
 
 test_help() {
   echo "-h | --help: Usage
-  $progName enable <MODULE> <DATA_TYPE>
+  $progName enable <MODULE>
     - MODULE: import(i) | export(e) | extension(x) | all(a)
-    - DATA_TYPE: scalar(s) | vector(v) | grid(g)
-  $progName run <MODULE> <DATA_TYPE> <REQ_SIZE>
-    - DATA_TYPE: scalar(s) | vector(v) | grid(g)
+  $progName run <MODULE> <REQ_SIZE>
     - REQ_SIZE: 24(1) | 288(2) | 1044(3)
   NOTE: Modify test.conf as necessary
   e.g.
-  $progName run import scalar 24
+  $progName run import 24
   or
-  $progName run i s 1
+  $progName run i 1
   "
 }
 
@@ -122,23 +101,6 @@ get-module() {
     ;;
     *)
       echo "Invalid module: $1 or module should be provided." >&2
-      exit 1
-    ;;
-  esac
-}
-get-data-type(){
-  case $1 in 
-    Scalar|scalar|s)
-      echo "Scalar"
-    ;;
-    Vector|vector|v)
-      echo "Vector"
-    ;;
-    Grid|grid|g)
-      echo "Grid"
-    ;;
-    *)
-      echo "Invalid data type: $1 or data type should be provided." >&2
       exit 1
     ;;
   esac
