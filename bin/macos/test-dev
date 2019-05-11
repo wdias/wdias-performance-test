@@ -48,8 +48,7 @@ toggle_enabled() {
 }
 
 test_enable() {
-  # usage: $progName enable <MODULE> <DATA_TYPE>
-  # (dev)  $progName enable <MODULE>
+  # usage: $progName enable <MODULE>
   source "${BASH_SOURCE%/*}/test.conf"
   MODULE=$(get-module $1)
   echo "Enabling module (${ENV}): Module=${MODULE} ..."
