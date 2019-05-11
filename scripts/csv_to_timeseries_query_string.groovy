@@ -11,28 +11,18 @@ def gridTimeStepMap = [
         1440: "{\"timeStepId\":\"each_15_min\",\"unit\":\"Minute\",\"multiplier\":15}"
 ]
 int reqSize = vars.get("reqSize") as Integer
-def DataType = vars.get("DataType")
+def DataType = vars.get("valueType").trim()
 
 def jsonSlurper = new JsonSlurper()
-
+def timeStep = (DataType == "Grid") ? gridTimeStepMap.get(reqSize) : timeStepMap.get(reqSize)
 def params = [
         moduleId      : vars.get("moduleId").trim(),
         valueType     : DataType,
         parameterId   : jsonSlurper.parseText(vars.get("parameter").trim()).parameterId,
         locationId    : jsonSlurper.parseText(vars.get("location").trim()).locationId,
         timeseriesType: vars.get("timeseriesType").trim(),
-        timeStepId    : jsonSlurper.parseText(timeStepMap.get(reqSize)).timeStepId
+        timeStepId    : jsonSlurper.parseText(timeStep).timeStepId
 ]
-if (DataType == 'Grid') {
-    params = [
-            moduleId      : vars.get("gModuleId").trim(),
-            valueType     : vars.get("gValueType").trim(),
-            parameterId   : jsonSlurper.parseText(vars.get("gParameter").trim()).parameterId,
-            locationId    : jsonSlurper.parseText(vars.get("gLocation").trim()).locationId,
-            timeseriesType: vars.get("gTimeseriesType").trim(),
-            timeStepId    : jsonSlurper.parseText(gridTimeStepMap.get(reqSize)).timeStepId
-    ]
-}
 
 def query_string = params.collect { k, v -> "$k=$v" }.join('&')
 

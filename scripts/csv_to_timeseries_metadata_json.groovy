@@ -13,40 +13,23 @@ def gridTimeStepMap = [
         1440: "{\"timeStepId\":\"each_15_min\",\"unit\":\"Minute\",\"multiplier\":15}"
 ]
 int reqSize = vars.get("reqSize") as Integer
-def DataType = vars.get("DataType")
+def DataType = vars.get("valueType").trim()
+log.info(DataType)
 
 def jsonSlurper = new JsonSlurper()
 def jsonBuilder = new JsonBuilder()
-if (DataType == "Grid") {
-    jsonBuilder {
-        moduleId vars.get("gModuleId").trim()
-        valueType vars.get("gValueType").trim()
-        parameter jsonSlurper.parseText(vars.get("gParameter").trim())
-        location jsonSlurper.parseText(vars.get("gLocation").trim())
-        timeseriesType vars.get("gTimeseriesType").trim()
-        timeStep jsonSlurper.parseText(gridTimeStepMap.get(reqSize))
-    }
-} else if (DataType == "Vector") {
-    jsonBuilder {
-        moduleId vars.get("moduleId").trim()
-        valueType "Vector"
-        parameter jsonSlurper.parseText(vars.get("parameter").trim())
-        location jsonSlurper.parseText(vars.get("location").trim())
-        timeseriesType vars.get("timeseriesType").trim()
-        timeStep jsonSlurper.parseText(timeStepMap.get(reqSize))
-    }
-} else {
-    jsonBuilder {
-        moduleId vars.get("moduleId").trim()
-        valueType vars.get("valueType").trim()
-        parameter jsonSlurper.parseText(vars.get("parameter").trim())
-        location jsonSlurper.parseText(vars.get("location").trim())
-        timeseriesType vars.get("timeseriesType").trim()
-        timeStep jsonSlurper.parseText(timeStepMap.get(reqSize))
-    }
+def timeStepTxt = (DataType == "Grid") ? gridTimeStepMap.get(reqSize) : timeStepMap.get(reqSize)
+jsonBuilder {
+    moduleId vars.get("moduleId").trim()
+    valueType vars.get("valueType").trim()
+    parameter jsonSlurper.parseText(vars.get("parameter").trim())
+    location jsonSlurper.parseText(vars.get("location").trim())
+    timeseriesType vars.get("timeseriesType").trim()
+    timeStep jsonSlurper.parseText(timeStepTxt)
 }
-// log.info("Message:" + jsonBuilder.toPrettyString());
 
-sampler.getHeaderManager().add(new Header("Content-Type","application/json"));
+//log.info("Message:" + jsonBuilder.toPrettyString());
+
+sampler.getHeaderManager().add(new Header("Content-Type", "application/json"));
 sampler.addNonEncodedArgument("", jsonBuilder.toPrettyString(), "")
 sampler.setPostBodyRaw(true)
