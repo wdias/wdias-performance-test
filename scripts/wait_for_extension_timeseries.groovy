@@ -1,5 +1,6 @@
 // def DOMAIN = "wdias.com"
 def DOMAIN = vars.get("DOMAIN") as String
+int MaxRetry = 3
 
 def nullTrustManager = [
     checkClientTrusted: { chain, authType ->  },
@@ -20,16 +21,20 @@ javax.net.ssl.HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory(
 javax.net.ssl.HttpsURLConnection.setDefaultHostnameVerifier(nullHostnameVerifier as javax.net.ssl.HostnameVerifier)
 // -- Disable SSL: https://gist.github.com/barata0/63705c0bcdd1054af2405e90c06f6b71
 
-def requestId = "ScalarRequest"
-//def requestId =  vars.get("requestId").trim()
+def requestId = args[0]
+// def requestId =  vars.get("requestId").trim()
+// log.info("requestId: " + requestId)
 
-SampleResult.sampleStart()
 def url = new URL("https://api.${DOMAIN}/status/import/scalar/${requestId}")
+int retry = 1
 while ({
-     sleep(1000)
-     def get = url.openConnection()
-     def getRC = get.getResponseCode()
-     // log.info("${getRC}")
-     getRC == 400 // breaks if status code is 200
+    sleep(500)
+    def get = url.openConnection()
+    def getRC = get.getResponseCode()
+    retry++
+    SampleResult.setResponseCode(String.valueOf(getRC))
+    SampleResult.setSuccessful(getRC < 400)
+    retry <= 3 && getRC >= 400 // breaks if status code is 200
 }()) continue // https://stackoverflow.com/a/22057667
-SampleResult.sampleEnd()
+
+SampleResult.setResponseMessage("Unable to get status of " + requestId)

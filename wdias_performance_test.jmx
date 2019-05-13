@@ -21,7 +21,7 @@
           </elementProp>
           <elementProp name="reqSize" elementType="Argument">
             <stringProp name="Argument.name">reqSize</stringProp>
-            <stringProp name="Argument.value">${__P(reqSize,288)}</stringProp>
+            <stringProp name="Argument.value">${__P(reqSize,24)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
             <stringProp name="Argument.desc">Hourly=24, 5Min=288, 1Min=1440</stringProp>
           </elementProp>
@@ -1264,14 +1264,6 @@ if(timeseriesId.length() != 64){
           </JSR223PreProcessor>
           <hashTree/>
         </hashTree>
-        <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="wait_for_extension_timeseries .groovy" enabled="true">
-          <stringProp name="scriptLanguage">groovy</stringProp>
-          <stringProp name="parameters"></stringProp>
-          <stringProp name="filename">./scripts/wait_for_extension_timeseries.groovy</stringProp>
-          <stringProp name="cacheKey">true</stringProp>
-          <stringProp name="script"></stringProp>
-        </JSR223Sampler>
-        <hashTree/>
         <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
           <boolProp name="ResultCollector.error_logging">false</boolProp>
           <objProp>
@@ -1477,6 +1469,12 @@ if(timeseriesId.length() != 64){
               <stringProp name="scriptLanguage">groovy</stringProp>
             </JSR223PreProcessor>
             <hashTree/>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor - RequestId" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">requestId</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.requestId</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
           </hashTree>
         </hashTree>
         <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If a Grid" enabled="true">
@@ -1513,11 +1511,17 @@ if(timeseriesId.length() != 64){
               <stringProp name="scriptLanguage">groovy</stringProp>
             </JSR223PreProcessor>
             <hashTree/>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor - RequestId" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">requestId</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.requestId</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
           </hashTree>
         </hashTree>
-        <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="wait_for_extension_timeseries .groovy" enabled="false">
+        <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="wait_for_extension_timeseries .groovy" enabled="true">
           <stringProp name="scriptLanguage">groovy</stringProp>
-          <stringProp name="parameters"></stringProp>
+          <stringProp name="parameters">${requestId}</stringProp>
           <stringProp name="filename">./scripts/wait_for_extension_timeseries.groovy</stringProp>
           <stringProp name="cacheKey">true</stringProp>
           <stringProp name="script"></stringProp>
