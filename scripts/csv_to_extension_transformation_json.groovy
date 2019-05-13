@@ -9,7 +9,7 @@ def timeStepMap = [
 ]
 
 int reqSize = vars.get("reqSize") as Integer
-def DataType = vars.get("DataType")
+def DataType = vars.get("valueType").trim()
 // Not creating extensions for Grid DataType (it's possible to have extensions do complex task on Grid data)
 if (DataType == "Grid") {
     return
