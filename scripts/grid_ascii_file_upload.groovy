@@ -31,4 +31,5 @@ noHr.times {
 // https://jmeter.apache.org/api/org/apache/jmeter/protocol/http/sampler/HTTPSamplerBase.html#setHTTPFiles-org.apache.jmeter.protocol.http.util.HTTPFileArg:A-
 // 4. HTTPSamplerProxy Class - https://www.blazemeter.com/blog/top-8-jmeter-java-classes-you-should-be-using-with-groovy
 sampler.setHTTPFiles(filesToSend.asArray())
+sampler.getHeaderManager().removeHeaderNamed("Content-Type");
 sampler.setDoMultipart(true)
