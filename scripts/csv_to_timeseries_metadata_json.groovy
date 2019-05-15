@@ -14,7 +14,6 @@ def gridTimeStepMap = [
 ]
 int reqSize = vars.get("reqSize") as Integer
 def DataType = vars.get("valueType").trim()
-log.info(DataType)
 
 def jsonSlurper = new JsonSlurper()
 def jsonBuilder = new JsonBuilder()

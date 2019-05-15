@@ -584,7 +584,7 @@ if(timeseriesId.length() != 64){
             <stringProp name="filename"></stringProp>
             <stringProp name="parameters"></stringProp>
             <stringProp name="script">String timeseriesId = vars.get(&quot;timeseriesId&quot;);
-log.info(&quot;TimeseriesId:&quot;, timeseriesId);
+// log.info(&quot;TimeseriesId:&quot;, timeseriesId);
 if(timeseriesId.length() != 64){
 	AssertionResult.setFailureMessage(&quot;The Timeseries Id is wrong&quot;);
 	AssertionResult.setFailure(true);
@@ -652,7 +652,7 @@ if(timeseriesId.length() != 64){
             <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
             <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
             <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout">10000</stringProp>
             <stringProp name="HTTPSampler.response_timeout"></stringProp>
           </HTTPSamplerProxy>
           <hashTree>
