@@ -1,6 +1,12 @@
 // def DOMAIN = "wdias.com"
 def DOMAIN = vars.get("DOMAIN") as String
+def DataType = vars.get("valueType").trim()
 int MaxRetry = 3
+// Not creating extensions for Grid DataType (it's possible to have extensions do complex task on Grid data)
+if (DataType == "Grid") {
+    SampleResult.setSuccessful(true)
+    return
+}
 
 def nullTrustManager = [
     checkClientTrusted: { chain, authType ->  },
@@ -21,11 +27,17 @@ javax.net.ssl.HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory(
 javax.net.ssl.HttpsURLConnection.setDefaultHostnameVerifier(nullHostnameVerifier as javax.net.ssl.HostnameVerifier)
 // -- Disable SSL: https://gist.github.com/barata0/63705c0bcdd1054af2405e90c06f6b71
 
+if (args.size() < 1) {
+    def timeseriesId =  vars.get("timeseriesId").trim()
+    SampleResult.setSuccessful(false)
+    SampleResult.setResponseMessage("Unable to get status of timeseriesId:" + timeseriesId)
+    return
+}
 def requestId = args[0]
 // def requestId =  vars.get("requestId").trim()
 // log.info("requestId: " + requestId)
 
-def url = new URL("https://api.${DOMAIN}/status/import/scalar/${requestId}")
+def url = new URL("https://api.${DOMAIN}/status/import/${DataType.toLowerCase()}/${requestId}")
 int retry = 1
 while ({
     sleep(500)
