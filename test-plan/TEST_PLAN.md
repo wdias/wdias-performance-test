@@ -13,3 +13,6 @@
   - Have mixture of data: Scalar - 70%, Vector (Multi-Scalar) - 20%, Grid - 10% (Use the Imported - - - Data before and verify against Extensions)
 5. Import + Extension + Export + Timeseries Queries
   - 1 hour test run. Change with request size from 1hr, 5min to 1min. (total 3 hours)
+
+# Help
+- `./test-plan/test_plan.sh ~/wdias run`

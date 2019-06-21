@@ -2,6 +2,7 @@
 set -e
 # Features:
 # - Should be able to run cases separately Import, Export, Extension & All
+# - Should be able to run with different reqSize 24(1) | 288(2) | 1044(3)
 # - Should be able to run dev and production mode
 
 test_run() {
@@ -15,6 +16,7 @@ test_run() {
 
 test_once() {
   # usage: $progName once <REQ_SIZE> <SEARCH_PHASE>
+  # Enable matching test case and disable after run the test case
   source "${BASH_SOURCE%/*}/test.conf"
   REQ_SIZE=$(get-req-size $1)
   SEARCH_PHASE=$2
@@ -74,13 +76,23 @@ test_help() {
   echo "-h | --help: Usage
   $progName enable <MODULE>
     - MODULE: import(i) | export(e) | extension(x) | all(a)
-  $progName run <MODULE> <REQ_SIZE>
+
+  $progName run <REQ_SIZE>
+    First need to enable module that need to be run 
     - REQ_SIZE: 24(1) | 288(2) | 1044(3)
-  NOTE: Modify test.conf as necessary
-  e.g.
-  $progName run import 24
-  or
-  $progName run i 1
+    NOTE: Modify test.conf as necessary
+    e.g.
+    $progName run import 24
+    or
+    $progName run i 1
+
+  $progName once <REQ_SIZE> <SEARCH_PHASE>
+    - SEARCH_PHASE: Thread Group level name that matches
+    e.g.
+    $progName once 24 CreateExtensions
+
+  $progName disable <MODULE>
+    - MODULE: import(i) | export(e) | extension(x) | all(a)
   "
 }
 
