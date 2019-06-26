@@ -8,6 +8,13 @@ Distributed performance testing based on JMeter.
 #### Evaluate the Bash Script
 - `bash -x ./bin/macos/test-dev  enable import scalar`
 
+## Installation
+- Downalod Apache JMeter 5.0 - `wget https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-5.0.tgz`
+- Extract `tar -xzf apache-jmeter-5.0.tgz`
+- Run JMeter - `./apache-jmeter-5.0/bin/jmeter &`
+- Download JMeter Plugin Manager - `curl -O -J -L https://jmeter-plugins.org/get/  && mv jmeter-plugins-manager-1.3.jar apache-jmeter-5.0/lib/ext`
+- Open the `wdias_performance_test.jmx` test cases, then JMeter will asked to install the requered plugins
+
 ## Test Plan
 1. Test Setup to create timeseries in 1hr, 5min and 1min intervals and create metadata of the timeseries
 2. Import Timeseries
