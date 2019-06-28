@@ -12,6 +12,9 @@ int reqSize = vars.get("reqSize") as Integer
 def DataType = vars.get("valueType").trim()
 // Not creating extensions for Grid DataType (it's possible to have extensions do complex task on Grid data)
 if (DataType == "Grid") {
+    SampleResult.setSuccessful(true)
+    SampleResult.setResponseCode(200)
+    SampleResult.setResponseMessage("{\"extensionId\":\"grid_no_extension\"}")
     return
 }
 
