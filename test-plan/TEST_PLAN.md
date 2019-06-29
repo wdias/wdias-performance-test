@@ -15,4 +15,24 @@
   - 1 hour test run. Change with request size from 1hr, 5min to 1min. (total 3 hours)
 
 # Help
+```bash
+-h | --help: Usage
+    <ROOT_DIR> <COMMAND> <REQ_SIZE>
+    - REQ_SIZE (optional): 24(1) | 288(2) | 1044(3)
+  NOTE: Modify test.conf as necessary
+  e.g.
+   ~/wdias run
+   ~/wdias run 2
+  - Run all the steps in order of setup, import, create_extension, extension, export, all, query
+
+   ~/wdias setup
+   ~/wdias import 24
+   ~/wdias create_extension 24
+   ~/wdias extension 24
+   ~/wdias export 24
+   ~/wdias all 24
+   ~/wdias query 24
+```
+
+Run all test cases
 - `./test-plan/test_plan.sh ~/wdias run`

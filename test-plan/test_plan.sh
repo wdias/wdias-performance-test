@@ -49,7 +49,7 @@ test_import() {
 
 test_create_extension() {
   REQ_SIZE=$1
-  echo "Create Extensions"
+  echo "3.0 Create Extensions"
   if [[ -z ${REQ_SIZE} ]]; then
     exec_all_once_req_size CreateExtensions
   else
@@ -99,14 +99,14 @@ test_all() {
 
 test_query() {
   REQ_SIZE=$1
-  echo "Query Timeseries"
+  echo "5.1 Query Timeseries"
   $CMD enable All
   if [[ -z ${REQ_SIZE} ]]; then
     exec_all_once_req_size Query
   else
     $CMD once ${REQ_SIZE} Query
   fi
-  echo "Done Query: ${REQ_SIZE} \n"
+  echo "Done 5.1 Query: ${REQ_SIZE} \n"
 }
 
 test_run() {
