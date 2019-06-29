@@ -37,7 +37,7 @@ jsonBuilder(
 )
 
 // log.info("Message:" + vars.get(jsonBuilder.toPrettyString()))
-
+sampler.getHeaderManager().removeHeaderNamed("Content-Type");
 sampler.getHeaderManager().add(new Header("Content-Type", "application/json"));
 sampler.addNonEncodedArgument("", jsonBuilder.toPrettyString(), "")
 sampler.setPostBodyRaw(true)
