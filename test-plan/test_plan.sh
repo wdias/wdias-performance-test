@@ -100,7 +100,7 @@ test_all() {
 test_query() {
   REQ_SIZE=$1
   echo "5.1 Query Timeseries"
-  $CMD enable All
+  $CMD enable Query
   if [[ -z ${REQ_SIZE} ]]; then
     exec_all_once_req_size Query
   else
