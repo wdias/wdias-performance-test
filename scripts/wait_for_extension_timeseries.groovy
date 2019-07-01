@@ -16,7 +16,7 @@ def nullTrustManager = [
 
 def nullHostnameVerifier = [
     verify: { hostname, session -> 
-        //true 
+        //true
         hostname.endsWith(DOMAIN)
     }
 ]

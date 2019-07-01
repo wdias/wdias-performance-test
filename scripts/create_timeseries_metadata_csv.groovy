@@ -127,16 +127,21 @@ def getUnique() {
 
 // -- main
 file = new File('./data/ts_meta.csv')
-file.write("id; moduleId; valueType; parameter; location; timeseriesType; timeStep\n")
-def id = 1
+file.write("id; moduleId; valueType; parameter; location; timeseriesType; timeStep")
+// -- grid
+fileGrid = new File('./data/ts_meta_grid.csv')
+fileGrid.write("id; moduleId; valueType; parameter; location; timeseriesType; timeStep")
+def id = 0
+def gridId = 0
 (noTS / gap).times {
     def step = it
     getUnique().each { dataType ->
         def ts = (dataType == "Scalar") ? getScalar(id) : (dataType == "Vector") ? getVector(id) : getGrid(id)
-        file.append("${id}; ${ts}")
+        file.append("\n${id+1}; ${ts}")
         id++
-        if (id <= noTS) {
-            file.append("\n")
+        if (dataType == "Grid") {
+            fileGrid.append("\n${gridId+1}; ${getGrid(gridId)}")
+            gridId++
         }
     }
 }
