@@ -110,6 +110,9 @@ get-module() {
     All|all|a)
       echo "All"
     ;;
+    Grid|grid|g)
+      echo "Grid"
+    ;;
     *)
       echo "Invalid module: $1 or module should be provided." >&2
       exit 1
