@@ -1,4 +1,5 @@
 import org.apache.jmeter.protocol.http.control.Header
+import org.apache.jmeter.util.JMeterUtils
 import groovy.json.JsonBuilder
 import groovy.json.JsonSlurper
 
@@ -14,6 +15,8 @@ def gridTimeStepMap = [
 ]
 int reqSize = vars.get("reqSize") as Integer
 def DataType = vars.get("valueType").trim()
+int id = vars.get("id") as Integer
+String dateStr = JMeterUtils.getPropDefault("date","2017-01-01").trim() as String
 
 def jsonSlurper = new JsonSlurper()
 def jsonBuilder = new JsonBuilder()
@@ -32,3 +35,10 @@ sampler.getHeaderManager().removeHeaderNamed("Content-Type");
 sampler.getHeaderManager().add(new Header("Content-Type", "application/json"));
 sampler.addNonEncodedArgument("", jsonBuilder.toPrettyString(), "")
 sampler.setPostBodyRaw(true)
+
+log.info("id:" + id)
+if (id == 100) {
+    Date date = Date.parse("yyyy-MM-dd", dateStr) + 1
+    JMeterUtils.setProperty("date", date.format("yyyy-MM-dd"))
+    log.info("Increment date to :" + date.format("yyyy-MM-dd"))
+}

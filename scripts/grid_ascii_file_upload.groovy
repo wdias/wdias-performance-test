@@ -1,4 +1,5 @@
 import org.apache.jmeter.protocol.http.util.HTTPFileArgs
+import org.apache.jmeter.util.JMeterUtils
 
 def reqSizeMap = [
         24  : 60,
@@ -12,6 +13,7 @@ def dateMap = [
 ]
 
 def reqSize = vars.get("reqSize") as Integer
+def date = JMeterUtils.getPropDefault("date", "2017-01-01").trim()
 
 def noHr = 24
 def gap = reqSizeMap.get(reqSize)
@@ -24,7 +26,7 @@ noHr.times {
     def hour = it
     noMin.times {
         def path = "./water_level_grid/${gap}_min/${dateStr}_${String.format("%02d", hour)}-${String.format("%02d", it*gap)}-00.asc"
-        def paramName = "${dateStr}T${String.format("%02d", hour)}:${String.format("%02d", it*gap)}:00Z"
+        def paramName = "${date}T${String.format("%02d", hour)}:${String.format("%02d", it*gap)}:00Z"
         filesToSend.addHTTPFileArg(path, paramName, "text/plain")
     }
 }
@@ -33,3 +35,4 @@ noHr.times {
 sampler.setHTTPFiles(filesToSend.asArray())
 sampler.getHeaderManager().removeHeaderNamed("Content-Type");
 sampler.setDoMultipart(true)
+log.info("upload ascii: " + date)
