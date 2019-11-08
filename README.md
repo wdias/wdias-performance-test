@@ -76,3 +76,10 @@ E.g. Lets consider 2nd case of Test Plan. For Import Scalar, it should be able t
 ```
 - https://stackoverflow.com/questions/14317715/jmeter-changing-user-defined-variables-from-command-line
 - Variable can be provide as properties file - https://gerardnico.com/jmeter/property_file#userproperties
+
+## K8s - Distributed JMeter
+Created using [JMeter Distributed](https://github.com/helm/charts/tree/master/stable/distributed-jmeter) Helm charts.
+The original helm charts try to install some plugins while creating the Docker container. But when we want to install other set of plugins, there're some conflicts which difficult to resolve.
+### Installation
+- Build and deploy into K8s with `wdias build ~/wdias/wdias-performance-test && wdias helm_install wdias-performance-test/helm/wdias-performance-test`
+  - `wdias` refer to `wdias="~/wdias/wdias/bin/macos/dev"` from [wdias](https://github.com/wdias/wdias)
