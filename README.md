@@ -81,8 +81,11 @@ E.g. Lets consider 2nd case of Test Plan. For Import Scalar, it should be able t
 Created using [JMeter Distributed](https://github.com/helm/charts/tree/master/stable/distributed-jmeter) Helm charts.
 The original helm charts try to install some plugins while creating the Docker container. But when we want to install other set of plugins, there're some conflicts which difficult to resolve.
 ### Installation
-- Build and deploy into K8s with `wdias build ~/wdias/wdias-performance-test && wdias helm_install wdias-performance-test/helm/wdias-performance-test`
+- Build and deploy into K8s with `wdias build ~/wdias/wdias-performance-test && wdias helm_delete ~/wdias/wdias-performance-test &&  wdias helm_install ~/wdias/wdias-performance-test/helm/wdias-performance-test`
   - `wdias` refer to `wdias="~/wdias/wdias/bin/macos/dev"` from [wdias](https://github.com/wdias/wdias)
 ### Configuration
 In order to run the Distributed JMeter within the same cluster, it need to set up a proper domain. In that case, requests will go outside of the cluster and come back though the ingress/load balancer.
 I that is not the case, it need to call via internal service calls. In order to support that, JMeter performance test contains User defined variable names for both the cases. Activate the appropriate User define variables as per the planing to do the performance test.
+### Helpers
+- Copy Result files back - `kubectl cp default/wdias-performance-test-master-85db68588c-wjq5p:/jmeter/logs/wdias_grid.jtl ./logs/wdias_grid.jtl`
+- Run test internally - `jmeter -n -t /jmeter/wdias_performance_test.jmx -l ./logs/wdias_grid.jtl -j ./logs/wdias_grid.log`

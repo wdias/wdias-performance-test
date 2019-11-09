@@ -116,6 +116,110 @@
         </collectionProp>
       </Arguments>
       <hashTree/>
+      <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables Internal" enabled="false">
+        <collectionProp name="Arguments.arguments">
+          <elementProp name="DOMAIN" elementType="Argument">
+            <stringProp name="Argument.name">DOMAIN</stringProp>
+            <stringProp name="Argument.value">${__P(DOMAIN,default.svc.cluster.local)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="SUB_DOMAIN" elementType="Argument">
+            <stringProp name="Argument.name">SUB_DOMAIN</stringProp>
+            <stringProp name="Argument.value">${__P(SUB_DOMAIN,adapter-query)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="protocol" elementType="Argument">
+            <stringProp name="Argument.name">protocol</stringProp>
+            <stringProp name="Argument.value">${__P(protocpl,http)}</stringProp>
+            <stringProp name="Argument.desc">https-for external access, http-internal access</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="reqSize" elementType="Argument">
+            <stringProp name="Argument.name">reqSize</stringProp>
+            <stringProp name="Argument.value">${__P(reqSize,24)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+            <stringProp name="Argument.desc">Hourly=24, 5Min=288, 1Min=1440</stringProp>
+          </elementProp>
+          <elementProp name="date" elementType="Argument">
+            <stringProp name="Argument.name">date</stringProp>
+            <stringProp name="Argument.value">${__P(date,2017-01-01)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="svc_metadata" elementType="Argument">
+            <stringProp name="Argument.name">svc_metadata</stringProp>
+            <stringProp name="Argument.value">${__P(svc_metadata,adapter-query)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+            <stringProp name="Argument.desc">adapter-metadata service name-based virtual hosting</stringProp>
+          </elementProp>
+          <elementProp name="path_metadata" elementType="Argument">
+            <stringProp name="Argument.name">path_metadata</stringProp>
+            <stringProp name="Argument.value">${__P(path_metadata,/metadata)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+            <stringProp name="Argument.desc">adapter-metadata service simple fanout config</stringProp>
+          </elementProp>
+          <elementProp name="svc_status" elementType="Argument">
+            <stringProp name="Argument.name">svc_status</stringProp>
+            <stringProp name="Argument.value">${__P(svc_status,adapter-status)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+            <stringProp name="Argument.desc">adapter-status service name-based virtual hosting</stringProp>
+          </elementProp>
+          <elementProp name="path_status" elementType="Argument">
+            <stringProp name="Argument.name">path_status</stringProp>
+            <stringProp name="Argument.value">${__P(path_status,)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+            <stringProp name="Argument.desc">adapter-status service simple fanout config</stringProp>
+          </elementProp>
+          <elementProp name="svc_query" elementType="Argument">
+            <stringProp name="Argument.name">svc_query</stringProp>
+            <stringProp name="Argument.value">${__P(svc_query,adapter-query)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+            <stringProp name="Argument.desc">adapter-query service name-based virtual hosting</stringProp>
+          </elementProp>
+          <elementProp name="path_query" elementType="Argument">
+            <stringProp name="Argument.name">path_query</stringProp>
+            <stringProp name="Argument.value">${__P(path_query,/query)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+            <stringProp name="Argument.desc">adapter-query service simple fanout config</stringProp>
+          </elementProp>
+          <elementProp name="svc_export-json-raw" elementType="Argument">
+            <stringProp name="Argument.name">svc_export-json-raw</stringProp>
+            <stringProp name="Argument.value">${__P(svc_export-json-raw,export-json-raw)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+            <stringProp name="Argument.desc">adapter-export-json-raw service name-based virtual hosting</stringProp>
+          </elementProp>
+          <elementProp name="svc_export-netcdf-binary" elementType="Argument">
+            <stringProp name="Argument.name">svc_export-netcdf-binary</stringProp>
+            <stringProp name="Argument.value">${__P(svc_export-netcdf-binary,export-netcdf-binary)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+            <stringProp name="Argument.desc">adapter-export-netcdf-binary service name-based virtual hosting</stringProp>
+          </elementProp>
+          <elementProp name="svc_import-ascii-grid-binary" elementType="Argument">
+            <stringProp name="Argument.name">svc_import-ascii-grid-binary</stringProp>
+            <stringProp name="Argument.value">${__P(svc_import-ascii-grid-binary,import-ascii-grid-binary)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+            <stringProp name="Argument.desc">adapter-import-ascii-grid-binary service name-based virtual hosting</stringProp>
+          </elementProp>
+          <elementProp name="svc_import-ascii-grid-upload" elementType="Argument">
+            <stringProp name="Argument.name">svc_import-ascii-grid-upload</stringProp>
+            <stringProp name="Argument.value">${__P(svc_import-ascii-grid-upload,import-ascii-grid-upload)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+            <stringProp name="Argument.desc">adapter-import-ascii-grid-upload service name-based virtual hosting</stringProp>
+          </elementProp>
+          <elementProp name="svc_import-json-raw" elementType="Argument">
+            <stringProp name="Argument.name">svc_import-json-raw</stringProp>
+            <stringProp name="Argument.value">${__P(svc_import-json-raw,import-json-raw)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+            <stringProp name="Argument.desc">adapter-import-json-raw service name-based virtual hosting</stringProp>
+          </elementProp>
+          <elementProp name="svc_adapter-extension" elementType="Argument">
+            <stringProp name="Argument.name">svc_adapter-extension</stringProp>
+            <stringProp name="Argument.value">${__P(svc_adapter-extension,adapter-extension)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+            <stringProp name="Argument.desc">adapter-adapter-extension service name-based virtual hosting</stringProp>
+          </elementProp>
+        </collectionProp>
+      </Arguments>
+      <hashTree/>
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="WDIAS-Setup Thread Group" enabled="false">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
@@ -4548,7 +4652,7 @@ if(timeseriesId.length() != 64){
         </ResultCollector>
         <hashTree/>
       </hashTree>
-      <com.blazemeter.jmeter.threads.concurrency.ConcurrencyThreadGroup guiclass="com.blazemeter.jmeter.threads.concurrency.ConcurrencyThreadGroupGui" testclass="com.blazemeter.jmeter.threads.concurrency.ConcurrencyThreadGroup" testname="WDIAS-Grid Concurrency Thread Group" enabled="false">
+      <com.blazemeter.jmeter.threads.concurrency.ConcurrencyThreadGroup guiclass="com.blazemeter.jmeter.threads.concurrency.ConcurrencyThreadGroupGui" testclass="com.blazemeter.jmeter.threads.concurrency.ConcurrencyThreadGroup" testname="WDIAS-Grid Concurrency Thread Group" enabled="true">
         <elementProp name="ThreadGroup.main_controller" elementType="com.blazemeter.jmeter.control.VirtualUserController"/>
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <stringProp name="TargetLevel">${__tstFeedback(tst-timer-grid_debug, 2,2000,2)}</stringProp>
@@ -4713,7 +4817,7 @@ if(timeseriesId.length() != 64){
           </SizeAssertion>
           <hashTree/>
         </hashTree>
-        <kg.apc.jmeter.timers.VariableThroughputTimer guiclass="kg.apc.jmeter.timers.VariableThroughputTimerGui" testclass="kg.apc.jmeter.timers.VariableThroughputTimer" testname="tst-timer-grid_debug" enabled="false">
+        <kg.apc.jmeter.timers.VariableThroughputTimer guiclass="kg.apc.jmeter.timers.VariableThroughputTimerGui" testclass="kg.apc.jmeter.timers.VariableThroughputTimer" testname="tst-timer-grid_debug" enabled="true">
           <collectionProp name="load_profile">
             <collectionProp name="82806268">
               <stringProp name="1">1</stringProp>
@@ -4902,10 +5006,10 @@ if(timeseriesId.length() != 64){
               <subresults>true</subresults>
               <responseData>false</responseData>
               <samplerData>false</samplerData>
-              <xml>false</xml>
+              <xml>true</xml>
               <fieldNames>true</fieldNames>
               <responseHeaders>false</responseHeaders>
-              <requestHeaders>false</requestHeaders>
+              <requestHeaders>true</requestHeaders>
               <responseDataOnError>false</responseDataOnError>
               <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
               <assertionsResultsToSave>0</assertionsResultsToSave>
@@ -4917,7 +5021,7 @@ if(timeseriesId.length() != 64){
               <connectTime>true</connectTime>
             </value>
           </objProp>
-          <stringProp name="filename"></stringProp>
+          <stringProp name="filename">./logs/wdias_grid_tree.jtl</stringProp>
         </ResultCollector>
         <hashTree/>
         <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="Summary Report" enabled="true">
@@ -4937,9 +5041,9 @@ if(timeseriesId.length() != 64){
               <encoding>false</encoding>
               <assertions>true</assertions>
               <subresults>true</subresults>
-              <responseData>false</responseData>
+              <responseData>true</responseData>
               <samplerData>false</samplerData>
-              <xml>false</xml>
+              <xml>true</xml>
               <fieldNames>true</fieldNames>
               <responseHeaders>false</responseHeaders>
               <requestHeaders>false</requestHeaders>
@@ -4950,11 +5054,12 @@ if(timeseriesId.length() != 64){
               <sentBytes>true</sentBytes>
               <url>true</url>
               <threadCounts>true</threadCounts>
+              <sampleCount>true</sampleCount>
               <idleTime>true</idleTime>
               <connectTime>true</connectTime>
             </value>
           </objProp>
-          <stringProp name="filename"></stringProp>
+          <stringProp name="filename">./logs/wdias_grid_summary.jtl</stringProp>
         </ResultCollector>
         <hashTree/>
         <kg.apc.jmeter.vizualizers.CorrectedResultCollector guiclass="kg.apc.jmeter.vizualizers.HitsPerSecondGui" testclass="kg.apc.jmeter.vizualizers.CorrectedResultCollector" testname="jp@gc - Hits per Second" enabled="true">

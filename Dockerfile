@@ -24,7 +24,7 @@ RUN wget https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-$JMETER_V
 
 WORKDIR $JMETER_HOME 
 EXPOSE 6000 1099 50000
-  
+
 COPY bin/user.properties bin/user.properties
 COPY jmeter-scripts/install_plugin-manager.sh .
 COPY jmeter-scripts/docker-entrypoint.sh /docker-entrypoint.sh
@@ -36,6 +36,7 @@ COPY wdias_performance_test.jmx /jmeter/
 # https://jmeter-plugins.org/wiki/PluginsManagerAutomated/
 RUN bin/PluginsManagerCMD.sh install-for-jmx /jmeter/wdias_performance_test.jmx
 
-COPY . /jmeter/
+WORKDIR /jmeter 
+COPY . .
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
