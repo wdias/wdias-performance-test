@@ -83,3 +83,6 @@ The original helm charts try to install some plugins while creating the Docker c
 ### Installation
 - Build and deploy into K8s with `wdias build ~/wdias/wdias-performance-test && wdias helm_install wdias-performance-test/helm/wdias-performance-test`
   - `wdias` refer to `wdias="~/wdias/wdias/bin/macos/dev"` from [wdias](https://github.com/wdias/wdias)
+### Configuration
+In order to run the Distributed JMeter within the same cluster, it need to set up a proper domain. In that case, requests will go outside of the cluster and come back though the ingress/load balancer.
+I that is not the case, it need to call via internal service calls. In order to support that, JMeter performance test contains User defined variable names for both the cases. Activate the appropriate User define variables as per the planing to do the performance test.

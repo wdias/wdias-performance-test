@@ -19,6 +19,17 @@
             <stringProp name="Argument.value">${__P(DOMAIN,noondv.com)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
+          <elementProp name="SUB_DOMAIN" elementType="Argument">
+            <stringProp name="Argument.name">SUB_DOMAIN</stringProp>
+            <stringProp name="Argument.value">${__P(SUB_DOMAIN,api)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="protocol" elementType="Argument">
+            <stringProp name="Argument.name">protocol</stringProp>
+            <stringProp name="Argument.value">${__P(protocpl,https)}</stringProp>
+            <stringProp name="Argument.desc">https-for external access, http-internal access</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
           <elementProp name="reqSize" elementType="Argument">
             <stringProp name="Argument.name">reqSize</stringProp>
             <stringProp name="Argument.value">${__P(reqSize,24)}</stringProp>
@@ -29,6 +40,78 @@
             <stringProp name="Argument.name">date</stringProp>
             <stringProp name="Argument.value">${__P(date,2017-01-01)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="svc_metadata" elementType="Argument">
+            <stringProp name="Argument.name">svc_metadata</stringProp>
+            <stringProp name="Argument.value">${__P(svc_metadata,api)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+            <stringProp name="Argument.desc">adapter-metadata service name-based virtual hosting</stringProp>
+          </elementProp>
+          <elementProp name="path_metadata" elementType="Argument">
+            <stringProp name="Argument.name">path_metadata</stringProp>
+            <stringProp name="Argument.value">${__P(path_metadata,/metadata)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+            <stringProp name="Argument.desc">adapter-metadata service simple fanout config</stringProp>
+          </elementProp>
+          <elementProp name="svc_status" elementType="Argument">
+            <stringProp name="Argument.name">svc_status</stringProp>
+            <stringProp name="Argument.value">${__P(svc_status,api)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+            <stringProp name="Argument.desc">adapter-status service name-based virtual hosting</stringProp>
+          </elementProp>
+          <elementProp name="path_status" elementType="Argument">
+            <stringProp name="Argument.name">path_status</stringProp>
+            <stringProp name="Argument.value">${__P(path_status,/status)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+            <stringProp name="Argument.desc">adapter-status service simple fanout config</stringProp>
+          </elementProp>
+          <elementProp name="svc_query" elementType="Argument">
+            <stringProp name="Argument.name">svc_query</stringProp>
+            <stringProp name="Argument.value">${__P(svc_query,api)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+            <stringProp name="Argument.desc">adapter-query service name-based virtual hosting</stringProp>
+          </elementProp>
+          <elementProp name="path_query" elementType="Argument">
+            <stringProp name="Argument.name">path_query</stringProp>
+            <stringProp name="Argument.value">${__P(path_query,/query)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+            <stringProp name="Argument.desc">adapter-query service simple fanout config</stringProp>
+          </elementProp>
+          <elementProp name="svc_export-json-raw" elementType="Argument">
+            <stringProp name="Argument.name">svc_export-json-raw</stringProp>
+            <stringProp name="Argument.value">${__P(svc_export-json-raw,api)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+            <stringProp name="Argument.desc">adapter-export-json-raw service name-based virtual hosting</stringProp>
+          </elementProp>
+          <elementProp name="svc_export-netcdf-binary" elementType="Argument">
+            <stringProp name="Argument.name">svc_export-netcdf-binary</stringProp>
+            <stringProp name="Argument.value">${__P(svc_export-netcdf-binary,api)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+            <stringProp name="Argument.desc">adapter-export-netcdf-binary service name-based virtual hosting</stringProp>
+          </elementProp>
+          <elementProp name="svc_import-ascii-grid-binary" elementType="Argument">
+            <stringProp name="Argument.name">svc_import-ascii-grid-binary</stringProp>
+            <stringProp name="Argument.value">${__P(svc_import-ascii-grid-binary,api)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+            <stringProp name="Argument.desc">adapter-import-ascii-grid-binary service name-based virtual hosting</stringProp>
+          </elementProp>
+          <elementProp name="svc_import-ascii-grid-upload" elementType="Argument">
+            <stringProp name="Argument.name">svc_import-ascii-grid-upload</stringProp>
+            <stringProp name="Argument.value">${__P(svc_import-ascii-grid-upload,api)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+            <stringProp name="Argument.desc">adapter-import-ascii-grid-upload service name-based virtual hosting</stringProp>
+          </elementProp>
+          <elementProp name="svc_import-json-raw" elementType="Argument">
+            <stringProp name="Argument.name">svc_import-json-raw</stringProp>
+            <stringProp name="Argument.value">${__P(svc_import-json-raw,api)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+            <stringProp name="Argument.desc">adapter-import-json-raw service name-based virtual hosting</stringProp>
+          </elementProp>
+          <elementProp name="svc_adapter-extension" elementType="Argument">
+            <stringProp name="Argument.name">svc_adapter-extension</stringProp>
+            <stringProp name="Argument.value">${__P(svc_adapter-extension,api)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+            <stringProp name="Argument.desc">adapter-adapter-extension service name-based virtual hosting</stringProp>
           </elementProp>
         </collectionProp>
       </Arguments>
@@ -133,11 +216,11 @@
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
             <collectionProp name="Arguments.arguments"/>
           </elementProp>
-          <stringProp name="HTTPSampler.domain">api.${DOMAIN}</stringProp>
+          <stringProp name="HTTPSampler.domain">${SUB_DOMAIN}.${DOMAIN}</stringProp>
           <stringProp name="HTTPSampler.port"></stringProp>
-          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <stringProp name="HTTPSampler.protocol">${protocol}</stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">/timeseries</stringProp>
+          <stringProp name="HTTPSampler.path"></stringProp>
           <stringProp name="HTTPSampler.concurrentPool">6</stringProp>
           <stringProp name="HTTPSampler.connect_timeout"></stringProp>
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
@@ -183,7 +266,7 @@
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
             <collectionProp name="Arguments.arguments"/>
           </elementProp>
-          <stringProp name="HTTPSampler.domain">metadata.${DOMAIN}</stringProp>
+          <stringProp name="HTTPSampler.domain">${svc_metadata}.${DOMAIN}</stringProp>
           <stringProp name="HTTPSampler.port"></stringProp>
           <stringProp name="HTTPSampler.protocol"></stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
@@ -459,7 +542,7 @@ if(timeseriesId.length() != 64){
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
             <collectionProp name="Arguments.arguments"/>
           </elementProp>
-          <stringProp name="HTTPSampler.domain">api.${DOMAIN}</stringProp>
+          <stringProp name="HTTPSampler.domain">${SUB_DOMAIN}.${DOMAIN}</stringProp>
           <stringProp name="HTTPSampler.port"></stringProp>
           <stringProp name="HTTPSampler.protocol">https</stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
@@ -509,7 +592,7 @@ if(timeseriesId.length() != 64){
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
             <collectionProp name="Arguments.arguments"/>
           </elementProp>
-          <stringProp name="HTTPSampler.domain">api.${DOMAIN}</stringProp>
+          <stringProp name="HTTPSampler.domain">{SUB_DOMAIN}.${DOMAIN}</stringProp>
           <stringProp name="HTTPSampler.port"></stringProp>
           <stringProp name="HTTPSampler.protocol"></stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
@@ -1806,7 +1889,7 @@ if(timeseriesId.length() != 64){
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
             <collectionProp name="Arguments.arguments"/>
           </elementProp>
-          <stringProp name="HTTPSampler.domain">api.${DOMAIN}</stringProp>
+          <stringProp name="HTTPSampler.domain">{SUB_DOMAIN}.${DOMAIN}</stringProp>
           <stringProp name="HTTPSampler.port"></stringProp>
           <stringProp name="HTTPSampler.protocol">https</stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
@@ -1856,11 +1939,11 @@ if(timeseriesId.length() != 64){
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
             <collectionProp name="Arguments.arguments"/>
           </elementProp>
-          <stringProp name="HTTPSampler.domain">api.${DOMAIN}</stringProp>
+          <stringProp name="HTTPSampler.domain">${SUB_DOMAIN}.${DOMAIN}</stringProp>
           <stringProp name="HTTPSampler.port"></stringProp>
           <stringProp name="HTTPSampler.protocol">https</stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">/metadata/timeseries?${query_string}</stringProp>
+          <stringProp name="HTTPSampler.path">${path_metadata}/timeseries?${query_string}</stringProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -4481,9 +4564,9 @@ if(timeseriesId.length() != 64){
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
             <collectionProp name="Arguments.arguments"/>
           </elementProp>
-          <stringProp name="HTTPSampler.domain">api.${DOMAIN}</stringProp>
+          <stringProp name="HTTPSampler.domain">${SUB_DOMAIN}.${DOMAIN}</stringProp>
           <stringProp name="HTTPSampler.port"></stringProp>
-          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <stringProp name="HTTPSampler.protocol">${protocol}</stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
           <stringProp name="HTTPSampler.path"></stringProp>
           <stringProp name="HTTPSampler.concurrentPool">6</stringProp>
@@ -4517,11 +4600,11 @@ if(timeseriesId.length() != 64){
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
             <collectionProp name="Arguments.arguments"/>
           </elementProp>
-          <stringProp name="HTTPSampler.domain">api.${DOMAIN}</stringProp>
+          <stringProp name="HTTPSampler.domain">${svc_metadata}.${DOMAIN}</stringProp>
           <stringProp name="HTTPSampler.port"></stringProp>
           <stringProp name="HTTPSampler.protocol"></stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">/metadata/timeseries</stringProp>
+          <stringProp name="HTTPSampler.path">${path_metadata}/timeseries</stringProp>
           <stringProp name="HTTPSampler.method">POST</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -4562,7 +4645,7 @@ if(timeseriesId.length() != 64){
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
             <collectionProp name="Arguments.arguments"/>
           </elementProp>
-          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.domain">${svc_import-ascii-grid-upload}.${DOMAIN}</stringProp>
           <stringProp name="HTTPSampler.port"></stringProp>
           <stringProp name="HTTPSampler.protocol"></stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
@@ -4601,14 +4684,14 @@ if(timeseriesId.length() != 64){
         </JSR223Sampler>
         <hashTree/>
         <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="Constant Timer" enabled="true">
-          <stringProp name="ConstantTimer.delay">300</stringProp>
+          <stringProp name="ConstantTimer.delay">100</stringProp>
         </ConstantTimer>
         <hashTree/>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Retrieve Grid Timeseries" enabled="true">
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
             <collectionProp name="Arguments.arguments"/>
           </elementProp>
-          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.domain">${svc_export-netcdf-binary}.${DOMAIN}</stringProp>
           <stringProp name="HTTPSampler.port"></stringProp>
           <stringProp name="HTTPSampler.protocol"></stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
