@@ -1665,7 +1665,7 @@ if(timeseriesId.length() != 64){
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
               <collectionProp name="Arguments.arguments"/>
             </elementProp>
-            <stringProp name="HTTPSampler.domain">${svc_export-ascii-grid-upload}.${DOMAIN}</stringProp>
+            <stringProp name="HTTPSampler.domain">${svc_import-ascii-grid-upload}.${DOMAIN}</stringProp>
             <stringProp name="HTTPSampler.port"></stringProp>
             <stringProp name="HTTPSampler.protocol"></stringProp>
             <stringProp name="HTTPSampler.contentEncoding"></stringProp>
@@ -2686,7 +2686,7 @@ if(timeseriesId.length() != 64){
 def jsonSlurper = new JsonSlurper()
 
 def location = jsonSlurper.parseText(vars.get(&quot;location&quot;).trim())
-vars.put(&quot;locationId&quot;, vars.get(&quot;location&quot;))
+vars.put(&quot;locationId&quot;, location.locationId)
 log.info(&quot;locationId: &quot; + location.locationId)
 float lat = location.lat as Float
 float lon = location.lon as Float
