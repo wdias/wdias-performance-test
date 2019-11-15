@@ -97,7 +97,10 @@ kubectl exec -it $MASTER_NAME -- jmeter -n -t /jmeter/wdias_performance_test.jmx
 kubectl exec -it $MASTER_NAME -- /bin/bash
 ```
 - Copy Results from container to local
-```bash
-kubectl get pods | grep 'wdias-performance-test-master' | awk '{print $1}' | xargs -o -I {} kubectl cp default/{}:/jmeter/logs/wdias_grid_tree.jtl ./logs/wdias_grid_tree.jtl && \
-kubectl get pods | grep 'wdias-performance-test-master' | awk '{print $1}' | xargs -o -I {} kubectl cp default/{}:/jmeter/logs/wdias_grid_summary.jtl ./logs/wdias_grid_summary.jtl
+```sh
+kubectl get pods | grep 'wdias-performance-test-master' | awk '{print $1}' | xargs -o -I {} kubectl cp default/{}:/jmeter/logs/wdias_grid.jtl ./logs/wdias_grid.jtl
+```
+- Copy from Remote server to local
+```sh
+scp -i ~/.ssh/id_rsa.pem ubuntu@IP_ADDRESS:~/wdias/wdias-performance-test/logs/wdias_flow.jtl .
 ```
