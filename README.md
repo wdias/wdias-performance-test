@@ -87,7 +87,7 @@ The original helm charts try to install some plugins while creating the Docker c
 In order to run the Distributed JMeter within the same cluster, it need to set up a proper domain. In that case, requests will go outside of the cluster and come back though the ingress/load balancer.
 I that is not the case, it need to call via internal service calls. In order to support that, JMeter performance test contains User defined variable names for both the cases. Activate the appropriate User define variables as per the planing to do the performance test.
 ### Helpers
-- Copy Result files back - `kubectl cp default/wdias-performance-test-master-85db68588c-wjq5p:/jmeter/logs/wdias_grid.jtl ./logs/wdias_grid.jtl`
+- Copy Result files back - `kubectl cp default/<wdias-performance-test-master-pod-name>:/jmeter/logs/wdias_grid.jtl ./logs/wdias_grid.jtl`
 - Run test internally - `jmeter -n -t /jmeter/wdias_performance_test.jmx -l ./logs/wdias_grid.jtl -j ./logs/wdias_grid.log`
 - Export IPs
 ```sh
@@ -97,7 +97,7 @@ kubectl exec -it $MASTER_NAME -- jmeter -n -t /jmeter/wdias_performance_test.jmx
 kubectl exec -it $MASTER_NAME -- /bin/bash
 ```
 - Copy Results from container to local
-```
+```bash
 kubectl get pods | grep 'wdias-performance-test-master' | awk '{print $1}' | xargs -o -I {} kubectl cp default/{}:/jmeter/logs/wdias_grid_tree.jtl ./logs/wdias_grid_tree.jtl && \
 kubectl get pods | grep 'wdias-performance-test-master' | awk '{print $1}' | xargs -o -I {} kubectl cp default/{}:/jmeter/logs/wdias_grid_summary.jtl ./logs/wdias_grid_summary.jtl
 ```
