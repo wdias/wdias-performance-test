@@ -4611,7 +4611,7 @@ if(timeseriesId.length() != 64){
               <connectTime>true</connectTime>
             </value>
           </objProp>
-          <stringProp name="filename">./logs/wdias_flow_tree.jtl</stringProp>
+          <stringProp name="filename">./logs/wdias_flow.jtl</stringProp>
         </ResultCollector>
         <hashTree/>
         <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="Summary Report" enabled="true">
@@ -4648,7 +4648,7 @@ if(timeseriesId.length() != 64){
               <connectTime>true</connectTime>
             </value>
           </objProp>
-          <stringProp name="filename">./logs/wdias_flow_summary.jtl</stringProp>
+          <stringProp name="filename">./logs/wdias_flow.jtl</stringProp>
         </ResultCollector>
         <hashTree/>
       </hashTree>
@@ -5021,7 +5021,7 @@ if(timeseriesId.length() != 64){
               <connectTime>true</connectTime>
             </value>
           </objProp>
-          <stringProp name="filename">./logs/wdias_grid_tree.jtl</stringProp>
+          <stringProp name="filename">./logs/wdias_grid.jtl</stringProp>
         </ResultCollector>
         <hashTree/>
         <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="Summary Report" enabled="true">
@@ -5059,7 +5059,7 @@ if(timeseriesId.length() != 64){
               <connectTime>true</connectTime>
             </value>
           </objProp>
-          <stringProp name="filename">./logs/wdias_grid_summary.jtl</stringProp>
+          <stringProp name="filename">./logs/wdias_grid.jtl</stringProp>
         </ResultCollector>
         <hashTree/>
         <kg.apc.jmeter.vizualizers.CorrectedResultCollector guiclass="kg.apc.jmeter.vizualizers.HitsPerSecondGui" testclass="kg.apc.jmeter.vizualizers.CorrectedResultCollector" testname="jp@gc - Hits per Second" enabled="true">
