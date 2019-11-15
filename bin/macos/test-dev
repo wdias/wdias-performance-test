@@ -11,7 +11,7 @@ test_run() {
   REQ_SIZE=$(get-req-size $1)
   echo "Running performance test (${ENV}): ReqSize=${REQ_SIZE}"
 
-  ${JMETER} -n -t wdias_performance_test.jmx -l testresults.jtl -j non-ui.log -JreqSize=${REQ_SIZE}
+  ${JMETER} -n -t wdias_performance_test.jmx -j non-ui.log -JreqSize=${REQ_SIZE}
 }
 
 test_once() {
@@ -24,7 +24,7 @@ test_once() {
   echo "Running  WDIAS-${SEARCH_PHASE} test once (${ENV}): ReqSize=${REQ_SIZE}"
   $(toggle_enabled WDIAS-${SEARCH_PHASE} true)
   echo "Performing the test WDIAS-${SEARCH_PHASE} ..."
-  ${JMETER} -n -t wdias_performance_test.jmx -l testresults.jtl -j non-ui.log -JreqSize=${REQ_SIZE}
+  ${JMETER} -n -t wdias_performance_test.jmx -j non-ui.log -JreqSize=${REQ_SIZE}
   $(toggle_enabled WDIAS-${SEARCH_PHASE} false)
 }
 
