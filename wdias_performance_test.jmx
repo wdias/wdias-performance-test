@@ -4648,7 +4648,7 @@ if(timeseriesId.length() != 64){
               <connectTime>true</connectTime>
             </value>
           </objProp>
-          <stringProp name="filename">./logs/wdias_flow_tree.jtl</stringProp>
+          <stringProp name="filename">./logs/wdias_flow_summary.jtl</stringProp>
         </ResultCollector>
         <hashTree/>
       </hashTree>
