@@ -37,7 +37,10 @@ def requestId = args[0]
 // def requestId =  vars.get("requestId").trim()
 // log.info("requestId: " + requestId)
 
-def url = new URL("https://${svc_status}.${DOMAIN}${path_status}/import/${DataType.toLowerCase()}/${requestId}")
+def protocol = vars.get("protocol")
+def svc_status = vars.get("svc_status")
+def path_status = vars.get("path_status")
+def url = new URL("${protocol}://${svc_status}.${DOMAIN}${path_status}/import/${DataType.toLowerCase()}/${requestId}")
 int retry = 1
 while ({
     sleep(500)

@@ -96,3 +96,8 @@ export SERVER_IPS=$(kubectl get pods -lrole=server -o jsonpath='{.items[*].statu
 kubectl exec -it $MASTER_NAME -- jmeter -n -t /jmeter/wdias_performance_test.jmx -R $SERVER_IPS
 kubectl exec -it $MASTER_NAME -- /bin/bash
 ```
+- Copy Results from container to local
+```
+kubectl get pods | grep 'wdias-performance-test-master' | awk '{print $1}' | xargs -o -I {} kubectl cp default/{}:/jmeter/logs/wdias_grid_tree.jtl ./logs/wdias_grid_tree.jtl && \
+kubectl get pods | grep 'wdias-performance-test-master' | awk '{print $1}' | xargs -o -I {} kubectl cp default/{}:/jmeter/logs/wdias_grid_summary.jtl ./logs/wdias_grid_summary.jtl
+```

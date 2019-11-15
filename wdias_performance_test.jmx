@@ -77,6 +77,12 @@
             <stringProp name="Argument.metadata">=</stringProp>
             <stringProp name="Argument.desc">adapter-query service simple fanout config</stringProp>
           </elementProp>
+          <elementProp name="svc_extension" elementType="Argument">
+            <stringProp name="Argument.name">svc_extension</stringProp>
+            <stringProp name="Argument.value">${__P(svc_extension,extension)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+            <stringProp name="Argument.desc">adapter-extension service name-based virtual hosting</stringProp>
+          </elementProp>
           <elementProp name="svc_export-json-raw" elementType="Argument">
             <stringProp name="Argument.name">svc_export-json-raw</stringProp>
             <stringProp name="Argument.value">${__P(svc_export-json-raw,api)}</stringProp>
@@ -106,12 +112,6 @@
             <stringProp name="Argument.value">${__P(svc_import-json-raw,api)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
             <stringProp name="Argument.desc">adapter-import-json-raw service name-based virtual hosting</stringProp>
-          </elementProp>
-          <elementProp name="svc_adapter-extension" elementType="Argument">
-            <stringProp name="Argument.name">svc_adapter-extension</stringProp>
-            <stringProp name="Argument.value">${__P(svc_adapter-extension,api)}</stringProp>
-            <stringProp name="Argument.metadata">=</stringProp>
-            <stringProp name="Argument.desc">adapter-adapter-extension service name-based virtual hosting</stringProp>
           </elementProp>
         </collectionProp>
       </Arguments>
@@ -181,6 +181,12 @@
             <stringProp name="Argument.metadata">=</stringProp>
             <stringProp name="Argument.desc">adapter-query service simple fanout config</stringProp>
           </elementProp>
+          <elementProp name="svc_extension" elementType="Argument">
+            <stringProp name="Argument.name">svc_extension</stringProp>
+            <stringProp name="Argument.value">${__P(svc_extension,adapter-extension)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+            <stringProp name="Argument.desc">adapter-extension service name-based virtual hosting</stringProp>
+          </elementProp>
           <elementProp name="svc_export-json-raw" elementType="Argument">
             <stringProp name="Argument.name">svc_export-json-raw</stringProp>
             <stringProp name="Argument.value">${__P(svc_export-json-raw,export-json-raw)}</stringProp>
@@ -210,12 +216,6 @@
             <stringProp name="Argument.value">${__P(svc_import-json-raw,import-json-raw)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
             <stringProp name="Argument.desc">adapter-import-json-raw service name-based virtual hosting</stringProp>
-          </elementProp>
-          <elementProp name="svc_adapter-extension" elementType="Argument">
-            <stringProp name="Argument.name">svc_adapter-extension</stringProp>
-            <stringProp name="Argument.value">${__P(svc_adapter-extension,adapter-extension)}</stringProp>
-            <stringProp name="Argument.metadata">=</stringProp>
-            <stringProp name="Argument.desc">adapter-adapter-extension service name-based virtual hosting</stringProp>
           </elementProp>
         </collectionProp>
       </Arguments>
@@ -3962,7 +3962,7 @@ vars.put(&quot;lon2&quot;, (lon + width/2).toString())
         </kg.apc.jmeter.vizualizers.CorrectedResultCollector>
         <hashTree/>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="WDIAS-Flow Thread Group" enabled="false">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="WDIAS-Flow Thread Group" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -3979,9 +3979,9 @@ vars.put(&quot;lon2&quot;, (lon + width/2).toString())
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
             <collectionProp name="Arguments.arguments"/>
           </elementProp>
-          <stringProp name="HTTPSampler.domain">api.${DOMAIN}</stringProp>
+          <stringProp name="HTTPSampler.domain">${SUB_DOMAIN}.${DOMAIN}</stringProp>
           <stringProp name="HTTPSampler.port"></stringProp>
-          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <stringProp name="HTTPSampler.protocol">${protocol}</stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
           <stringProp name="HTTPSampler.path"></stringProp>
           <stringProp name="HTTPSampler.concurrentPool">6</stringProp>
@@ -4014,11 +4014,11 @@ vars.put(&quot;lon2&quot;, (lon + width/2).toString())
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
             <collectionProp name="Arguments.arguments"/>
           </elementProp>
-          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.domain">${svc_status}.${DOMAIN}</stringProp>
           <stringProp name="HTTPSampler.port"></stringProp>
           <stringProp name="HTTPSampler.protocol"></stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">/status/public/hc</stringProp>
+          <stringProp name="HTTPSampler.path">${path_status}/public/hc</stringProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -4033,11 +4033,11 @@ vars.put(&quot;lon2&quot;, (lon + width/2).toString())
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
             <collectionProp name="Arguments.arguments"/>
           </elementProp>
-          <stringProp name="HTTPSampler.domain">metadata.${DOMAIN}</stringProp>
+          <stringProp name="HTTPSampler.domain">${svc_metadata}.${DOMAIN}</stringProp>
           <stringProp name="HTTPSampler.port"></stringProp>
           <stringProp name="HTTPSampler.protocol"></stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">/public/hc</stringProp>
+          <stringProp name="HTTPSampler.path">${path_metadata}/public/hc</stringProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -4052,7 +4052,7 @@ vars.put(&quot;lon2&quot;, (lon + width/2).toString())
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
             <collectionProp name="Arguments.arguments"/>
           </elementProp>
-          <stringProp name="HTTPSampler.domain">extension.${DOMAIN}</stringProp>
+          <stringProp name="HTTPSampler.domain">${svc_extension}.${DOMAIN}</stringProp>
           <stringProp name="HTTPSampler.port"></stringProp>
           <stringProp name="HTTPSampler.protocol"></stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
@@ -4067,15 +4067,15 @@ vars.put(&quot;lon2&quot;, (lon + width/2).toString())
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
         </HTTPSamplerProxy>
         <hashTree/>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Health Check /export/json" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Health Check /export/json/raw" enabled="true">
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
             <collectionProp name="Arguments.arguments"/>
           </elementProp>
-          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.domain">${svc_export-json-raw}.${DOMAIN}</stringProp>
           <stringProp name="HTTPSampler.port"></stringProp>
           <stringProp name="HTTPSampler.protocol"></stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">/status/public/hc</stringProp>
+          <stringProp name="HTTPSampler.path">/export/json/raw/public/hc</stringProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -4086,15 +4086,15 @@ vars.put(&quot;lon2&quot;, (lon + width/2).toString())
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
         </HTTPSamplerProxy>
         <hashTree/>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Health Check /import/json" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Health Check /import/json/raw" enabled="true">
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
             <collectionProp name="Arguments.arguments"/>
           </elementProp>
-          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.domain">${svc_export-json-raw}.${DOMAIN}</stringProp>
           <stringProp name="HTTPSampler.port"></stringProp>
           <stringProp name="HTTPSampler.protocol"></stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">/status/public/hc</stringProp>
+          <stringProp name="HTTPSampler.path">/import/json/raw/public/hc</stringProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -4109,11 +4109,11 @@ vars.put(&quot;lon2&quot;, (lon + width/2).toString())
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
             <collectionProp name="Arguments.arguments"/>
           </elementProp>
-          <stringProp name="HTTPSampler.domain">metadata.${DOMAIN}</stringProp>
+          <stringProp name="HTTPSampler.domain">${SUB_DOMAIN}.${DOMAIN}</stringProp>
           <stringProp name="HTTPSampler.port"></stringProp>
           <stringProp name="HTTPSampler.protocol"></stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">/timeseries</stringProp>
+          <stringProp name="HTTPSampler.path">${path_metadata}/timeseries</stringProp>
           <stringProp name="HTTPSampler.method">POST</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -4156,11 +4156,11 @@ vars.put(&quot;lon2&quot;, (lon + width/2).toString())
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
             <collectionProp name="Arguments.arguments"/>
           </elementProp>
-          <stringProp name="HTTPSampler.domain">metadata.${DOMAIN}</stringProp>
+          <stringProp name="HTTPSampler.domain">${SUB_DOMAIN}.${DOMAIN}</stringProp>
           <stringProp name="HTTPSampler.port"></stringProp>
           <stringProp name="HTTPSampler.protocol"></stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">/timeseries/${timeseriesId}</stringProp>
+          <stringProp name="HTTPSampler.path">${path_metadata}/timeseries/${timeseriesId}</stringProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -4212,7 +4212,7 @@ if(timeseriesId.length() != 64){
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
               <collectionProp name="Arguments.arguments"/>
             </elementProp>
-            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.domain">${svc_import-json-raw}.${DOMAIN}</stringProp>
             <stringProp name="HTTPSampler.port"></stringProp>
             <stringProp name="HTTPSampler.protocol"></stringProp>
             <stringProp name="HTTPSampler.contentEncoding"></stringProp>
@@ -4248,7 +4248,7 @@ if(timeseriesId.length() != 64){
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
               <collectionProp name="Arguments.arguments"/>
             </elementProp>
-            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.domain">${svc_import-ascii-grid-upload.${DOMAIN}</stringProp>
             <stringProp name="HTTPSampler.port"></stringProp>
             <stringProp name="HTTPSampler.protocol"></stringProp>
             <stringProp name="HTTPSampler.contentEncoding"></stringProp>
@@ -4284,7 +4284,7 @@ if(timeseriesId.length() != 64){
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
               <collectionProp name="Arguments.arguments"/>
             </elementProp>
-            <stringProp name="HTTPSampler.domain">extension.${DOMAIN}</stringProp>
+            <stringProp name="HTTPSampler.domain">${svc_extension}.${DOMAIN}</stringProp>
             <stringProp name="HTTPSampler.port"></stringProp>
             <stringProp name="HTTPSampler.protocol"></stringProp>
             <stringProp name="HTTPSampler.contentEncoding"></stringProp>
@@ -4329,7 +4329,7 @@ if(timeseriesId.length() != 64){
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
               <collectionProp name="Arguments.arguments"/>
             </elementProp>
-            <stringProp name="HTTPSampler.domain">extension.${DOMAIN}</stringProp>
+            <stringProp name="HTTPSampler.domain">${svc_extension}.${DOMAIN}</stringProp>
             <stringProp name="HTTPSampler.port"></stringProp>
             <stringProp name="HTTPSampler.protocol"></stringProp>
             <stringProp name="HTTPSampler.contentEncoding"></stringProp>
@@ -4373,7 +4373,7 @@ if(timeseriesId.length() != 64){
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
               <collectionProp name="Arguments.arguments"/>
             </elementProp>
-            <stringProp name="HTTPSampler.domain">extension.${DOMAIN}</stringProp>
+            <stringProp name="HTTPSampler.domain">${svc_extension}.${DOMAIN}</stringProp>
             <stringProp name="HTTPSampler.port"></stringProp>
             <stringProp name="HTTPSampler.protocol"></stringProp>
             <stringProp name="HTTPSampler.contentEncoding"></stringProp>
@@ -4425,7 +4425,7 @@ if(timeseriesId.length() != 64){
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
               <collectionProp name="Arguments.arguments"/>
             </elementProp>
-            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.domain">${svc_export-json-raw}.${DOMAIN}</stringProp>
             <stringProp name="HTTPSampler.port"></stringProp>
             <stringProp name="HTTPSampler.protocol"></stringProp>
             <stringProp name="HTTPSampler.contentEncoding"></stringProp>
@@ -4467,7 +4467,7 @@ if(timeseriesId.length() != 64){
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
               <collectionProp name="Arguments.arguments"/>
             </elementProp>
-            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.domain">${svc_import-ascii-grid-upload}.${DOMAIN}</stringProp>
             <stringProp name="HTTPSampler.port"></stringProp>
             <stringProp name="HTTPSampler.protocol"></stringProp>
             <stringProp name="HTTPSampler.contentEncoding"></stringProp>
@@ -4517,7 +4517,7 @@ if(timeseriesId.length() != 64){
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
               <collectionProp name="Arguments.arguments"/>
             </elementProp>
-            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.domain">${svc_export-json-raw}.${DOMAIN}</stringProp>
             <stringProp name="HTTPSampler.port"></stringProp>
             <stringProp name="HTTPSampler.protocol"></stringProp>
             <stringProp name="HTTPSampler.contentEncoding"></stringProp>
@@ -4554,7 +4554,7 @@ if(timeseriesId.length() != 64){
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
               <collectionProp name="Arguments.arguments"/>
             </elementProp>
-            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.domain">${svc_export-netcdf-binary}.${DOMAIN}</stringProp>
             <stringProp name="HTTPSampler.port"></stringProp>
             <stringProp name="HTTPSampler.protocol"></stringProp>
             <stringProp name="HTTPSampler.contentEncoding"></stringProp>
@@ -4611,7 +4611,7 @@ if(timeseriesId.length() != 64){
               <connectTime>true</connectTime>
             </value>
           </objProp>
-          <stringProp name="filename"></stringProp>
+          <stringProp name="filename">./logs/wdias_flow_tree.jtl</stringProp>
         </ResultCollector>
         <hashTree/>
         <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="Summary Report" enabled="true">
@@ -4648,11 +4648,11 @@ if(timeseriesId.length() != 64){
               <connectTime>true</connectTime>
             </value>
           </objProp>
-          <stringProp name="filename"></stringProp>
+          <stringProp name="filename">./logs/wdias_flow_tree.jtl</stringProp>
         </ResultCollector>
         <hashTree/>
       </hashTree>
-      <com.blazemeter.jmeter.threads.concurrency.ConcurrencyThreadGroup guiclass="com.blazemeter.jmeter.threads.concurrency.ConcurrencyThreadGroupGui" testclass="com.blazemeter.jmeter.threads.concurrency.ConcurrencyThreadGroup" testname="WDIAS-Grid Concurrency Thread Group" enabled="true">
+      <com.blazemeter.jmeter.threads.concurrency.ConcurrencyThreadGroup guiclass="com.blazemeter.jmeter.threads.concurrency.ConcurrencyThreadGroupGui" testclass="com.blazemeter.jmeter.threads.concurrency.ConcurrencyThreadGroup" testname="WDIAS-Grid Concurrency Thread Group" enabled="false">
         <elementProp name="ThreadGroup.main_controller" elementType="com.blazemeter.jmeter.control.VirtualUserController"/>
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <stringProp name="TargetLevel">${__tstFeedback(tst-timer-grid_debug, 2,2000,2)}</stringProp>
