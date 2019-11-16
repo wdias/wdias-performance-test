@@ -9,9 +9,10 @@ test_run() {
   # usage: $progName run <REQ_SIZE>
   source "${BASH_SOURCE%/*}/test.conf"
   REQ_SIZE=$(get-req-size $1)
-  echo "Running performance test (${ENV}): ReqSize=${REQ_SIZE}"
+  DISTRIBUTED_IPS=$([[ -n $SERVER_IPS ]] && echo "-R ${SERVER_IPS}" || echo "")
+  echo "Running performance test (${ENV}): ReqSize=${REQ_SIZE} ${DISTRIBUTED_IPS}"
 
-  ${JMETER} -n -t wdias_performance_test.jmx -j non-ui.log -JreqSize=${REQ_SIZE}
+  ${JMETER} -n -t wdias_performance_test.jmx -j non-ui.log -JreqSize=${REQ_SIZE} ${DISTRIBUTED_IPS}
 }
 
 test_once() {
@@ -23,8 +24,9 @@ test_once() {
   [[ -z ${SEARCH_PHASE} ]] && echo "Search Phase should provide" && exit 1 || echo "Searching for WDIAS-${SEARCH_PHASE} test case"
   echo "Running  WDIAS-${SEARCH_PHASE} test once (${ENV}): ReqSize=${REQ_SIZE}"
   $(toggle_enabled WDIAS-${SEARCH_PHASE} true)
-  echo "Performing the test WDIAS-${SEARCH_PHASE} ..."
-  ${JMETER} -n -t wdias_performance_test.jmx -j non-ui.log -JreqSize=${REQ_SIZE}
+  DISTRIBUTED_IPS=$([[ -n $SERVER_IPS ]] && echo "-R ${SERVER_IPS}" || echo "")
+  echo "Performing the test WDIAS-${SEARCH_PHASE} ... ${DISTRIBUTED_IPS}"
+  ${JMETER} -n -t wdias_performance_test.jmx -j non-ui.log -JreqSize=${REQ_SIZE} ${DISTRIBUTED_IPS}
   $(toggle_enabled WDIAS-${SEARCH_PHASE} false)
 }
 
@@ -75,6 +77,7 @@ test_disable() {
 }
 
 test_help() {
+  progName=`basename "$0"`
   echo "-h | --help: Usage
   $progName enable <MODULE>
     - MODULE: import(i) | export(e) | extension(x) | all(a)
@@ -84,14 +87,17 @@ test_help() {
     - REQ_SIZE: 24(1) | 288(2) | 1044(3)
     NOTE: Modify test.conf as necessary
     e.g.
-    $progName run import 24
+    $progName run 24
     or
-    $progName run i 1
+    $progName run 1
 
   $progName once <REQ_SIZE> <SEARCH_PHASE>
+    This will enable the test case first. Then run the test case, and at the end disable and exit.
     - SEARCH_PHASE: Thread Group level name that matches
     e.g.
     $progName once 24 CreateExtensions
+    or
+    $progName once 1 CreateExtensions
 
   $progName disable <MODULE>
     - MODULE: import(i) | export(e) | extension(x) | all(a)

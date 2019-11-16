@@ -31,17 +31,17 @@ Distributed performance testing based on JMeter.
   - 1 hour test run. Change with request size from 1hr, 5min to 1min. (total 3 hours)
 
 ## Help
-- Enable one of MODULE (and DATA_TYPE on prod)
+- Enable one of MODULE
   - MODULE: import(i) | export(e) | extension(x) | all(a)
-  - DATA_TYPE: scalar(s) | vector(v) | grid(g)
-  - `./bin/macos/test-dev enable import scalar`
+  - `./bin/macos/test-dev enable import`
 - Disable one of MODULE
-  - `./bin/macos/test-dev disable import scalar`
-- Run test case with given MODULE, DATA_TYPE and REQ_SIZE
+  - `./bin/macos/test-dev disable import`
+- Run test case with given MODULE and REQ_SIZE
   - MODULE: import(i) | export(e) | extension(x) | all(a)
-  - DATA_TYPE: scalar(s) | vector(v) | grid(g)
   - REQ_SIZE: 24(1) | 288(2) | 1044(3)
-  - `./bin/macos/test-dev up import scalar 24` or `./bin/macos/test-dev up i s 1`
+  - `./bin/macos/test-dev once import 24` or `./bin/macos/test-dev once i 1`
+- Run in Distributed Mode
+  - `SERVER_IPS=<IP1,IP2...> /bin/macos/test-dev once 24 all`
 Using above commands it's possible to cover the "Test Plan" above.
 It's possible to run the test cases in two modes: `prod` or `dev`. In each envirnment, configure the `./bin/macos/test.conf` as appropriate. 
 
@@ -56,12 +56,12 @@ It's possible to run the test cases in two modes: `prod` or `dev`. In each envir
 - Change `TST_HOLD_<MODULE>_prod_<DATA_TYPE>` as necessary
   - The period of time that test case is running as defined in the Throughput Step Timer for each `tst-timer-<MODULE>_prod_<DATA_TYPE>`
 
-- Enable a module with given data type
-  - `./bin/macos/test-dev enable import scalar`
+- Enable a module
+  - `./bin/macos/test-dev enable import`
 - Run the test case for the scenario
-  - `./bin/macos/test-dev up import scalar 24`
-- Disable the module with given data type
-  - `./bin/macos/test-dev disable import scalar`
+  - `./bin/macos/test-dev run 24`
+- Disable the module
+  - `./bin/macos/test-dev disable import`
 
 Enable and run the test cases until it met the Test Plan conditions. If one instance can't run up to the given limits, then consider running multiple instance the same test case in order to fulfill given requirement.
 E.g. Lets consider 2nd case of Test Plan. For Import Scalar, it should be able to run at maximum of 2100 concurent requests. If it's unable to archive with one instance, then consider using 3 instances running parallel with each one is creating 2100/3 = 700 concurent requests.
@@ -89,11 +89,15 @@ I that is not the case, it need to call via internal service calls. In order to 
 
 ### Helpers
 - Run test internally
-`jmeter -n -t /jmeter/wdias_performance_test.jmx -l ./logs/wdias_grid.jtl -j ./logs/wdias_grid.log`
+`jmeter -n -t /jmeter/wdias_performance_test.jmx`
+`jmeter -n -t /jmeter/wdias_performance_test.jmx -j ./logs/wdias_grid.log -l ./logs/wdias_grid.jtl`
+`jmeter -n -t /jmeter/wdias_performance_test.jmx -R <SERVER_IPS...>` - [Distributed Mode](http://www.testautomationguru.com/jmeter-distributed-load-testing-using-docker/)
 - Export IPs
 ```sh
 export MASTER_NAME=$(kubectl get pods -l wdias=jmeter-master -o jsonpath='{.items[*].metadata.name}')
 export SERVER_IPS=$(kubectl get pods -lrole=server -o jsonpath='{.items[*].status.podIP}' | tr ' ' ',')
+kubectl exec -it $MASTER_NAME -- bash -c "export SERVER_IPS=${SERVER_IPS}; ./test-plan/test_plan.sh /jmeter run 24"
+---
 kubectl exec -it $MASTER_NAME -- jmeter -n -t /jmeter/wdias_performance_test.jmx -R $SERVER_IPS
 kubectl exec -it $MASTER_NAME -- /bin/bash
 ```

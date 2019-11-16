@@ -11,6 +11,7 @@ ROOT_DIR=${1-$DIR}
 shift
 test_cmd=$@
 echo "Set ROOT_DIR=$ROOT_DIR"
+[[ -n $SERVER_IPS ]] && echo "Running with Distributed Mode with SERVER_IPS=${SERVER_IPS}"
 echo "Make sure all wdias-performance-test repo files and dirs avaiable in $ROOT_DIR"
 CMD="$ROOT_DIR/bin/macos/test-dev"
 
@@ -121,6 +122,7 @@ test_run() {
 }
 
 test_help() {
+  progName=`basename "$0"`
   echo "-h | --help: Usage
   $progName  <ROOT_DIR> <COMMAND> <REQ_SIZE>
     - REQ_SIZE (optional): 24(1) | 288(2) | 1044(3)
@@ -137,6 +139,9 @@ test_help() {
   $progName ~/wdias/wdias-performance-test export 24
   $progName ~/wdias/wdias-performance-test all 24
   $progName ~/wdias/wdias-performance-test query 24
+
+  Distibuted Mode
+  SERVER_IPS=<IP1,IP2...> $progName ~/wdias/wdias-performance-test run
   "
 }
 

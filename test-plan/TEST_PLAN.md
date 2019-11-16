@@ -21,18 +21,23 @@
     - REQ_SIZE (optional): 24(1) | 288(2) | 1044(3)
   NOTE: Modify test.conf as necessary
   e.g.
-   ~/wdias run
-   ~/wdias run 2
+  test_plan.sh ~/wdias/wdias-performance-test run
+  test_plan.sh ~/wdias/wdias-performance-test run 2
   - Run all the steps in order of setup, import, create_extension, extension, export, all, query
 
-   ~/wdias setup
-   ~/wdias import 24
-   ~/wdias create_extension 24
-   ~/wdias extension 24
-   ~/wdias export 24
-   ~/wdias all 24
-   ~/wdias query 24
+  test_plan.sh ~/wdias/wdias-performance-test setup
+  test_plan.sh ~/wdias/wdias-performance-test import 24
+  test_plan.sh ~/wdias/wdias-performance-test create_extension 24
+  test_plan.sh ~/wdias/wdias-performance-test extension 24
+  test_plan.sh ~/wdias/wdias-performance-test export 24
+  test_plan.sh ~/wdias/wdias-performance-test all 24
+  test_plan.sh ~/wdias/wdias-performance-test query 24
+
+  Distibuted Mode
+  SERVER_IPS=<IP1,IP2...> test_plan.sh ~/wdias/wdias-performance-test run
 ```
 
 Run all test cases
-- `./test-plan/test_plan.sh ~/wdias run`
+- `./test-plan/test_plan.sh ~/wdias/wdias-performance-test run`
+Run all test cases in Distributed Mode
+- `SERVER_IPS=<IP1,IP2...> ./test-plan/test_plan.sh ~/wdias/wdias-performance-test run`
