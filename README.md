@@ -86,9 +86,10 @@ The original helm charts try to install some plugins while creating the Docker c
 ### Configuration
 In order to run the Distributed JMeter within the same cluster, it need to set up a proper domain. In that case, requests will go outside of the cluster and come back though the ingress/load balancer.
 I that is not the case, it need to call via internal service calls. In order to support that, JMeter performance test contains User defined variable names for both the cases. Activate the appropriate User define variables as per the planing to do the performance test.
+
 ### Helpers
-- Copy Result files back - `kubectl cp default/<wdias-performance-test-master-pod-name>:/jmeter/logs/wdias_grid.jtl ./logs/wdias_grid.jtl`
-- Run test internally - `jmeter -n -t /jmeter/wdias_performance_test.jmx -l ./logs/wdias_grid.jtl -j ./logs/wdias_grid.log`
+- Run test internally
+`jmeter -n -t /jmeter/wdias_performance_test.jmx -l ./logs/wdias_grid.jtl -j ./logs/wdias_grid.log`
 - Export IPs
 ```sh
 export MASTER_NAME=$(kubectl get pods -l wdias=jmeter-master -o jsonpath='{.items[*].metadata.name}')
@@ -97,10 +98,10 @@ kubectl exec -it $MASTER_NAME -- jmeter -n -t /jmeter/wdias_performance_test.jmx
 kubectl exec -it $MASTER_NAME -- /bin/bash
 ```
 - Copy Results from container to local
-```sh
-kubectl get pods | grep 'wdias-performance-test-master' | awk '{print $1}' | xargs -o -I {} kubectl cp default/{}:/jmeter/logs/wdias_grid.jtl ./logs/wdias_grid.jtl
-```
+`kubectl get pods | grep 'wdias-performance-test-master' | awk '{print $1}' | xargs -o -I {} kubectl cp default/{}:/jmeter/logs/wdias_grid.jtl ./logs/wdias_grid.jtl`
+- Copy all result files from container to local
+`<./test-plan/logs.txt | xargs  -n1  -I {} kubectl cp default/$(kubectl get pods -l wdias=jmeter-master -o jsonpath='{.items[*].metadata.name}'):/jmeter/logs/{}.jtl ./logs/{}.jtl`
 - Copy from Remote server to local
-```sh
-scp -i ~/.ssh/id_rsa.pem ubuntu@IP_ADDRESS:~/wdias/wdias-performance-test/logs/wdias_flow.jtl .
-```
+`scp -i ~/.ssh/id_rsa.pem ubuntu@IP_ADDRESS:~/wdias/wdias-performance-test/logs/wdias_flow.jtl .`
+- Copy all result files from Remote server to local
+`<./test-plan/logs.txt | xargs  -n1  -I {} scp -i ~/.ssh/id_rsa.pem ubuntu@IP_ADDRESS:~/wdias/wdias-performance-test/logs/{}.jtl ./aws_logs`
