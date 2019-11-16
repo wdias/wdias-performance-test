@@ -34,19 +34,21 @@ update_tst_feedback() {
   SEARCH="\(tst-timer-.*\)}"
   VAR=TST_FEEDBACK_${2}
   REPLACE="tst-timer-${2}, ${!VAR})}"
+  FIX=$([[ -n $IS_UNIX ]] && echo "" || echo "''")
   # Configure tst-timer for the concurrency thread group
-  grep -Fn "$1" $JMETER_TEST_FILE | cut -f1 -d: | xargs -o -I {} expr {} + 3 | xargs -o -I {} sed -i '' "{}s/${SEARCH}/${REPLACE}/g" $JMETER_TEST_FILE
+  grep -Fn "$1" $JMETER_TEST_FILE | cut -f1 -d: | xargs -o -I {} expr {} + 3 | xargs -o -I {} sed -i $FIX "{}s/${SEARCH}/${REPLACE}/g" $JMETER_TEST_FILE
   # Configure Hold/Running time
   VAR_HOLD=TST_HOLD_${2}
-  grep -Fn "$1" $JMETER_TEST_FILE | cut -f1 -d: | xargs -o -I {} expr {} + 6 | xargs -o -I {} sed -i '' "{}s/>.*</>${!VAR_HOLD}</g" $JMETER_TEST_FILE
+  grep -Fn "$1" $JMETER_TEST_FILE | cut -f1 -d: | xargs -o -I {} expr {} + 6 | xargs -o -I {} sed -i $FIX "{}s/>.*</>${!VAR_HOLD}</g" $JMETER_TEST_FILE
 }
 
 toggle_enabled() {
   # usage: toggle_enabled <SEARCH_PHASE> <ENABLED>
   SEARCH=$([[ "$2" == "true" ]] && echo "false" || echo "true")
   REPLACE=$([[ "$2" == "true" ]] && echo "true" || echo "false")
+  FIX=$([[ -n $IS_UNIX ]] && echo "" || echo "''")
   # https://stackoverflow.com/a/44864004/1461060
-  grep -Fn "$1" $JMETER_TEST_FILE | cut -f1 -d: | xargs -o -I {} sed -i '' "{}s/${SEARCH}/${REPLACE}/g" $JMETER_TEST_FILE
+  grep -Fn "$1" $JMETER_TEST_FILE | cut -f1 -d: | xargs -o -I {} sed -i $FIX "{}s/${SEARCH}/${REPLACE}/g" $JMETER_TEST_FILE
 }
 
 test_enable() {

@@ -5,11 +5,12 @@ ENV JMETER_VERSION ${JMETER_VERSION:-5.0}
 ENV JMETER_HOME /jmeter/apache-jmeter-$JMETER_VERSION/
 ENV PATH $JMETER_HOME/bin:$PATH
 ENV TEST_DIR /jmeter
+ENV IS_UNIX 1
 
 # INSTALL PRE-REQ
 RUN apt-get update && \
     apt-get -y install \
-    wget  unzip
+    wget unzip vim httpie
 
 # INSTALL JMETER BASE 
 RUN mkdir /jmeter
