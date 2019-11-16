@@ -101,7 +101,9 @@ kubectl exec -it $MASTER_NAME -- /bin/bash
 `kubectl get pods | grep 'wdias-performance-test-master' | awk '{print $1}' | xargs -o -I {} kubectl cp default/{}:/jmeter/logs/wdias_grid.jtl ./logs/wdias_grid.jtl`
 - Copy all result files from container to local
 `<./test-plan/logs.txt | xargs  -n1  -I {} kubectl cp default/$(kubectl get pods -l wdias=jmeter-master -o jsonpath='{.items[*].metadata.name}'):/jmeter/logs/{}.jtl ./logs/{}.jtl`
+(UNIX) - `cat ./test-plan/logs.txt | xargs  -n1  -I {} kubectl cp default/$(kubectl get pods -l wdias=jmeter-master -o jsonpath='{.items[*].metadata.name}'):/jmeter/logs/{}.jtl ./logs/{}.jtl`
 - Copy from Remote server to local
 `scp -i ~/.ssh/id_rsa.pem ubuntu@IP_ADDRESS:~/wdias/wdias-performance-test/logs/wdias_flow.jtl .`
 - Copy all result files from Remote server to local
 `<./test-plan/logs.txt | xargs  -n1  -I {} scp -i ~/.ssh/id_rsa.pem ubuntu@IP_ADDRESS:~/wdias/wdias-performance-test/logs/{}.jtl ./aws_logs`
+(UNIX) `cat ./test-plan/logs.txt | xargs  -n1  -I {} scp -i ~/.ssh/id_rsa.pem ubuntu@IP_ADDRESS:~/wdias/wdias-performance-test/logs/{}.jtl ./aws_logs`
