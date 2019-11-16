@@ -11,8 +11,8 @@ ROOT_DIR=${1-$DIR}
 shift
 test_cmd=$@
 echo "Set ROOT_DIR=$ROOT_DIR"
-echo "Make sure wdias-performance-test repo avaiable in $ROOT_DIR"
-CMD="$ROOT_DIR/wdias-performance-test/bin/macos/test-dev"
+echo "Make sure all wdias-performance-test repo files and dirs avaiable in $ROOT_DIR"
+CMD="$ROOT_DIR/bin/macos/test-dev"
 
 exec_all_req_size() {
   echo "Execute for all req sizes"
@@ -126,17 +126,17 @@ test_help() {
     - REQ_SIZE (optional): 24(1) | 288(2) | 1044(3)
   NOTE: Modify test.conf as necessary
   e.g.
-  $progName ~/wdias run
-  $progName ~/wdias run 2
+  $progName ~/wdias/wdias-performance-test run
+  $progName ~/wdias/wdias-performance-test run 2
   - Run all the steps in order of setup, import, create_extension, extension, export, all, query
 
-  $progName ~/wdias setup
-  $progName ~/wdias import 24
-  $progName ~/wdias create_extension 24
-  $progName ~/wdias extension 24
-  $progName ~/wdias export 24
-  $progName ~/wdias all 24
-  $progName ~/wdias query 24
+  $progName ~/wdias/wdias-performance-test setup
+  $progName ~/wdias/wdias-performance-test import 24
+  $progName ~/wdias/wdias-performance-test create_extension 24
+  $progName ~/wdias/wdias-performance-test extension 24
+  $progName ~/wdias/wdias-performance-test export 24
+  $progName ~/wdias/wdias-performance-test all 24
+  $progName ~/wdias/wdias-performance-test query 24
   "
 }
 
