@@ -120,6 +120,19 @@ test_run() {
   test_query $@
   echo "Successfully run full test plan"
 }
+# ----
+test_grid() {
+  REQ_SIZE=$1
+  echo "EXTRA: Grid Timeseries: ${REQ_SIZE}"
+  $CMD enable Grid
+  if [[ -z ${REQ_SIZE} ]]; then
+    exec_all_req_size
+  else
+    $CMD run ${REQ_SIZE}
+  fi
+  $CMD disable Grid
+  echo "EXTRA: Grid: ${REQ_SIZE} \n"
+}
 
 test_help() {
   progName=`basename "$0"`
