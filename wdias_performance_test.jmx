@@ -36,6 +36,12 @@
             <stringProp name="Argument.metadata">=</stringProp>
             <stringProp name="Argument.desc">Hourly=24, 5Min=288, 1Min=1440</stringProp>
           </elementProp>
+          <elementProp name="metadataSize" elementType="Argument">
+            <stringProp name="Argument.name">metadataSize</stringProp>
+            <stringProp name="Argument.value">${__P(metadataSize,1000)}</stringProp>
+            <stringProp name="Argument.desc">Size of ts_metadata. Number of timeseries</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
           <elementProp name="date" elementType="Argument">
             <stringProp name="Argument.name">date</stringProp>
             <stringProp name="Argument.value">${__P(date,2017-01-01)}</stringProp>
@@ -139,6 +145,12 @@
             <stringProp name="Argument.value">${__P(reqSize,24)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
             <stringProp name="Argument.desc">Hourly=24, 5Min=288, 1Min=1440</stringProp>
+          </elementProp>
+          <elementProp name="metadataSize" elementType="Argument">
+            <stringProp name="Argument.name">metadataSize</stringProp>
+            <stringProp name="Argument.value">${__P(metadataSize,1000)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+            <stringProp name="Argument.desc">Size of ts_metadata. Number of timeseries</stringProp>
           </elementProp>
           <elementProp name="date" elementType="Argument">
             <stringProp name="Argument.name">date</stringProp>
@@ -303,13 +315,13 @@
         </ResultCollector>
         <hashTree/>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Create Timeseries API" enabled="false">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="WDIAS-CreateTimeseries Thread Group" enabled="false">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
           <stringProp name="LoopController.loops">1</stringProp>
         </elementProp>
-        <stringProp name="ThreadGroup.num_threads">1</stringProp>
+        <stringProp name="ThreadGroup.num_threads">${metadataSize}</stringProp>
         <stringProp name="ThreadGroup.ramp_time">1</stringProp>
         <boolProp name="ThreadGroup.scheduler">false</boolProp>
         <stringProp name="ThreadGroup.duration"></stringProp>
@@ -342,9 +354,9 @@
           <boolProp name="ignoreFirstLine">true</boolProp>
           <stringProp name="delimiter">;</stringProp>
           <boolProp name="quotedData">false</boolProp>
-          <boolProp name="recycle">true</boolProp>
+          <boolProp name="recycle">false</boolProp>
           <boolProp name="stopThread">true</boolProp>
-          <stringProp name="shareMode">shareMode.all</stringProp>
+          <stringProp name="shareMode">shareMode.group</stringProp>
         </CSVDataSet>
         <hashTree/>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Create Timeseries SVG" enabled="true">
@@ -443,7 +455,7 @@ if(timeseriesId.length() != 64){
           </JSR223Assertion>
           <hashTree/>
         </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get Timeseries SVG" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Query Timeseries SVG" enabled="true">
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
             <collectionProp name="Arguments.arguments"/>
           </elementProp>
@@ -463,6 +475,14 @@ if(timeseriesId.length() != 64){
           <stringProp name="TestPlan.comments">Search based on DataType Scalar, Vector or Grid</stringProp>
         </HTTPSamplerProxy>
         <hashTree>
+          <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="csv_to_timeseries_query_string .groovy" enabled="true">
+            <stringProp name="scriptLanguage">groovy</stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="filename">./scripts/csv_to_timeseries_query_string.groovy</stringProp>
+            <stringProp name="cacheKey">true</stringProp>
+            <stringProp name="script"></stringProp>
+          </JSR223PreProcessor>
+          <hashTree/>
           <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Should return timeseries" enabled="true">
             <stringProp name="JSON_PATH">$.[0].timeseriesId</stringProp>
             <stringProp name="EXPECTED_VALUE"></stringProp>
@@ -492,86 +512,41 @@ if(timeseriesId.length() != 64){
             <stringProp name="scriptLanguage">groovy</stringProp>
           </JSR223Assertion>
           <hashTree/>
-          <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="csv_to_timeseries_query_string .groovy" enabled="true">
+          <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="Write to file with timeseriesId" enabled="true">
+            <stringProp name="cacheKey">true</stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="script">id = vars.get(&quot;id&quot;).trim()
+timeseriesId = vars.get(&quot;timeseriesId&quot;).trim()
+moduleId = vars.get(&quot;moduleId&quot;).trim()
+valueType = vars.get(&quot;valueType&quot;).trim()
+parameter = vars.get(&quot;parameter&quot;).trim()
+location = vars.get(&quot;location&quot;).trim()
+timeseriesType = vars.get(&quot;timeseriesType&quot;).trim()
+timeStep = vars.get(&quot;timeStep&quot;).trim()
+
+f = new File(&apos;./data/ts_meta_created.csv&apos;)
+f.append(&quot;${id}; ${timeseriesId}; ${moduleId}; ${valueType}; ${parameter}; ${location}; ${timeseriesType}; ${timeStep}&quot;)
+</stringProp>
+            <stringProp name="scriptLanguage">groovy</stringProp>
+          </JSR223PostProcessor>
+          <hashTree/>
+        </hashTree>
+        <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If Last Line" enabled="true">
+          <stringProp name="TestPlan.comments">https://stackoverflow.com/a/50207085</stringProp>
+          <stringProp name="IfController.condition">${__groovy(vars.get(&apos;id&apos;).trim().equals(vars.get(&apos;metadataSize&apos;).trim()),)}</stringProp>
+          <boolProp name="IfController.evaluateAll">false</boolProp>
+          <boolProp name="IfController.useExpression">true</boolProp>
+        </IfController>
+        <hashTree>
+          <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="create_timeseries_rearrange_metadata .groovy" enabled="true">
             <stringProp name="scriptLanguage">groovy</stringProp>
             <stringProp name="parameters"></stringProp>
-            <stringProp name="filename">./scripts/csv_to_timeseries_query_string.groovy</stringProp>
+            <stringProp name="filename">./scripts/create_timeseries_rearrange_metadata.groovy</stringProp>
             <stringProp name="cacheKey">true</stringProp>
             <stringProp name="script"></stringProp>
           </JSR223PreProcessor>
           <hashTree/>
-        </hashTree>
-        <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If Scalar Or Vector" enabled="true">
-          <stringProp name="TestPlan.comments">https://stackoverflow.com/a/50207085</stringProp>
-          <stringProp name="IfController.condition">${__groovy((!vars.get(&apos;valueType&apos;).trim().equals(&apos;Grid&apos;)),)}</stringProp>
-          <boolProp name="IfController.evaluateAll">false</boolProp>
-          <boolProp name="IfController.useExpression">true</boolProp>
-        </IfController>
-        <hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Insert Timeseries" enabled="true">
-            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
-              <collectionProp name="Arguments.arguments"/>
-            </elementProp>
-            <stringProp name="HTTPSampler.domain">${svc_import-json-raw}.${DOMAIN}</stringProp>
-            <stringProp name="HTTPSampler.port"></stringProp>
-            <stringProp name="HTTPSampler.protocol"></stringProp>
-            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-            <stringProp name="HTTPSampler.path">/import/json/raw/${timeseriesId}</stringProp>
-            <stringProp name="HTTPSampler.method">POST</stringProp>
-            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-            <stringProp name="HTTPSampler.response_timeout"></stringProp>
-          </HTTPSamplerProxy>
-          <hashTree>
-            <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="csv_ts_to_json_array .groovy" enabled="true">
-              <stringProp name="cacheKey">true</stringProp>
-              <stringProp name="filename">./scripts/csv_ts_to_json_array.groovy</stringProp>
-              <stringProp name="parameters"></stringProp>
-              <stringProp name="script"></stringProp>
-              <stringProp name="scriptLanguage">groovy</stringProp>
-            </JSR223PreProcessor>
-            <hashTree/>
-          </hashTree>
-        </hashTree>
-        <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If Grid" enabled="true">
-          <stringProp name="TestPlan.comments">https://stackoverflow.com/a/50207085</stringProp>
-          <stringProp name="IfController.condition">${__groovy((vars.get(&apos;valueType&apos;).trim().equals(&apos;Grid&apos;)),)}</stringProp>
-          <boolProp name="IfController.evaluateAll">false</boolProp>
-          <boolProp name="IfController.useExpression">true</boolProp>
-        </IfController>
-        <hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Insert Grid Timeseries" enabled="true">
-            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
-              <collectionProp name="Arguments.arguments"/>
-            </elementProp>
-            <stringProp name="HTTPSampler.domain">${svc_import-ascii-grid-upload}.${DOMAIN}</stringProp>
-            <stringProp name="HTTPSampler.port"></stringProp>
-            <stringProp name="HTTPSampler.protocol"></stringProp>
-            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-            <stringProp name="HTTPSampler.path">/import/ascii-grid/upload/${timeseriesId}</stringProp>
-            <stringProp name="HTTPSampler.method">POST</stringProp>
-            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-            <stringProp name="HTTPSampler.response_timeout"></stringProp>
-          </HTTPSamplerProxy>
-          <hashTree>
-            <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="grid_ascii_file_upload .groovy" enabled="true">
-              <stringProp name="cacheKey">true</stringProp>
-              <stringProp name="filename">./scripts/grid_ascii_file_upload.groovy</stringProp>
-              <stringProp name="parameters"></stringProp>
-              <stringProp name="script"></stringProp>
-              <stringProp name="scriptLanguage">groovy</stringProp>
-            </JSR223PreProcessor>
-            <hashTree/>
-          </hashTree>
         </hashTree>
         <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
           <boolProp name="ResultCollector.error_logging">false</boolProp>

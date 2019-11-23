@@ -96,7 +96,7 @@ I that is not the case, it need to call via internal service calls. In order to 
 ```sh
 export MASTER_NAME=$(kubectl get pods -l wdias=jmeter-master -o jsonpath='{.items[*].metadata.name}')
 export SERVER_IPS=$(kubectl get pods -lrole=server -o jsonpath='{.items[*].status.podIP}' | tr ' ' ',')
-kubectl exec -it $MASTER_NAME -- bash -c "export SERVER_IPS=${SERVER_IPS}; ./test-plan/test_plan.sh /jmeter run 24"
+kubectl exec -it $MASTER_NAME -- bash -c "export SERVER_IPS=${SERVER_IPS}; ./test-plan/test_plan.sh /jmeter run 24" &
 ---
 kubectl exec -it $MASTER_NAME -- jmeter -n -t /jmeter/wdias_performance_test.jmx -R $SERVER_IPS
 kubectl exec -it $MASTER_NAME -- /bin/bash
