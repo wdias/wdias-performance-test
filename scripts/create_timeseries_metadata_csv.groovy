@@ -126,10 +126,10 @@ def getUnique() {
 }
 
 // -- main
-file = new File('./data/ts_meta.csv')
+file = new File('./data/ts_meta_original.csv')
 file.write("id; moduleId; valueType; parameter; location; timeseriesType; timeStep")
 // -- grid
-fileGrid = new File('./data/ts_meta_grid.csv')
+fileGrid = new File('./data/ts_meta_grid_original.csv')
 fileGrid.write("id; moduleId; valueType; parameter; location; timeseriesType; timeStep")
 def id = 0
 def gridId = 0

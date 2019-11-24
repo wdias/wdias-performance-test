@@ -9,22 +9,17 @@ String location = vars.get("location").trim()
 String timeseriesType = vars.get("timeseriesType").trim()
 String timeStep = vars.get("timeStep").trim()
 
-f = new File('./data/ts_meta_created.csv')
-if (id == "1") {
-    log.info("Delete file.......... Id: ${id}");
-    f.delete()
+def metadataFile = new File('./data/ts_meta_tmp.csv')
+if (id == "1" && metadataFile.exists()) {
+    log.info("Delete metadata file.......... Id: ${id}");
+    metadataFile.delete()
 }
-f.append("\n${id}; ${timeseriesId}; ${moduleId}; ${valueType}; ${parameter}; ${location}; ${timeseriesType}; ${timeStep}")
+metadataFile.append("\n${id}; ${timeseriesId}; ${moduleId}; ${valueType}; ${parameter}; ${location}; ${timeseriesType}; ${timeStep}")
+// log.info("\n${id}; ${timeseriesId}; ${moduleId}; ${valueType}; ${parameter}; ${location}; ${timeseriesType}; ${timeStep}")
 
-log.info("\n${id}; ${timeseriesId}; ${moduleId}; ${valueType}; ${parameter}; ${location}; ${timeseriesType}; ${timeStep}")
-
-String metadataSize = vars.get("metadataSize").trim()
-if (id == '1000') {
-    @Field def noTS = 1000
-    @Field def gap = 10
-
+int metadataSize = vars.get("metadataSize").trim() as Integer
+if (id == "${metadataSize}") {
     @Field Map<Integer, String> timeseries = new HashMap<Integer, String>();
-    def metadataFile = new File('./data/ts_meta_created.csv')
     metadataFile.eachLine { line, number ->
         if (number == 1)
             return
@@ -35,19 +30,18 @@ if (id == '1000') {
     }
     timeseries = timeseries.sort { a, b -> a.key <=> b.key }
 
-    log.info('Rearrange ts metadata CSV ..........')
+    log.info("Rearrange ts metadata CSV <${timeseries.size()}> ..........")
     // -- main
-    file = new File('./data/ts_meta123.csv')
+    def file = new File('./data/ts_meta.csv')
+    if (file.exists()) {
+        file.delete()
+    }
     file.write("id; timeseriesId; moduleId; valueType; parameter; location; timeseriesType; timeStep")
-    // -- grid
-    fileGrid = new File('./data/ts_meta_grid123.csv')
-    fileGrid.write("id; timeseriesId; moduleId; valueType; parameter; location; timeseriesType; timeStep")
 
     timeseries.each { key, line ->
         file.append("\n${line}")
-        String[] str = line.split(';')
-        if ((str.length != 8) && str[3].trim() == 'Grid') {
-            fileGrid.append("\n${line}")
-        }
     }
+
+    // log.info("Rearrange Timeseries. Delete metadata file.......... Id: ${id}");
+    // f.delete()
 }
