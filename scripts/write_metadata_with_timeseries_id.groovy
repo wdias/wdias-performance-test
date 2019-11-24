@@ -14,8 +14,8 @@ if (id == "1" && metadataFile.exists()) {
     log.info("Delete metadata file.......... Id: ${id}");
     metadataFile.delete()
 }
-metadataFile.append("\n${id}; ${timeseriesId}; ${moduleId}; ${valueType}; ${parameter}; ${location}; ${timeseriesType}; ${timeStep}")
-// log.info("\n${id}; ${timeseriesId}; ${moduleId}; ${valueType}; ${parameter}; ${location}; ${timeseriesType}; ${timeStep}")
+metadataFile.append("\n${id};${timeseriesId}; ${moduleId}; ${valueType}; ${parameter}; ${location}; ${timeseriesType}; ${timeStep}")
+// log.info("\n${id};${timeseriesId}; ${moduleId}; ${valueType}; ${parameter}; ${location}; ${timeseriesType}; ${timeStep}")
 
 int metadataSize = vars.get("metadataSize").trim() as Integer
 if (id == "${metadataSize}") {
@@ -36,7 +36,7 @@ if (id == "${metadataSize}") {
     if (file.exists()) {
         file.delete()
     }
-    file.write("id; timeseriesId; moduleId; valueType; parameter; location; timeseriesType; timeStep")
+    file.write("id;timeseriesId; moduleId; valueType; parameter; location; timeseriesType; timeStep")
 
     timeseries.each { key, line ->
         file.append("\n${line}")

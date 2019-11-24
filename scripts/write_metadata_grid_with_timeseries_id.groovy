@@ -14,8 +14,8 @@ if (id == "1" && metadataGridFile.exists()) {
     log.info("Delete Grid metadata file.......... Id: ${id}");
     metadataGridFile.delete()
 }
-metadataGridFile.append("\n${id}; ${timeseriesId}; ${moduleId}; ${valueType}; ${parameter}; ${location}; ${timeseriesType}; ${timeStep}")
-// log.info("\n${id}; ${timeseriesId}; ${moduleId}; ${valueType}; ${parameter}; ${location}; ${timeseriesType}; ${timeStep}")
+metadataGridFile.append("\n${id};${timeseriesId}; ${moduleId}; ${valueType}; ${parameter}; ${location}; ${timeseriesType}; ${timeStep}")
+// log.info("\n${id};${timeseriesId}; ${moduleId}; ${valueType}; ${parameter}; ${location}; ${timeseriesType}; ${timeStep}")
 
 int metadataGridSize = vars.get("metadataGridSize").trim() as Integer
 if (id == "${metadataGridSize}") {
@@ -36,7 +36,7 @@ if (id == "${metadataGridSize}") {
     if (fileGrid.exists()) {
         fileGrid.delete()
     }
-    fileGrid.write("id; timeseriesId; moduleId; valueType; parameter; location; timeseriesType; timeStep")
+    fileGrid.write("id;timeseriesId; moduleId; valueType; parameter; location; timeseriesType; timeStep")
 
     gridTimeseries.each { key, line ->
         fileGrid.append("\n${line}")
