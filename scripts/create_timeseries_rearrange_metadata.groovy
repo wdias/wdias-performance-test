@@ -13,8 +13,9 @@ metadataFile.eachLine { line, number ->
         return
     timeseries.put(str[0].trim() as Integer, line)
 }
-timeseries = timeseries.sort {a,b -> a.value < b.value}
+timeseries = timeseries.sort {a,b -> a.key > b.key}
 
+log.info('Rearrange ts metadata CSV ..........')
 // -- main
 file = new File('./data/ts_meta123.csv')
 file.write("id; timeseriesId; moduleId; valueType; parameter; location; timeseriesType; timeStep")

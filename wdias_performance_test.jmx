@@ -316,12 +316,12 @@
         <hashTree/>
       </hashTree>
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="WDIAS-CreateTimeseries Thread Group" enabled="false">
-        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <stringProp name="ThreadGroup.on_sample_error">stoptestnow</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
-          <stringProp name="LoopController.loops">1</stringProp>
+          <stringProp name="LoopController.loops">50</stringProp>
         </elementProp>
-        <stringProp name="ThreadGroup.num_threads">${metadataSize}</stringProp>
+        <stringProp name="ThreadGroup.num_threads">20</stringProp>
         <stringProp name="ThreadGroup.ramp_time">1</stringProp>
         <boolProp name="ThreadGroup.scheduler">false</boolProp>
         <stringProp name="ThreadGroup.duration"></stringProp>
@@ -338,7 +338,7 @@
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
           <stringProp name="HTTPSampler.path"></stringProp>
           <stringProp name="HTTPSampler.concurrentPool">6</stringProp>
-          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout">5000</stringProp>
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
         </ConfigTestElement>
         <hashTree/>
@@ -445,7 +445,8 @@
             <stringProp name="filename"></stringProp>
             <stringProp name="parameters"></stringProp>
             <stringProp name="script">String timeseriesId = vars.get(&quot;timeseriesId&quot;);
-log.info(&quot;TimeseriesId:&quot;, timeseriesId);
+String id = vars.get(&quot;id&quot;).trim()
+log.info(&quot;Get Timeseries: ${timeseriesId} &gt; Id: ${id}&quot;);
 if(timeseriesId.length() != 64){
 	AssertionResult.setFailureMessage(&quot;The Timeseries Id is wrong&quot;);
 	AssertionResult.setFailure(true);
@@ -475,14 +476,6 @@ if(timeseriesId.length() != 64){
           <stringProp name="TestPlan.comments">Search based on DataType Scalar, Vector or Grid</stringProp>
         </HTTPSamplerProxy>
         <hashTree>
-          <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="csv_to_timeseries_query_string .groovy" enabled="true">
-            <stringProp name="scriptLanguage">groovy</stringProp>
-            <stringProp name="parameters"></stringProp>
-            <stringProp name="filename">./scripts/csv_to_timeseries_query_string.groovy</stringProp>
-            <stringProp name="cacheKey">true</stringProp>
-            <stringProp name="script"></stringProp>
-          </JSR223PreProcessor>
-          <hashTree/>
           <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Should return timeseries" enabled="true">
             <stringProp name="JSON_PATH">$.[0].timeseriesId</stringProp>
             <stringProp name="EXPECTED_VALUE"></stringProp>
@@ -503,7 +496,7 @@ if(timeseriesId.length() != 64){
             <stringProp name="filename"></stringProp>
             <stringProp name="parameters"></stringProp>
             <stringProp name="script">String timeseriesId = vars.get(&quot;timeseriesId&quot;);
-log.info(&quot;TimeseriesId:&quot;, timeseriesId);
+log.info(&quot;Query TimeseriesId: &quot; + timeseriesId);
 if(timeseriesId.length() != 64){
 	AssertionResult.setFailureMessage(&quot;The Timeseries Id is wrong&quot;);
 	AssertionResult.setFailure(true);
@@ -512,40 +505,21 @@ if(timeseriesId.length() != 64){
             <stringProp name="scriptLanguage">groovy</stringProp>
           </JSR223Assertion>
           <hashTree/>
-          <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="Write to file with timeseriesId" enabled="true">
-            <stringProp name="cacheKey">true</stringProp>
-            <stringProp name="filename"></stringProp>
-            <stringProp name="parameters"></stringProp>
-            <stringProp name="script">id = vars.get(&quot;id&quot;).trim()
-timeseriesId = vars.get(&quot;timeseriesId&quot;).trim()
-moduleId = vars.get(&quot;moduleId&quot;).trim()
-valueType = vars.get(&quot;valueType&quot;).trim()
-parameter = vars.get(&quot;parameter&quot;).trim()
-location = vars.get(&quot;location&quot;).trim()
-timeseriesType = vars.get(&quot;timeseriesType&quot;).trim()
-timeStep = vars.get(&quot;timeStep&quot;).trim()
-
-f = new File(&apos;./data/ts_meta_created.csv&apos;)
-f.append(&quot;${id}; ${timeseriesId}; ${moduleId}; ${valueType}; ${parameter}; ${location}; ${timeseriesType}; ${timeStep}&quot;)
-</stringProp>
-            <stringProp name="scriptLanguage">groovy</stringProp>
-          </JSR223PostProcessor>
-          <hashTree/>
-        </hashTree>
-        <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If Last Line" enabled="true">
-          <stringProp name="TestPlan.comments">https://stackoverflow.com/a/50207085</stringProp>
-          <stringProp name="IfController.condition">${__groovy(vars.get(&apos;id&apos;).trim().equals(vars.get(&apos;metadataSize&apos;).trim()),)}</stringProp>
-          <boolProp name="IfController.evaluateAll">false</boolProp>
-          <boolProp name="IfController.useExpression">true</boolProp>
-        </IfController>
-        <hashTree>
-          <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="create_timeseries_rearrange_metadata .groovy" enabled="true">
+          <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="csv_to_timeseries_query_string .groovy" enabled="true">
             <stringProp name="scriptLanguage">groovy</stringProp>
             <stringProp name="parameters"></stringProp>
-            <stringProp name="filename">./scripts/create_timeseries_rearrange_metadata.groovy</stringProp>
+            <stringProp name="filename">./scripts/csv_to_timeseries_query_string.groovy</stringProp>
             <stringProp name="cacheKey">true</stringProp>
             <stringProp name="script"></stringProp>
           </JSR223PreProcessor>
+          <hashTree/>
+          <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="write_metadata_with_timeseries_id .groovy" enabled="true">
+            <stringProp name="cacheKey">true</stringProp>
+            <stringProp name="filename">./scripts/write_metadata_with_timeseries_id.groovy</stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="script"></stringProp>
+            <stringProp name="scriptLanguage">groovy</stringProp>
+          </JSR223PostProcessor>
           <hashTree/>
         </hashTree>
         <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
@@ -568,6 +542,43 @@ f.append(&quot;${id}; ${timeseriesId}; ${moduleId}; ${valueType}; ${parameter}; 
               <responseData>false</responseData>
               <samplerData>false</samplerData>
               <xml>true</xml>
+              <fieldNames>true</fieldNames>
+              <responseHeaders>false</responseHeaders>
+              <requestHeaders>false</requestHeaders>
+              <responseDataOnError>false</responseDataOnError>
+              <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+              <assertionsResultsToSave>0</assertionsResultsToSave>
+              <bytes>true</bytes>
+              <sentBytes>true</sentBytes>
+              <url>true</url>
+              <threadCounts>true</threadCounts>
+              <idleTime>true</idleTime>
+              <connectTime>true</connectTime>
+            </value>
+          </objProp>
+          <stringProp name="filename"></stringProp>
+        </ResultCollector>
+        <hashTree/>
+        <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="Summary Report" enabled="true">
+          <boolProp name="ResultCollector.error_logging">false</boolProp>
+          <objProp>
+            <name>saveConfig</name>
+            <value class="SampleSaveConfiguration">
+              <time>true</time>
+              <latency>true</latency>
+              <timestamp>true</timestamp>
+              <success>true</success>
+              <label>true</label>
+              <code>true</code>
+              <message>true</message>
+              <threadName>true</threadName>
+              <dataType>true</dataType>
+              <encoding>false</encoding>
+              <assertions>true</assertions>
+              <subresults>true</subresults>
+              <responseData>false</responseData>
+              <samplerData>false</samplerData>
+              <xml>false</xml>
               <fieldNames>true</fieldNames>
               <responseHeaders>false</responseHeaders>
               <requestHeaders>false</requestHeaders>
