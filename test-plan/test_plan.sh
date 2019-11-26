@@ -32,6 +32,7 @@ exec_all_once_req_size() {
 test_setup() {
   echo "1. Setup Test"
   $CMD once 24 Setup # Independent of ReqSize
+  $CMD once 24 CreateTimeseries # Independent of ReqSize
   echo "Done 1. Setup \n"
 }
 
@@ -120,7 +121,14 @@ test_run() {
   test_query $@
   echo "Successfully run full test plan"
 }
-# ----
+
+# ---- Grid Setup
+test_setup_grid() {
+  echo "EXTRA: Setup Grid Test"
+  $CMD once 24 Setup # Independent of ReqSize
+  $CMD once 24 CreateGridTimeseries # Independent of ReqSize
+  echo "EXTRA: Done. Setup Grid \n"
+}
 test_grid() {
   REQ_SIZE=$1
   echo "EXTRA: Grid Timeseries: ${REQ_SIZE}"
@@ -132,6 +140,12 @@ test_grid() {
   fi
   $CMD disable Grid
   echo "EXTRA: Grid: ${REQ_SIZE} \n"
+}
+test_run_grid() {
+  echo "EXTRA: Start running Grid test plan : $@"
+  test_setup_grid $@
+  test_grid $@
+  echo "EXTRA: Successfully run Grid test plan"
 }
 
 test_help() {
