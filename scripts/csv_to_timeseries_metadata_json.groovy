@@ -35,10 +35,3 @@ sampler.getHeaderManager().removeHeaderNamed("Content-Type");
 sampler.getHeaderManager().add(new Header("Content-Type", "application/json"));
 sampler.addNonEncodedArgument("", jsonBuilder.toPrettyString(), "")
 sampler.setPostBodyRaw(true)
-
-log.info("id:" + id)
-if (id == 100) {
-    Date date = Date.parse("yyyy-MM-dd", dateStr) + 1
-    JMeterUtils.setProperty("date", date.format("yyyy-MM-dd"))
-    log.info("Increment date to :" + date.format("yyyy-MM-dd"))
-}

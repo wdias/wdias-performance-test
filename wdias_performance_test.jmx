@@ -48,6 +48,11 @@
             <stringProp name="Argument.metadata">=</stringProp>
             <stringProp name="Argument.desc">Size of ts_metadata Grid. Number of timeseries</stringProp>
           </elementProp>
+          <elementProp name="realData" elementType="Argument">
+            <stringProp name="Argument.name">realData</stringProp>
+            <stringProp name="Argument.value">${__P(realData,true)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
           <elementProp name="date" elementType="Argument">
             <stringProp name="Argument.name">date</stringProp>
             <stringProp name="Argument.value">${__P(date,2017-01-01)}</stringProp>
@@ -163,6 +168,11 @@
             <stringProp name="Argument.value">${__P(metadataGridSize,100)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
             <stringProp name="Argument.desc">Size of ts_metadata Grid. Number of timeseries</stringProp>
+          </elementProp>
+          <elementProp name="realData" elementType="Argument">
+            <stringProp name="Argument.name">realData</stringProp>
+            <stringProp name="Argument.value">${__P(realData,true)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="date" elementType="Argument">
             <stringProp name="Argument.name">date</stringProp>
@@ -729,6 +739,14 @@ if(timeseriesId.length() != 64){
             <hashTree/>
           </hashTree>
         </hashTree>
+        <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="increment_date .groovy" enabled="true">
+          <stringProp name="scriptLanguage">groovy</stringProp>
+          <stringProp name="parameters"></stringProp>
+          <stringProp name="filename">./scripts/increment_date.groovy</stringProp>
+          <stringProp name="cacheKey">true</stringProp>
+          <stringProp name="script"></stringProp>
+        </JSR223PostProcessor>
+        <hashTree/>
         <kg.apc.jmeter.timers.VariableThroughputTimer guiclass="kg.apc.jmeter.timers.VariableThroughputTimerGui" testclass="kg.apc.jmeter.timers.VariableThroughputTimer" testname="tst-timer-wdias_prod_backup" enabled="false">
           <collectionProp name="load_profile">
             <collectionProp name="1305206028">
@@ -1550,6 +1568,14 @@ if(timeseriesId.length() != 64){
           <stringProp name="script"></stringProp>
         </JSR223Sampler>
         <hashTree/>
+        <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="increment_date .groovy" enabled="true">
+          <stringProp name="scriptLanguage">groovy</stringProp>
+          <stringProp name="parameters"></stringProp>
+          <stringProp name="filename">./scripts/increment_date.groovy</stringProp>
+          <stringProp name="cacheKey">true</stringProp>
+          <stringProp name="script"></stringProp>
+        </JSR223PostProcessor>
+        <hashTree/>
         <kg.apc.jmeter.timers.VariableThroughputTimer guiclass="kg.apc.jmeter.timers.VariableThroughputTimerGui" testclass="kg.apc.jmeter.timers.VariableThroughputTimer" testname="tst-timer-extension_dev" enabled="false">
           <collectionProp name="load_profile">
             <collectionProp name="1759787457">
@@ -1899,6 +1925,14 @@ if(timeseriesId.length() != 64){
             <hashTree/>
           </hashTree>
         </hashTree>
+        <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="increment_date .groovy" enabled="true">
+          <stringProp name="scriptLanguage">groovy</stringProp>
+          <stringProp name="parameters"></stringProp>
+          <stringProp name="filename">./scripts/increment_date.groovy</stringProp>
+          <stringProp name="cacheKey">true</stringProp>
+          <stringProp name="script"></stringProp>
+        </JSR223PostProcessor>
+        <hashTree/>
         <kg.apc.jmeter.timers.VariableThroughputTimer guiclass="kg.apc.jmeter.timers.VariableThroughputTimerGui" testclass="kg.apc.jmeter.timers.VariableThroughputTimer" testname="tst-timer-export_dev" enabled="false">
           <collectionProp name="load_profile">
             <collectionProp name="1759787457">
@@ -2705,6 +2739,14 @@ vars.put(&quot;lon2&quot;, (lon + width/2).toString())
             <hashTree/>
           </hashTree>
         </hashTree>
+        <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="increment_date .groovy" enabled="true">
+          <stringProp name="scriptLanguage">groovy</stringProp>
+          <stringProp name="parameters"></stringProp>
+          <stringProp name="filename">./scripts/increment_date.groovy</stringProp>
+          <stringProp name="cacheKey">true</stringProp>
+          <stringProp name="script"></stringProp>
+        </JSR223PostProcessor>
+        <hashTree/>
         <kg.apc.jmeter.timers.VariableThroughputTimer guiclass="kg.apc.jmeter.timers.VariableThroughputTimerGui" testclass="kg.apc.jmeter.timers.VariableThroughputTimer" testname="tst-timer-all_dev" enabled="false">
           <collectionProp name="load_profile">
             <collectionProp name="1759787457">
@@ -3509,6 +3551,14 @@ vars.put(&quot;lon2&quot;, (lon + width/2).toString())
           </JSONPathAssertion>
           <hashTree/>
         </hashTree>
+        <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="increment_date .groovy" enabled="true">
+          <stringProp name="scriptLanguage">groovy</stringProp>
+          <stringProp name="parameters"></stringProp>
+          <stringProp name="filename">./scripts/increment_date.groovy</stringProp>
+          <stringProp name="cacheKey">true</stringProp>
+          <stringProp name="script"></stringProp>
+        </JSR223PostProcessor>
+        <hashTree/>
         <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
           <boolProp name="ResultCollector.error_logging">false</boolProp>
           <objProp>
@@ -4811,6 +4861,14 @@ if(timeseriesId.length() != 64){
           </SizeAssertion>
           <hashTree/>
         </hashTree>
+        <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="increment_date .groovy" enabled="true">
+          <stringProp name="scriptLanguage">groovy</stringProp>
+          <stringProp name="parameters">Grid</stringProp>
+          <stringProp name="filename">./scripts/increment_date.groovy</stringProp>
+          <stringProp name="cacheKey">true</stringProp>
+          <stringProp name="script"></stringProp>
+        </JSR223PostProcessor>
+        <hashTree/>
         <kg.apc.jmeter.timers.VariableThroughputTimer guiclass="kg.apc.jmeter.timers.VariableThroughputTimerGui" testclass="kg.apc.jmeter.timers.VariableThroughputTimer" testname="tst-timer-grid_debug" enabled="false">
           <collectionProp name="load_profile">
             <collectionProp name="82806268">
