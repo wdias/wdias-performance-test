@@ -6,6 +6,18 @@ def reqSizeMap = [
         288 : 'ts_5min',
         1440: 'ts_1min'
 ]
+def reqSizeRealDataMap = [
+        24  : 60,
+        288 : 30,
+        1440: 15
+]
+def locationMap = [
+        0: 'attidiya',
+        1: 'battaramulla',
+        2: 'ibattara',
+        3: 'kottawa',
+        4: 'waga'
+]
 
 class Point {
     String time;
@@ -14,9 +26,18 @@ class Point {
 
 List<Point> pointList = new ArrayList<>()
 
-def reqSize = vars.get("reqSize") as Integer
+int id = vars.get("id") as Integer
+int reqSize = vars.get("reqSize") as Integer
+String date = JMeterUtils.getPropDefault("date", "2017-01-01").trim()
+boolean realData = vars.get("realData") as Boolean
+
 //log.info("Req Size:" + reqSizeMap.get(reqSize))
-def file = new File("./data/${reqSizeMap.get(reqSize)}.csv")
+String day = date.split('-')[2]
+File file = new File("./data/${reqSizeMap.get(reqSize)}.csv")
+if (realData) {
+    String location = locationMap.get((id + day.toInteger()) % 5)
+    file = new File("./precipitation/${reqSizeRealDataMap.get(reqSize)}_min/${location}/2019-07-${day}_${location}.csv")
+}
 file.eachLine { line, number ->
     if (number == 1)
         return
