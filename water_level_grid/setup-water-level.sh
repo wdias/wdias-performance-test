@@ -114,9 +114,9 @@ setup_extract_60() {
     cd ..
 }
 setup_extract() {
-    extract_15
-    extract_30
-    extract_60
+    setup_extract_15
+    setup_extract_30
+    setup_extract_60
 }
 
 

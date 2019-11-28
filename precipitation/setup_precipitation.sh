@@ -5,6 +5,16 @@ set -e
 
 setup_cleanup() {
     echo "Clean up"
+    declare -a locations=("attidiya" "battaramulla" "ibattara" "kottawa" "waga")
+    echo "Clean 123"
+
+    for dd in "${locations[@]}"
+    do
+        echo "cleaning ${dd}"
+        find "15_min/${dd}" -name "2019-07-*_${dd}.csv" -delete
+        find "30_min/${dd}" -name "2019-07-*_${dd}.csv" -delete
+        find "60_min/${dd}" -name "2019-07-*_${dd}.csv" -delete
+    done
 }
 
 setup_prepare() {
@@ -16,7 +26,7 @@ setup_prepare() {
 
     echo "Processing 15_min"
     cd 15_min
-    for dd in "${args[@]}"
+    for dd in "${locations[@]}"
     do
         echo ">>> 15_min/${dd}"
         tar -czf "$dd.tar.gz" $dd
@@ -28,7 +38,7 @@ setup_prepare() {
 
     echo "Processing 30_min"
     cd 30_min
-    for dd in "${args[@]}"
+    for dd in "${locations[@]}"
     do
         echo ">>> 30_min/${dd}"
         tar -czf "$dd.tar.gz" $dd
@@ -40,7 +50,7 @@ setup_prepare() {
 
     echo "Processing 60_min"
     cd 60_min
-    for dd in "${args[@]}"
+    for dd in "${locations[@]}"
     do
         echo ">>> 60_min/${dd}"
         tar -czf "$dd.tar.gz" $dd
@@ -76,9 +86,9 @@ setup_extract_60() {
     cd ..
 }
 setup_extract() {
-    extract_15
-    extract_30
-    extract_60
+    setup_extract_15
+    setup_extract_30
+    setup_extract_60
 }
 
 
