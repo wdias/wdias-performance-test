@@ -3,7 +3,17 @@ set -e
 # Extract zip waterlevel data
 # Rearrange into 15min,30min,60min interval waterlevel folders by date
 
-prepare() {
+setup_cleanup() {
+    rm -rf 60_min/2018-05-*/
+    rm -rf 30_min/2018-05-*/
+    rm -rf 15_min/2018-05-*/
+}
+
+hack_26() {
+    cp -R 2018-05-25 2018-05-26
+}
+
+setup_prepare() {
     zip_files_cnt=$(find . -name 'water_level_grid-2018-05-*.zip' | wc -l)
     if [ "$files" == "30" ]
     then
@@ -29,6 +39,7 @@ prepare() {
 
     echo "Processing 15_min"
     cd 15_min
+    hack_26
     for dd in $(ls -d 2018-05-*/ | cut -f1 -d'/'); do
         cd "$dd"
         echo ">>> 15_min/${dd}"
@@ -44,6 +55,7 @@ prepare() {
 
     echo "Processing 30_min"
     cd 30_min
+    hack_26
     for dd in $(ls -d 2018-05-*/ | cut -f1 -d'/'); do
         cd "$dd"
         echo ">>> 30_min/${dd}"
@@ -59,6 +71,7 @@ prepare() {
 
     echo "Processing 60_min"
     cd 60_min
+    hack_26
     for dd in $(ls -d 2018-05-*/ | cut -f1 -d'/'); do
         cd "$dd"
         echo ">>> 60_min/${dd}"
@@ -76,32 +89,49 @@ prepare() {
     find . -name 'water_level_grid-2018-05-*.zip' -delete
 }
 
-extract_15() {
+setup_extract_15() {
     echo "Extracting 15_min"
     tar -xzf 30_min.tar.gz
     cd 15_min
     find . -name '*.tar.gz' -exec tar -xzf {} \;
+    find . -name '*.tar.gz' -delete
     cd ..
 }
-extract_30() {
+setup_extract_30() {
     echo "Extracting 30_min"
     tar -xzf 30_min.tar.gz
     cd 30_min
     find . -name '*.tar.gz' -exec tar -xzf {} \;
+    find . -name '*.tar.gz' -delete
     cd ..
 }
-extract_60() {
+setup_extract_60() {
     echo "Extracting 60_min"
     tar -xzf 30_min.tar.gz
     cd 60_min
     find . -name '*.tar.gz' -exec tar -xzf {} \;
+    find . -name '*.tar.gz' -delete
     cd ..
 }
-extract() {
+setup_extract() {
     extract_15
     extract_30
     extract_60
 }
 
-# prepare
-extract
+
+setup_cmd=$1
+case $setup_cmd in
+  "" | "-h" | "--help")
+    setup_help
+    ;;
+  *)
+    shift
+    setup_${setup_cmd} $@
+    if [ $? = 127 ]; then
+      echo "'${setup_cmd}' command not found." >&2
+      echo "List available commands with '$progName --help'" >&2
+      exit 1
+    fi
+    ;;
+esac
