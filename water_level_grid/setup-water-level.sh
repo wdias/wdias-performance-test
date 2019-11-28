@@ -91,7 +91,7 @@ setup_prepare() {
 
 setup_extract_15() {
     echo "Extracting 15_min"
-    tar -xzf 30_min.tar.gz
+    tar -xzf 15_min.tar.gz
     cd 15_min
     find . -name '*.tar.gz' -exec tar -xzf {} \;
     find . -name '*.tar.gz' -delete
@@ -107,7 +107,7 @@ setup_extract_30() {
 }
 setup_extract_60() {
     echo "Extracting 60_min"
-    tar -xzf 30_min.tar.gz
+    tar -xzf 60_min.tar.gz
     cd 60_min
     find . -name '*.tar.gz' -exec tar -xzf {} \;
     find . -name '*.tar.gz' -delete
