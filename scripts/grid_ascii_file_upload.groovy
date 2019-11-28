@@ -12,20 +12,27 @@ def dateMap = [
         1440: '2017-05-26'
 ]
 
-def reqSize = vars.get("reqSize") as Integer
-def date = JMeterUtils.getPropDefault("date", "2017-01-01").trim()
+int reqSize = vars.get("reqSize") as Integer
+String date = JMeterUtils.getPropDefault("date", "2017-01-01").trim()
+boolean realData = vars.get("realData") as Boolean
 
-def noHr = 24
-def gap = reqSizeMap.get(reqSize)
-def noMin = 60 / gap
+int noHr = 24
+int gap = reqSizeMap.get(reqSize)
+int noMin = (int) (60 / gap)
 
 HTTPFileArgs filesToSend = new HTTPFileArgs()
 
 String dateStr = dateMap.get(reqSize)
+String day = date.split('-')[2]
 noHr.times {
     def hour = it
     noMin.times {
-        def path = "./water_level_grid/${gap}_min/${dateStr}_${String.format("%02d", hour)}-${String.format("%02d", it*gap)}-00.asc"
+        String path
+        if (realData) {
+            path = "./water_level_grid/${gap}_min/2018-05-${day}/2018-05-${day}_${String.format("%02d", hour)}-${String.format("%02d", it*gap)}-00.asc"
+        } else {
+            path = "./water_level_grid/${gap}_min/${dateStr}_${String.format("%02d", hour)}-${String.format("%02d", it*gap)}-00.asc"
+        }
         def paramName = "${date}T${String.format("%02d", hour)}:${String.format("%02d", it*gap)}:00Z"
         filesToSend.addHTTPFileArg(path, paramName, "text/plain")
     }
