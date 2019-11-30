@@ -39,7 +39,7 @@ setup_prepare() {
     for dd in "${locations[@]}"
     do
         echo ">>> 15_min/${dd}"
-        tar -czf "$dd.tar.gz" $dd
+        $TAR -czf "$dd.tar.gz" $dd
         # rm -rf $dd
     done
     cd ..
