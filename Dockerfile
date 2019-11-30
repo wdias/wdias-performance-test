@@ -10,7 +10,7 @@ ENV IS_UNIX 1
 # INSTALL PRE-REQ
 RUN apt-get update && \
     apt-get -y install \
-    wget unzip vim httpie
+    wget unzip vim httpie tar
 
 # INSTALL JMETER BASE 
 RUN mkdir /jmeter
@@ -23,6 +23,11 @@ RUN wget https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-$JMETER_V
     # cd /jmeter-plugins/ && \
     # wget https://jmeter-plugins.org/downloads/file/JMeterPlugins-ExtrasLibs-1.4.0.zip && \
     # unzip -o JMeterPlugins-ExtrasLibs-1.4.0.zip -d /jmeter/apache-jmeter-$JMETER_VERSION
+
+COPY precipitation precipitation
+RUN ./precipitation/setup_precipitation.sh extract
+COPY water_level_grid water_level_grid
+RUN ./water_level_grid/setup_water-level.sh extract
 
 WORKDIR $JMETER_HOME 
 EXPOSE 6000 1099 50000
