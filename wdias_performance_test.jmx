@@ -3059,9 +3059,9 @@ float lon = vars.get(&quot;lon&quot;) as Float
 float heigth = 2.0
 float width = 2.0
 vars.put(&quot;lat1&quot;, (lat - heigth/2).toString())
-vars.put(&quot;lat2&quot;, (lat + heigth/2).toString())
+vars.put(&quot;lat2&quot;, (Math.min(lat + heigth/2, 180)).toString())
 vars.put(&quot;lon1&quot;, (lon - width/2).toString())
-vars.put(&quot;lon2&quot;, (lon + width/2).toString())
+vars.put(&quot;lon2&quot;, (Math.min(lon + width/2, 180)).toString())
 </stringProp>
         </JSR223PreProcessor>
         <hashTree/>
@@ -3564,14 +3564,6 @@ vars.put(&quot;lon2&quot;, (lon + width/2).toString())
           </JSONPathAssertion>
           <hashTree/>
         </hashTree>
-        <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="increment_date .groovy" enabled="true">
-          <stringProp name="scriptLanguage">groovy</stringProp>
-          <stringProp name="parameters"></stringProp>
-          <stringProp name="filename">./scripts/increment_date.groovy</stringProp>
-          <stringProp name="cacheKey">true</stringProp>
-          <stringProp name="script"></stringProp>
-        </JSR223PostProcessor>
-        <hashTree/>
         <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
           <boolProp name="ResultCollector.error_logging">false</boolProp>
           <objProp>
