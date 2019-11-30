@@ -7,6 +7,11 @@ DIR=$(pwd)
 ROOT_DIR=${2-$DIR}
 echo "Set ROOT_DIR=$ROOT_DIR"
 cd $ROOT_DIR/water_level_grid
+TAR=$(which tar)
+if [ "${IS_UNIX:-0}" == "0" ]; then
+    # https://superuser.com/a/318810
+    TAR=$(which gtar)
+fi
 
 setup_cleanup() {
     rm -rf 60_min/2018-05-*/
@@ -25,7 +30,7 @@ setup_prepare() {
     echo "All zip files exists"
     else
         echo "zip files not found. ${zip_file_cnt}"
-        tar xzf waterlevel.tar.gz
+        $TAR xzf waterlevel.tar.gz
     fi
 
     set +e
@@ -51,11 +56,12 @@ setup_prepare() {
         find . -type f -not -name "water_level_grid-${dd}_*.asc" -delete
         ls | cut -c 18-40 | xargs -I '{}' mv water_level_grid-{} {}
         cd ..
-        tar -czf "$dd.tar.gz" $dd
+        $TAR -czf "$dd.tar.gz" $dd
         rm -rf $dd
     done
     cd ..
-    tar -czf 15_min.tar.gz --include='*.tar.gz' 15_min/*
+    # $TAR -czf 15_min.tar.gz --include='*.tar.gz' 15_min/*
+    find 15_min -name '*.tar.gz' | $TAR -czf 15_min.tar.gz --files-from -
     find 15_min -name '*.tar.gz' -delete
 
     echo "Processing 30_min"
@@ -67,11 +73,12 @@ setup_prepare() {
         find . -type f -not -name "water_level_grid-${dd}_*-00-00.asc" -not -name "water_level_grid-${dd}_*-30-00.asc" -delete
         ls | cut -c 18-40 | xargs -I '{}' mv water_level_grid-{} {}
         cd ..
-        tar -czf "$dd.tar.gz" $dd
+        $TAR -czf "$dd.tar.gz" $dd
         rm -rf $dd
     done
     cd ..
-    tar -czf 30_min.tar.gz --include='*.tar.gz' 30_min/*
+    # $TAR -czf 30_min.tar.gz --include='*.tar.gz' 30_min/*
+    find 30_min -name '*.tar.gz' | $TAR -czf 30_min.tar.gz --files-from -
     find 30_min -name '*.tar.gz' -delete
 
     echo "Processing 60_min"
@@ -83,11 +90,12 @@ setup_prepare() {
         find . -type f -not -name "water_level_grid-${dd}_*-00-00.asc" -delete
         ls | cut -c 18-40 | xargs -I '{}' mv water_level_grid-{} {}
         cd ..
-        tar -czf "$dd.tar.gz" $dd
+        $TAR -czf "$dd.tar.gz" $dd
         rm -rf $dd
     done
     cd ..
-    tar -czf 60_min.tar.gz --include='*.tar.gz' 60_min/*
+    # $TAR -czf 60_min.tar.gz --include='*.tar.gz' 60_min/*
+    find 60_min -name '*.tar.gz' | $TAR -czf 60_min.tar.gz --files-from -
     find 60_min -name '*.tar.gz' -delete
     
     echo "Finish"
@@ -96,25 +104,25 @@ setup_prepare() {
 
 setup_extract_15() {
     echo "Extracting 15_min"
-    tar -xzf 15_min.tar.gz
+    $TAR -xzf 15_min.tar.gz
     cd 15_min
-    find . -name '*.tar.gz' -exec tar -xzf {} \;
+    find . -name '*.tar.gz' -exec $TAR -xzf {} \;
     find . -name '*.tar.gz' -delete
     cd ..
 }
 setup_extract_30() {
     echo "Extracting 30_min"
-    tar -xzf 30_min.tar.gz
+    $TAR -xzf 30_min.tar.gz
     cd 30_min
-    find . -name '*.tar.gz' -exec tar -xzf {} \;
+    find . -name '*.tar.gz' -exec $TAR -xzf {} \;
     find . -name '*.tar.gz' -delete
     cd ..
 }
 setup_extract_60() {
     echo "Extracting 60_min"
-    tar -xzf 60_min.tar.gz
+    $TAR -xzf 60_min.tar.gz
     cd 60_min
-    find . -name '*.tar.gz' -exec tar -xzf {} \;
+    find . -name '*.tar.gz' -exec $TAR -xzf {} \;
     find . -name '*.tar.gz' -delete
     cd ..
 }
