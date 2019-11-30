@@ -1,5 +1,6 @@
 import org.apache.jmeter.protocol.http.control.Header
 import groovy.json.JsonBuilder
+import org.apache.jmeter.util.JMeterUtils
 
 def reqSizeMap = [
         24  : 'ts_1hr',
