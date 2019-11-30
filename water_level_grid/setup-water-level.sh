@@ -2,6 +2,11 @@
 set -e
 # Extract zip waterlevel data
 # Rearrange into 15min,30min,60min interval waterlevel folders by date
+setup_cmd=$1
+DIR=$(pwd)
+ROOT_DIR=${2-$DIR}
+echo "Set ROOT_DIR=$ROOT_DIR"
+cd $ROOT_DIR/water_level_grid
 
 setup_cleanup() {
     rm -rf 60_min/2018-05-*/
@@ -120,7 +125,6 @@ setup_extract() {
 }
 
 
-setup_cmd=$1
 case $setup_cmd in
   "" | "-h" | "--help")
     setup_help
