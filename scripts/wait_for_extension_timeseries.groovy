@@ -2,11 +2,6 @@
 def DOMAIN = vars.get("DOMAIN") as String
 def DataType = vars.get("valueType").trim()
 int MaxRetry = 3
-// Not creating extensions for Grid DataType (it's possible to have extensions do complex task on Grid data)
-if (DataType == "Grid") {
-    SampleResult.setSuccessful(true)
-    return
-}
 
 def nullTrustManager = [
     checkClientTrusted: { chain, authType ->  },
@@ -36,6 +31,16 @@ if (args.size() < 1) {
 def requestId = args[0]
 // def requestId =  vars.get("requestId").trim()
 // log.info("requestId: " + requestId)
+
+String waitForGrid = "0"
+if (args.size() > 1) {
+    waitForGrid = args[1]
+}
+// Not creating extensions for Grid DataType (it's possible to have extensions do complex task on Grid data)
+if (DataType == "Grid" && waitForGrid != "1") {
+    SampleResult.setSuccessful(true)
+    return
+}
 
 def protocol = vars.get("protocol")
 def svc_status = vars.get("svc_status")
