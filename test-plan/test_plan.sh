@@ -39,6 +39,7 @@ test_setup() {
 test_import() {
   REQ_SIZE=$1
   echo "2. Import Timeseries REQ_SIZE: ${REQ_SIZE}"
+  echo "NOTE: Make sure to setup before running import"
   $CMD enable Import
   if [[ -z ${REQ_SIZE} ]]; then
     exec_all_req_size
@@ -52,6 +53,7 @@ test_import() {
 test_create_extension() {
   REQ_SIZE=$1
   echo "3.0 Create Extensions"
+  echo "NOTE: Make sure to setup before running create_extension"
   if [[ -z ${REQ_SIZE} ]]; then
     exec_all_once_req_size CreateExtensions
   else
@@ -63,6 +65,7 @@ test_create_extension() {
 test_extension() {
   REQ_SIZE=$1
   echo "3. Extension Timeseries: ${REQ_SIZE}"
+  echo "NOTE: Make sure to setup before running extension"
   $CMD enable Extension
   if [[ -z ${REQ_SIZE} ]]; then
     exec_all_req_size
@@ -76,6 +79,7 @@ test_extension() {
 test_export() {
   REQ_SIZE=$1
   echo "4. Export Timeseries: ${REQ_SIZE}"
+  echo "NOTE: Make sure to setup before running export"
   $CMD enable Export
   if [[ -z ${REQ_SIZE} ]]; then
     exec_all_req_size
@@ -89,6 +93,7 @@ test_export() {
 test_all() {
   REQ_SIZE=$1
   echo "5. All Timeseries: ${REQ_SIZE}"
+  echo "NOTE: Make sure to setup before running all"
   $CMD enable All
   if [[ -z ${REQ_SIZE} ]]; then
     exec_all_req_size
@@ -102,6 +107,7 @@ test_all() {
 test_query() {
   REQ_SIZE=$1
   echo "5.1 Query Timeseries"
+  echo "NOTE: Make sure to setup before running query"
   if [[ -z ${REQ_SIZE} ]]; then
     exec_all_once_req_size Query
   else
