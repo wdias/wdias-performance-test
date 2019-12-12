@@ -4704,7 +4704,7 @@ if(timeseriesId.length() != 64){
       <com.blazemeter.jmeter.threads.concurrency.ConcurrencyThreadGroup guiclass="com.blazemeter.jmeter.threads.concurrency.ConcurrencyThreadGroupGui" testclass="com.blazemeter.jmeter.threads.concurrency.ConcurrencyThreadGroup" testname="WDIAS-Grid Concurrency Thread Group" enabled="false">
         <elementProp name="ThreadGroup.main_controller" elementType="com.blazemeter.jmeter.control.VirtualUserController"/>
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
-        <stringProp name="TargetLevel">${__tstFeedback(tst-timer-grid_dev, 20,2000,20)}</stringProp>
+        <stringProp name="TargetLevel">${__tstFeedback(tst-timer-grid_dev, 2,2000,20)}</stringProp>
         <stringProp name="RampUp"></stringProp>
         <stringProp name="Steps"></stringProp>
         <stringProp name="Hold">200</stringProp>
@@ -4827,17 +4827,25 @@ if(timeseriesId.length() != 64){
             <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
           </JSONPostProcessor>
           <hashTree/>
+          <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="wait_for_post_timeseries .groovy" enabled="true">
+            <stringProp name="scriptLanguage">groovy</stringProp>
+            <stringProp name="parameters">${requestId} 1</stringProp>
+            <stringProp name="filename">./scripts/wait_for_post_timeseries.groovy</stringProp>
+            <stringProp name="cacheKey">true</stringProp>
+            <stringProp name="script"></stringProp>
+          </JSR223PostProcessor>
+          <hashTree/>
         </hashTree>
-        <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="wait_for_extension_timeseries .groovy" enabled="true">
+        <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="wait_for_extension_timeseries .groovy" enabled="false">
           <stringProp name="scriptLanguage">groovy</stringProp>
-          <stringProp name="parameters">${requestId} 1</stringProp>
+          <stringProp name="parameters">${requestId}</stringProp>
           <stringProp name="filename">./scripts/wait_for_extension_timeseries.groovy</stringProp>
           <stringProp name="cacheKey">true</stringProp>
           <stringProp name="script"></stringProp>
         </JSR223Sampler>
         <hashTree/>
         <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="Constant Timer" enabled="true">
-          <stringProp name="ConstantTimer.delay">100</stringProp>
+          <stringProp name="ConstantTimer.delay">1000</stringProp>
         </ConstantTimer>
         <hashTree/>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Retrieve Grid Timeseries" enabled="true">
@@ -4848,7 +4856,7 @@ if(timeseriesId.length() != 64){
           <stringProp name="HTTPSampler.port"></stringProp>
           <stringProp name="HTTPSampler.protocol"></stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">/export/netcdf/binary/${timeseriesId}/file.nc</stringProp>
+          <stringProp name="HTTPSampler.path">/export/netcdf/binary/${timeseriesId}/file.nc?start=${date}T00:00:00Z</stringProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
