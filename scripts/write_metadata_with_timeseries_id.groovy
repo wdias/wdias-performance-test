@@ -31,6 +31,9 @@ if (id == "${metadataSize}") {
     timeseries = timeseries.sort { a, b -> a.key <=> b.key }
 
     log.info("Rearrange ts metadata CSV <${timeseries.size()}> ..........")
+    if (timeseries.size() != metadataSize) {
+        prev.setSuccessful(false)
+    }
     // -- main
     def file = new File('./data/ts_meta.csv')
     if (file.exists()) {
