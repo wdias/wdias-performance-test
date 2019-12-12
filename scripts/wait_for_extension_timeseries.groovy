@@ -1,7 +1,13 @@
 // def DOMAIN = "wdias.com"
 def DOMAIN = vars.get("DOMAIN") as String
 def DataType = vars.get("valueType").trim()
-int MaxRetry = 3
+int MaxRetry = 5
+
+// Not creating extensions for Grid DataType (it's possible to have extensions do complex task on Grid data)
+if (DataType == "Grid") {
+    SampleResult.setSuccessful(true)
+    return
+}
 
 def nullTrustManager = [
     checkClientTrusted: { chain, authType ->  },
@@ -32,16 +38,6 @@ def requestId = args[0]
 // def requestId =  vars.get("requestId").trim()
 // log.info("requestId: " + requestId)
 
-String waitForGrid = "0"
-if (args.size() > 1) {
-    waitForGrid = args[1]
-}
-// Not creating extensions for Grid DataType (it's possible to have extensions do complex task on Grid data)
-if (DataType == "Grid" && waitForGrid != "1") {
-    SampleResult.setSuccessful(true)
-    return
-}
-
 def protocol = vars.get("protocol")
 def svc_status = vars.get("svc_status")
 def path_status = vars.get("path_status")
@@ -54,7 +50,7 @@ while ({
     retry++
     SampleResult.setResponseCode(String.valueOf(getRC))
     SampleResult.setSuccessful(getRC < 400)
-    retry <= 3 && getRC >= 400 // breaks if status code is 200
+    retry <= MaxRetry && getRC >= 400 // breaks if status code is 200
 }()) continue // https://stackoverflow.com/a/22057667
 
 SampleResult.setResponseMessage("Unable to get status of " + requestId)
