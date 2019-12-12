@@ -13,9 +13,10 @@ if [ "${IS_UNIX:-0}" == "0" ]; then
     TAR=$(which gtar)
 fi
 
+declare -a locations=("attidiya" "battaramulla" "ibattara" "kottawa" "waga")
+
 setup_cleanup() {
     echo "Clean up"
-    declare -a locations=("attidiya" "battaramulla" "ibattara" "kottawa" "waga")
     echo "Clean 123"
 
     for dd in "${locations[@]}"
@@ -27,15 +28,29 @@ setup_cleanup() {
     done
 }
 
-setup_prepare() {
-    # for i in `seq 1 1 31`; do echo $i; done
-    # cp ibattara.csv 2019-07-01_ibattara.csv
+setup_populate() {
+    for dd in "${locations[@]}"
+    do
+        cd $dd
+        for i in `seq 1 1 31`
+        do
+            date="2019-07-$(printf "%02d" $i)"
+            echo "Processing for $dd >> $date"
+            echo cp $dd.csv "${date}_${dd}.csv"
+            cp $dd.csv "${date}_${dd}.csv"
+            sed -i '' "/${date}/!d" "${date}_${dd}.csv"
+            lines=$(head -n 96 "${date}_${dd}.csv")
+            echo "$lines" > "${date}_${dd}.csv"
+        done
+        cd ..
+    done
     # sed -i '' '/2019-07-01/!d' 2019-07-01_ibattara.csv
+}
 
-    declare -a locations=("attidiya" "battaramulla" "ibattara" "kottawa" "waga")
-
+setup_prepare() {
     echo "Processing 15_min"
     cd 15_min
+    setup_populate
     for dd in "${locations[@]}"
     do
         echo ">>> 15_min/${dd}"
@@ -46,9 +61,11 @@ setup_prepare() {
     # $TAR -czf 15_min.tar.gz --include='*.tar.gz' 15_min/*
     find 15_min -name '*.tar.gz' | $TAR -czf 15_min.tar.gz --files-from -
     find 15_min -name '*.tar.gz' -delete
+    exit 0
 
     echo "Processing 30_min"
     cd 30_min
+    setup_populate
     for dd in "${locations[@]}"
     do
         echo ">>> 30_min/${dd}"
@@ -62,6 +79,7 @@ setup_prepare() {
 
     echo "Processing 60_min"
     cd 60_min
+    setup_populate
     for dd in "${locations[@]}"
     do
         echo ">>> 60_min/${dd}"
@@ -76,6 +94,7 @@ setup_prepare() {
 
 setup_extract_15() {
     echo "Extracting 15_min"
+    echo $TAR -xzf 15_min.tar.gz
     $TAR -xzf 15_min.tar.gz
     cd 15_min
     find . -name '*.tar.gz' -exec $TAR -xzf {} \;
@@ -84,6 +103,7 @@ setup_extract_15() {
 }
 setup_extract_30() {
     echo "Extracting 30_min"
+    echo $TAR -xzf 30_min.tar.gz
     $TAR -xzf 30_min.tar.gz
     cd 30_min
     find . -name '*.tar.gz' -exec $TAR -xzf {} \;
@@ -92,6 +112,7 @@ setup_extract_30() {
 }
 setup_extract_60() {
     echo "Extracting 60_min"
+    echo $TAR -xzf 60_min.tar.gz
     $TAR -xzf 60_min.tar.gz
     cd 60_min
     find . -name '*.tar.gz' -exec $TAR -xzf {} \;
