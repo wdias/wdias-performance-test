@@ -4325,7 +4325,7 @@ if(timeseriesId.length() != 64){
             <stringProp name="HTTPSampler.port"></stringProp>
             <stringProp name="HTTPSampler.protocol"></stringProp>
             <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-            <stringProp name="HTTPSampler.path">/export/netcdf/binary/${timeseriesId}/file.nc</stringProp>
+            <stringProp name="HTTPSampler.path">/export/netcdf/binary/${timeseriesId}/file.nc?start=${date}T00:00:00Z</stringProp>
             <stringProp name="HTTPSampler.method">GET</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
             <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
