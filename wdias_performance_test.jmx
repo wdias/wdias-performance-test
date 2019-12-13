@@ -3766,7 +3766,7 @@ vars.put(&quot;lon2&quot;, (Math.min(lon + width/2, 180)).toString())
         </HeaderManager>
         <hashTree/>
         <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="Timeseries Metadata CSV" enabled="true">
-          <stringProp name="filename">./data/ts_meta.csv</stringProp>
+          <stringProp name="filename">./data/ts_meta_original.csv</stringProp>
           <stringProp name="fileEncoding">UTF-8</stringProp>
           <stringProp name="variableNames"></stringProp>
           <boolProp name="ignoreFirstLine">true</boolProp>
