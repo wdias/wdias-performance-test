@@ -18,10 +18,10 @@ timeseries = timeseries.sort {a,b -> a.key > b.key}
 log.info('Rearrange ts metadata CSV ..........')
 // -- main
 file = new File('./data/ts_meta123.csv')
-file.write("id; timeseriesId; moduleId; valueType; parameter; location; timeseriesType; timeStep")
+file.write("id;timeseriesId; moduleId; valueType; parameter; location; timeseriesType; timeStep")
 // -- grid
 fileGrid = new File('./data/ts_meta_grid123.csv')
-fileGrid.write("id; timeseriesId; moduleId; valueType; parameter; location; timeseriesType; timeStep")
+fileGrid.write("id;timeseriesId; moduleId; valueType; parameter; location; timeseriesType; timeStep")
 
 timeseries.each { key, line ->
     file.append("\n${line}")
