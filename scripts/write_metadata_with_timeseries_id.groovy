@@ -46,5 +46,5 @@ if (id == "${metadataSize}") {
     }
 
     // log.info("Rearrange Timeseries. Delete metadata file.......... Id: ${id}");
-    // f.delete()
+    metadataFile.delete()
 }

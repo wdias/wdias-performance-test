@@ -46,5 +46,5 @@ if (id == "${metadataGridSize}") {
     }
 
     // log.info("Rearrange Grid Timeseries. Delete metadata file.......... Id: ${id}");
-    // metadataGridFile.delete()
+    metadataGridFile.delete()
 }

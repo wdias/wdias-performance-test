@@ -104,6 +104,7 @@ kubectl exec -it $MASTER_NAME -- /bin/bash
 export MASTER_NAME=$(kubectl get pods -l wdias=jmeter-master -o jsonpath='{.items[*].metadata.name}') && \
 kubectl exec -it $MASTER_NAME -- /bin/bash
 ./bin/macos/test-dev once 24 DebugGrid
+./test-plan/test_plan.sh /jmeter run_grid 24
 ```
 - Copy Results from container to local
 `kubectl get pods | grep 'wdias-performance-test-master' | awk '{print $1}' | xargs -o -I {} kubectl cp default/{}:/jmeter/logs/wdias_grid.jtl ./logs/wdias_grid.jtl`
