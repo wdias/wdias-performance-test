@@ -482,11 +482,11 @@ if(timeseriesId.length() != 64){
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
             <collectionProp name="Arguments.arguments"/>
           </elementProp>
-          <stringProp name="HTTPSampler.domain">metadata.${DOMAIN}</stringProp>
+          <stringProp name="HTTPSampler.domain">${SUB_DOMAIN}.${DOMAIN}</stringProp>
           <stringProp name="HTTPSampler.port"></stringProp>
           <stringProp name="HTTPSampler.protocol"></stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">/timeseries?${query_string}</stringProp>
+          <stringProp name="HTTPSampler.path">${path_metadata}/timeseries?${query_string}</stringProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -4564,11 +4564,11 @@ if(timeseriesId.length() != 64){
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
             <collectionProp name="Arguments.arguments"/>
           </elementProp>
-          <stringProp name="HTTPSampler.domain">metadata.${DOMAIN}</stringProp>
+          <stringProp name="HTTPSampler.domain">${SUB_DOMAIN}.${DOMAIN}</stringProp>
           <stringProp name="HTTPSampler.port"></stringProp>
           <stringProp name="HTTPSampler.protocol"></stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">/timeseries?${query_string}</stringProp>
+          <stringProp name="HTTPSampler.path">${path_metadata}/timeseries?${query_string}</stringProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -4643,7 +4643,7 @@ if(timeseriesId.length() != 64){
               <encoding>false</encoding>
               <assertions>true</assertions>
               <subresults>true</subresults>
-              <responseData>false</responseData>
+              <responseData>true</responseData>
               <samplerData>false</samplerData>
               <xml>true</xml>
               <fieldNames>true</fieldNames>

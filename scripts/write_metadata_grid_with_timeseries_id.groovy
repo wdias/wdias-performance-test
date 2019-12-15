@@ -33,6 +33,7 @@ if (id == "${metadataGridSize}") {
     log.info("Rearrange ts Grid metadata CSV <${gridTimeseries.size()}> ..........")
     if (gridTimeseries.size() != metadataGridSize) {
         prev.setSuccessful(false)
+        return
     }
     // -- grid
     fileGrid = new File('./data/ts_meta_grid.csv')
