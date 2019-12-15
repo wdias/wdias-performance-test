@@ -2,8 +2,11 @@ wdias_all
 wdias_export
 wdias_import
 wdias_setup
+wdias_create_timeseries
 wdias_create_extensions
 wdias_extension
 wdias_query
 wdias_flow
+wdias_create_grid_timeseries
 wdias_grid
+wdias_debug_grid
