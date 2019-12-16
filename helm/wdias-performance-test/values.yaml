@@ -9,7 +9,7 @@ master:
 
 server:
   ## The number of pods in the server deployment
-  replicaCount: 3
+  replicaCount: 1
 
 image:
   ## The tag for the image
