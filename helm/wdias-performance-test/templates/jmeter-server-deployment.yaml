@@ -31,3 +31,20 @@ spec:
           ports:
             - containerPort: 50000
             - containerPort: 1099
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 10
+            preference:
+              matchExpressions:
+              - key: datatype
+                operator: In
+                values:
+                - test
+          - weight: 1
+            preference:
+              matchExpressions:
+              - key: datatype
+                operator: NotIn
+                values:
+                - grid

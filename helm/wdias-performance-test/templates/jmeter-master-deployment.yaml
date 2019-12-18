@@ -31,3 +31,20 @@ spec:
           args: ["master"]
           ports:
             - containerPort: 60000
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 10
+            preference:
+              matchExpressions:
+              - key: datatype
+                operator: In
+                values:
+                - test
+          - weight: 1
+            preference:
+              matchExpressions:
+              - key: datatype
+                operator: NotIn
+                values:
+                - grid

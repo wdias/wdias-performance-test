@@ -5,3 +5,5 @@ groovy*
 *.log
 *.iml
 *.jtl
+logs/*.jtl
+aws_logs/*.jtl
