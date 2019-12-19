@@ -118,7 +118,6 @@ test_query() {
 
 test_run() {
   echo "Start running all the test plan : $@"
-  test_setup $@
   test_import $@
   test_create_extension $@
   test_extension $@
@@ -146,12 +145,6 @@ test_grid() {
   fi
   $CMD disable Grid
   echo "EXTRA: Grid: ${REQ_SIZE} \n"
-}
-test_run_grid() {
-  echo "EXTRA: Start running Grid test plan : $@"
-  test_setup_grid $@
-  test_grid $@
-  echo "EXTRA: Successfully run Grid test plan"
 }
 
 test_help() {

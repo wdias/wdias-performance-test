@@ -37,7 +37,7 @@ spec:
           - weight: 10
             preference:
               matchExpressions:
-              - key: datatype
+              - key: module
                 operator: In
                 values:
                 - test
