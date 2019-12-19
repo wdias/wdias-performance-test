@@ -4994,60 +4994,60 @@ if(timeseriesId.length() != 64){
         <hashTree/>
         <kg.apc.jmeter.timers.VariableThroughputTimer guiclass="kg.apc.jmeter.timers.VariableThroughputTimerGui" testclass="kg.apc.jmeter.timers.VariableThroughputTimer" testname="tst-timer-grid_prod" enabled="false">
           <collectionProp name="load_profile">
-            <collectionProp name="-694626182">
+            <collectionProp name="1815752366">
               <stringProp name="1">1</stringProp>
               <stringProp name="1567">10</stringProp>
-              <stringProp name="48687">120</stringProp>
+              <stringProp name="1722">60</stringProp>
             </collectionProp>
-            <collectionProp name="1542636268">
+            <collectionProp name="-241952480">
               <stringProp name="1567">10</stringProp>
               <stringProp name="1567">10</stringProp>
-              <stringProp name="48687">120</stringProp>
+              <stringProp name="1722">60</stringProp>
             </collectionProp>
-            <collectionProp name="1543875606">
+            <collectionProp name="1542745047">
               <stringProp name="1567">10</stringProp>
-              <stringProp name="1598">20</stringProp>
-              <stringProp name="49710">240</stringProp>
-            </collectionProp>
-            <collectionProp name="1546117196">
-              <stringProp name="1598">20</stringProp>
               <stringProp name="1598">20</stringProp>
               <stringProp name="48687">120</stringProp>
             </collectionProp>
-            <collectionProp name="1573393000">
+            <collectionProp name="-238471552">
+              <stringProp name="1598">20</stringProp>
+              <stringProp name="1598">20</stringProp>
+              <stringProp name="1722">60</stringProp>
+            </collectionProp>
+            <collectionProp name="1546972672">
               <stringProp name="1598">20</stringProp>
               <stringProp name="1629">30</stringProp>
-              <stringProp name="51570">420</stringProp>
+              <stringProp name="48687">120</stringProp>
             </collectionProp>
-            <collectionProp name="1573562433">
+            <collectionProp name="-211096320">
               <stringProp name="1629">30</stringProp>
               <stringProp name="1629">30</stringProp>
+              <stringProp name="1722">60</stringProp>
+            </collectionProp>
+            <collectionProp name="1573695299">
+              <stringProp name="1629">30</stringProp>
+              <stringProp name="1660">40</stringProp>
               <stringProp name="48873">180</stringProp>
             </collectionProp>
-            <collectionProp name="1602211871">
-              <stringProp name="1629">30</stringProp>
+            <collectionProp name="-206844608">
               <stringProp name="1660">40</stringProp>
-              <stringProp name="53430">600</stringProp>
+              <stringProp name="1660">40</stringProp>
+              <stringProp name="1722">60</stringProp>
             </collectionProp>
-            <collectionProp name="1603057996">
-              <stringProp name="1660">40</stringProp>
-              <stringProp name="1660">40</stringProp>
-              <stringProp name="50547">300</stringProp>
-            </collectionProp>
-            <collectionProp name="1607614419">
+            <collectionProp name="1577922924">
               <stringProp name="1660">40</stringProp>
               <stringProp name="1691">50</stringProp>
-              <stringProp name="54639">780</stringProp>
+              <stringProp name="48873">180</stringProp>
             </collectionProp>
-            <collectionProp name="1606538924">
+            <collectionProp name="1581225068">
               <stringProp name="1691">50</stringProp>
               <stringProp name="1691">50</stringProp>
-              <stringProp name="50547">300</stringProp>
+              <stringProp name="48687">120</stringProp>
             </collectionProp>
-            <collectionProp name="1605403029">
+            <collectionProp name="1580054559">
               <stringProp name="1691">50</stringProp>
               <stringProp name="1567">10</stringProp>
-              <stringProp name="50733">360</stringProp>
+              <stringProp name="48780">150</stringProp>
             </collectionProp>
           </collectionProp>
         </kg.apc.jmeter.timers.VariableThroughputTimer>
