@@ -2470,8 +2470,8 @@ if(timeseriesId.length() != 64){
             <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
             <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
             <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-            <stringProp name="HTTPSampler.connect_timeout">10000</stringProp>
-            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout">10000</stringProp>
           </HTTPSamplerProxy>
           <hashTree>
             <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="grid_ascii_file_upload .groovy" enabled="true">
@@ -2741,7 +2741,7 @@ vars.put(&quot;lon2&quot;, (lon + width/2).toString())
             <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
             <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
             <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout">25000</stringProp>
           </HTTPSamplerProxy>
           <hashTree>
             <SizeAssertion guiclass="SizeAssertionGui" testclass="SizeAssertion" testname="Size Assertion" enabled="true">
@@ -2817,60 +2817,75 @@ vars.put(&quot;lon2&quot;, (lon + width/2).toString())
         <hashTree/>
         <kg.apc.jmeter.timers.VariableThroughputTimer guiclass="kg.apc.jmeter.timers.VariableThroughputTimerGui" testclass="kg.apc.jmeter.timers.VariableThroughputTimer" testname="tst-timer-all_prod" enabled="false">
           <collectionProp name="load_profile">
-            <collectionProp name="1815685870">
+            <collectionProp name="-693384891">
               <stringProp name="1">1</stringProp>
-              <stringProp name="1567">10</stringProp>
-              <stringProp name="1567">10</stringProp>
-            </collectionProp>
-            <collectionProp name="-297917389">
-              <stringProp name="1567">10</stringProp>
-              <stringProp name="1567">10</stringProp>
-              <stringProp name="53">5</stringProp>
-            </collectionProp>
-            <collectionProp name="-240812109">
-              <stringProp name="1567">10</stringProp>
               <stringProp name="1691">50</stringProp>
-              <stringProp name="1572">15</stringProp>
+              <stringProp name="48780">150</stringProp>
             </collectionProp>
-            <collectionProp name="-259328589">
+            <collectionProp name="-203363680">
               <stringProp name="1691">50</stringProp>
               <stringProp name="1691">50</stringProp>
-              <stringProp name="53">5</stringProp>
+              <stringProp name="1722">60</stringProp>
             </collectionProp>
-            <collectionProp name="-715114951">
+            <collectionProp name="1069609331">
               <stringProp name="1691">50</stringProp>
               <stringProp name="48625">100</stringProp>
-              <stringProp name="1572">15</stringProp>
+              <stringProp name="48873">180</stringProp>
             </collectionProp>
-            <collectionProp name="546596851">
+            <collectionProp name="602596374">
               <stringProp name="48625">100</stringProp>
               <stringProp name="48625">100</stringProp>
-              <stringProp name="53">5</stringProp>
+              <stringProp name="1815">90</stringProp>
             </collectionProp>
-            <collectionProp name="635808521">
+            <collectionProp name="-1906432104">
               <stringProp name="48625">100</stringProp>
-              <stringProp name="49586">200</stringProp>
-              <stringProp name="1572">15</stringProp>
+              <stringProp name="48780">150</stringProp>
+              <stringProp name="48873">180</stringProp>
             </collectionProp>
-            <collectionProp name="1668488544">
+            <collectionProp name="-1865747060">
+              <stringProp name="48780">150</stringProp>
+              <stringProp name="48780">150</stringProp>
+              <stringProp name="48687">120</stringProp>
+            </collectionProp>
+            <collectionProp name="-1833679444">
+              <stringProp name="48780">150</stringProp>
+              <stringProp name="49586">200</stringProp>
+              <stringProp name="48873">180</stringProp>
+            </collectionProp>
+            <collectionProp name="-841823508">
               <stringProp name="49586">200</stringProp>
               <stringProp name="49586">200</stringProp>
-              <stringProp name="1567">10</stringProp>
+              <stringProp name="48687">120</stringProp>
             </collectionProp>
-            <collectionProp name="-1874842981">
+            <collectionProp name="-839692127">
               <stringProp name="49586">200</stringProp>
-              <stringProp name="50547">300</stringProp>
-              <stringProp name="1572">15</stringProp>
+              <stringProp name="49741">250</stringProp>
+              <stringProp name="48873">180</stringProp>
             </collectionProp>
-            <collectionProp name="-49000537">
-              <stringProp name="50547">300</stringProp>
-              <stringProp name="50547">300</stringProp>
-              <stringProp name="1572">15</stringProp>
+            <collectionProp name="-775859476">
+              <stringProp name="49741">250</stringProp>
+              <stringProp name="49741">250</stringProp>
+              <stringProp name="48687">120</stringProp>
             </collectionProp>
-            <collectionProp name="-323437651">
+            <collectionProp name="-26216043">
+              <stringProp name="49741">250</stringProp>
               <stringProp name="50547">300</stringProp>
-              <stringProp name="1567">10</stringProp>
-              <stringProp name="1629">30</stringProp>
+              <stringProp name="48873">180</stringProp>
+            </collectionProp>
+            <collectionProp name="1735653740">
+              <stringProp name="50547">300</stringProp>
+              <stringProp name="50547">300</stringProp>
+              <stringProp name="48687">120</stringProp>
+            </collectionProp>
+            <collectionProp name="952021325">
+              <stringProp name="50547">300</stringProp>
+              <stringProp name="48780">150</stringProp>
+              <stringProp name="48687">120</stringProp>
+            </collectionProp>
+            <collectionProp name="-579082951">
+              <stringProp name="48780">150</stringProp>
+              <stringProp name="49">1</stringProp>
+              <stringProp name="1722">60</stringProp>
             </collectionProp>
           </collectionProp>
         </kg.apc.jmeter.timers.VariableThroughputTimer>
@@ -4809,8 +4824,8 @@ if(timeseriesId.length() != 64){
           <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
           <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
           <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-          <stringProp name="HTTPSampler.connect_timeout">10000</stringProp>
-          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout">10000</stringProp>
         </HTTPSamplerProxy>
         <hashTree>
           <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="grid_ascii_file_upload .groovy" enabled="true">
@@ -4863,8 +4878,8 @@ if(timeseriesId.length() != 64){
           <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
           <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
           <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-          <stringProp name="HTTPSampler.connect_timeout">60000</stringProp>
-          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout">25000</stringProp>
         </HTTPSamplerProxy>
         <hashTree>
           <SizeAssertion guiclass="SizeAssertionGui" testclass="SizeAssertion" testname="Size Assertion" enabled="true">
@@ -5267,7 +5282,7 @@ if(timeseriesId.length() != 64){
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
-          <stringProp name="LoopController.loops">5</stringProp>
+          <stringProp name="LoopController.loops">10</stringProp>
         </elementProp>
         <stringProp name="ThreadGroup.num_threads">5</stringProp>
         <stringProp name="ThreadGroup.ramp_time">1</stringProp>

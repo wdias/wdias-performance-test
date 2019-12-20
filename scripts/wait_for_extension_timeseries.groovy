@@ -1,7 +1,7 @@
 // def DOMAIN = "wdias.com"
 def DOMAIN = vars.get("DOMAIN") as String
 def DataType = vars.get("valueType").trim()
-int MaxRetry = 5
+int MaxRetry = 20
 
 // Not creating extensions for Grid DataType (it's possible to have extensions do complex task on Grid data)
 if (DataType == "Grid") {
