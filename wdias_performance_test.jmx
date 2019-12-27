@@ -2817,35 +2817,35 @@ vars.put(&quot;lon2&quot;, (lon + width/2).toString())
         <hashTree/>
         <kg.apc.jmeter.timers.VariableThroughputTimer guiclass="kg.apc.jmeter.timers.VariableThroughputTimerGui" testclass="kg.apc.jmeter.timers.VariableThroughputTimer" testname="tst-timer-all_prod" enabled="false">
           <collectionProp name="load_profile">
-            <collectionProp name="-693384891">
-              <stringProp name="1">1</stringProp>
+            <collectionProp name="1543842168">
+              <stringProp name="1567">10</stringProp>
               <stringProp name="1691">50</stringProp>
+              <stringProp name="48687">120</stringProp>
+            </collectionProp>
+            <collectionProp name="-203399071">
+              <stringProp name="1691">50</stringProp>
+              <stringProp name="1691">50</stringProp>
+              <stringProp name="1629">30</stringProp>
+            </collectionProp>
+            <collectionProp name="1069574717">
+              <stringProp name="1691">50</stringProp>
+              <stringProp name="48625">100</stringProp>
               <stringProp name="48780">150</stringProp>
             </collectionProp>
-            <collectionProp name="-203363680">
-              <stringProp name="1691">50</stringProp>
-              <stringProp name="1691">50</stringProp>
+            <collectionProp name="602561760">
+              <stringProp name="48625">100</stringProp>
+              <stringProp name="48625">100</stringProp>
               <stringProp name="1722">60</stringProp>
-            </collectionProp>
-            <collectionProp name="1069609331">
-              <stringProp name="1691">50</stringProp>
-              <stringProp name="48625">100</stringProp>
-              <stringProp name="48873">180</stringProp>
-            </collectionProp>
-            <collectionProp name="602596374">
-              <stringProp name="48625">100</stringProp>
-              <stringProp name="48625">100</stringProp>
-              <stringProp name="1815">90</stringProp>
             </collectionProp>
             <collectionProp name="-1906432104">
               <stringProp name="48625">100</stringProp>
               <stringProp name="48780">150</stringProp>
               <stringProp name="48873">180</stringProp>
             </collectionProp>
-            <collectionProp name="-1865747060">
+            <collectionProp name="644666102">
               <stringProp name="48780">150</stringProp>
               <stringProp name="48780">150</stringProp>
-              <stringProp name="48687">120</stringProp>
+              <stringProp name="1815">90</stringProp>
             </collectionProp>
             <collectionProp name="-1833679444">
               <stringProp name="48780">150</stringProp>
