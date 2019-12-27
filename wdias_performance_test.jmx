@@ -2527,10 +2527,10 @@ log.info(&quot;lat lon: &quot; + lat.toString() + &quot;:&quot; + lon.toString()
 // lat1,lon1	lat2,lon1
 float heigth = 2.0
 float width = 2.0
-vars.put(&quot;lat1&quot;, (lat - heigth/2).toString())
-vars.put(&quot;lat2&quot;, (lat + heigth/2).toString())
-vars.put(&quot;lon1&quot;, (lon - width/2).toString())
-vars.put(&quot;lon2&quot;, (lon + width/2).toString())
+vars.put(&quot;lat1&quot;, (Math.max(lat - heigth/2, -180)).toString())
+vars.put(&quot;lat2&quot;, (Math.min(lat + heigth/2, 180)).toString())
+vars.put(&quot;lon1&quot;, (Math.max(lon - width/2, -180)).toString())
+vars.put(&quot;lon2&quot;, (Math.min(lon + width/2, 180)).toString())
 </stringProp>
         </JSR223PreProcessor>
         <hashTree/>
@@ -2867,10 +2867,10 @@ vars.put(&quot;lon2&quot;, (lon + width/2).toString())
               <stringProp name="49741">250</stringProp>
               <stringProp name="48687">120</stringProp>
             </collectionProp>
-            <collectionProp name="-26216043">
+            <collectionProp name="-25190880">
               <stringProp name="49741">250</stringProp>
               <stringProp name="50547">300</stringProp>
-              <stringProp name="48873">180</stringProp>
+              <stringProp name="49617">210</stringProp>
             </collectionProp>
             <collectionProp name="1735653740">
               <stringProp name="50547">300</stringProp>
@@ -2882,16 +2882,16 @@ vars.put(&quot;lon2&quot;, (lon + width/2).toString())
               <stringProp name="48780">150</stringProp>
               <stringProp name="48687">120</stringProp>
             </collectionProp>
-            <collectionProp name="-579082951">
+            <collectionProp name="-579048337">
               <stringProp name="48780">150</stringProp>
               <stringProp name="49">1</stringProp>
-              <stringProp name="1722">60</stringProp>
+              <stringProp name="1815">90</stringProp>
             </collectionProp>
           </collectionProp>
         </kg.apc.jmeter.timers.VariableThroughputTimer>
         <hashTree/>
         <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
-          <boolProp name="ResultCollector.error_logging">false</boolProp>
+          <boolProp name="ResultCollector.error_logging">true</boolProp>
           <objProp>
             <name>saveConfig</name>
             <value class="SampleSaveConfiguration">
@@ -3163,9 +3163,9 @@ float lon = vars.get(&quot;lon&quot;) as Float
 // lat1,lon1	lat2,lon1
 float heigth = 2.0
 float width = 2.0
-vars.put(&quot;lat1&quot;, (lat - heigth/2).toString())
+vars.put(&quot;lat1&quot;, (Math.max(lat - heigth/2, -180)).toString())
 vars.put(&quot;lat2&quot;, (Math.min(lat + heigth/2, 180)).toString())
-vars.put(&quot;lon1&quot;, (lon - width/2).toString())
+vars.put(&quot;lon1&quot;, (Math.max(lon - width/2, -180)).toString())
 vars.put(&quot;lon2&quot;, (Math.min(lon + width/2, 180)).toString())
 </stringProp>
         </JSR223PreProcessor>
