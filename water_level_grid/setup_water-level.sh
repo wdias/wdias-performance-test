@@ -131,7 +131,7 @@ setup_extract() {
     setup_extract_30
     setup_extract_60
 }
-test_help() {
+setup_help() {
   progName=`basename "$0"`
   echo "-h | --help: Usage
   $progName  <COMMAND>

@@ -51,7 +51,7 @@ setup_populate() {
 setup_prepare() {
     echo "Processing 15_min"
     cd 15_min
-    setup_populate
+    setup_populate ":00Z"
     for dd in "${locations[@]}"
     do
         echo ">>> 15_min/${dd}"
@@ -66,7 +66,7 @@ setup_prepare() {
 
     echo "Processing 30_min"
     cd 30_min
-    setup_populate
+    setup_populate "0:00Z"
     for dd in "${locations[@]}"
     do
         echo ">>> 30_min/${dd}"
@@ -80,7 +80,7 @@ setup_prepare() {
 
     echo "Processing 60_min"
     cd 60_min
-    setup_populate
+    setup_populate ":00:00Z"
     for dd in "${locations[@]}"
     do
         echo ">>> 60_min/${dd}"
@@ -125,7 +125,7 @@ setup_extract() {
     setup_extract_30
     setup_extract_60
 }
-test_help() {
+setup_help() {
   progName=`basename "$0"`
   echo "-h | --help: Usage
   $progName  <COMMAND>
