@@ -41,6 +41,7 @@ setup_populate() {
             sed -i '' "/${date}/!d" "${date}_${dd}.csv"
             lines=$(head -n 96 "${date}_${dd}.csv")
             echo "$lines" > "${date}_${dd}.csv"
+            sed -i '' "/${1:-:00Z}/!d" 2019-07-01_attidiya.csv
         done
         cd ..
     done
@@ -123,6 +124,20 @@ setup_extract() {
     setup_extract_15
     setup_extract_30
     setup_extract_60
+}
+test_help() {
+  progName=`basename "$0"`
+  echo "-h | --help: Usage
+  $progName  <COMMAND>
+    - COMMAND: help | extract | prepare | cleanup | populate
+  e.g.
+  $progName prepare
+    Segregate single file data into multiple files based on date. And Separate into main dirs of 15min, 30min, 60min and create tar files
+  $progName extract
+    Extract the tar files into 15min, 30min and 60min
+  $progName cleanup
+    Clean up extracted dirs
+  "
 }
 
 

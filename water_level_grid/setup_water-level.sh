@@ -131,6 +131,20 @@ setup_extract() {
     setup_extract_30
     setup_extract_60
 }
+test_help() {
+  progName=`basename "$0"`
+  echo "-h | --help: Usage
+  $progName  <COMMAND>
+    - COMMAND: help | extract | prepare | cleanup | populate
+  e.g.
+  $progName prepare
+    Segregate single file data into multiple grid file dirs based on date. And Separate into main dirs of 15min, 30min, 60min and create tar files
+  $progName extract
+    Extract the tar files into 15min, 30min and 60min
+  $progName cleanup
+    Clean up extracted dirs
+  "
+}
 
 
 case $setup_cmd in
