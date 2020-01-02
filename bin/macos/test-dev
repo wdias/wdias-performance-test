@@ -2,7 +2,7 @@
 set -e
 # Features:
 # - Should be able to run cases separately Import, Export, Extension & All
-# - Should be able to run with different reqSize 24(1) | 288(2) | 1044(3)
+# - Should be able to run with different reqSize 24(1) | 288(2) | 1440(3)
 # - Should be able to run dev and production mode
 
 test_run() {
@@ -94,7 +94,7 @@ test_help() {
 
   $progName run <REQ_SIZE>
     First need to enable module that need to be run 
-    - REQ_SIZE: 24(1) | 288(2) | 1044(3)
+    - REQ_SIZE: 24(1) | 288(2) | 1440(3)
     NOTE: Modify test.conf as necessary
     e.g.
     $progName run 24
@@ -145,8 +145,8 @@ get-req-size() {
     288|2) 
       echo "288"
     ;;
-    1044|3) 
-      echo "1044"
+    1440|3) 
+      echo "1440"
     ;;
     *)
       echo "Invalid req size: $1 or req size should be provided." >&2

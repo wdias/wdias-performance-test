@@ -4,7 +4,7 @@ set -e
 # - Should be able to run test plan for dev and prod
 # - Should be able to run for 1hr, 5min & 1min separately
 #   - Will be able to run test cases with different required resources (low cost of running)
-# - Should be able to run for different requestSize 24(1) | 288(2) | 1044(3)
+# - Should be able to run for different requestSize 24(1) | 288(2) | 1440(3)
 
 DIR=$(pwd)
 ROOT_DIR=${1-$DIR}
@@ -151,7 +151,7 @@ test_help() {
   progName=`basename "$0"`
   echo "-h | --help: Usage
   $progName  <ROOT_DIR> <COMMAND> <REQ_SIZE>
-    - REQ_SIZE (optional): 24(1) | 288(2) | 1044(3)
+    - REQ_SIZE (optional): 24(1) | 288(2) | 1440(3)
   NOTE: Modify test.conf as necessary
   e.g.
   $progName ~/wdias/wdias-performance-test run
