@@ -7,3 +7,10 @@ groovy*
 *.jtl
 logs/*.jtl
 aws_logs/*.jtl
+backup/*.jtl
+precipitation/15_min/
+precipitation/30_min/
+precipitation/60_min/
+water_level_grid/15_min/
+water_level_grid/30_min/
+water_level_grid/60_min/
