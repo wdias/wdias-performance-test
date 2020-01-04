@@ -12,6 +12,7 @@ def dateMap = [
         1440: '2017-05-26'
 ]
 
+int id = vars.get("id") as Integer
 int reqSize = vars.get("reqSize") as Integer
 String date = JMeterUtils.getPropDefault("date", "2017-01-01").trim()
 boolean realData = vars.get("realData") as Boolean
@@ -42,4 +43,4 @@ noHr.times {
 sampler.setHTTPFiles(filesToSend.asArray())
 sampler.getHeaderManager().removeHeaderNamed("Content-Type");
 sampler.setDoMultipart(true)
-log.info("upload ascii: " + date)
+log.info("#${id}: Upload ASCII Grid Files (realData=${realData}) >> #files:${noHr * noMin}, reqSize:${reqSize}, date:${date} with noMin:${noMin}")

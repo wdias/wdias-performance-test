@@ -2515,10 +2515,10 @@ def jsonSlurper = new JsonSlurper()
 // log.info(vars.get(&quot;location&quot;).trim())
 def location = jsonSlurper.parseText(vars.get(&quot;location&quot;).trim())
 vars.put(&quot;locationId&quot;, location.locationId)
-log.info(&quot;locationId: &quot; + location.locationId)
+// log.info(&quot;locationId: &quot; + location.locationId)
 float lat = location.lat as Float
 float lon = location.lon as Float
-log.info(&quot;lat lon: &quot; + lat.toString() + &quot;:&quot; + lon.toString())
+// log.info(&quot;lat lon: &quot; + lat.toString() + &quot;:&quot; + lon.toString())
 // locationId
 // lat - parallel to Equator
 // lon - perpendicular to Equator
@@ -2876,7 +2876,7 @@ vars.put(&quot;lon2&quot;, (Math.min(lon + width/2, 180)).toString())
         </kg.apc.jmeter.timers.VariableThroughputTimer>
         <hashTree/>
         <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
-          <boolProp name="ResultCollector.error_logging">true</boolProp>
+          <boolProp name="ResultCollector.error_logging">false</boolProp>
           <objProp>
             <name>saveConfig</name>
             <value class="SampleSaveConfiguration">

@@ -63,3 +63,4 @@ sampler.getHeaderManager().removeHeaderNamed("Content-Type");
 sampler.getHeaderManager().add(new Header("Content-Type", "application/json"));
 sampler.addNonEncodedArgument("", jsonBuilder.toPrettyString(), "")
 sampler.setPostBodyRaw(true)
+log.info("#${id}: Precipitation upload (realData=${realData}) >> #points:${pointList.size()}, reqSize:${reqSize}, date:${date}")

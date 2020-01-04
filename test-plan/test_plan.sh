@@ -151,12 +151,14 @@ test_help() {
   progName=`basename "$0"`
   echo "-h | --help: Usage
   $progName  <ROOT_DIR> <COMMAND> <REQ_SIZE>
+    - COMMAND: setup | import | create_extension | extension | export | all | query
     - REQ_SIZE (optional): 24(1) | 288(2) | 1440(3)
   NOTE: Modify test.conf as necessary
   e.g.
-  $progName ~/wdias/wdias-performance-test run
   $progName ~/wdias/wdias-performance-test run 2
   - Run all the steps in order of setup, import, create_extension, extension, export, all, query
+  $progName ~/wdias/wdias-performance-test run
+  - Run all steps for all REQ_SIZE
 
   $progName ~/wdias/wdias-performance-test setup
   $progName ~/wdias/wdias-performance-test import 24
