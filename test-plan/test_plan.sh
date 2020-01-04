@@ -32,8 +32,13 @@ exec_all_once_req_size() {
 test_setup() {
   echo "1. Setup Test"
   $CMD once 24 Setup # Independent of ReqSize
-  $CMD once 24 CreateTimeseries # Independent of ReqSize
   echo "Done 1. Setup \n"
+}
+
+test_create_timeseries() {
+  echo "1.1 Setup Test -> CreateTimeseries"
+  $CMD once 24 CreateTimeseries # Independent of ReqSize
+  echo "Done 1.1 Setup -> CreateTimesereis \n"
 }
 
 test_import() {
@@ -127,12 +132,21 @@ test_run() {
   echo "Successfully run full test plan"
 }
 
+test_disable_all() {
+  echo "Disabling all the test plans"
+  $CMD disable Import
+  $CMD disable Extension
+  $CMD disable Export
+  $CMD disable All
+  $CMD disable Grid
+  echo "Successfully disabled all the test plans"
+}
+
 # ---- Grid Setup
-test_setup_grid() {
-  echo "EXTRA: Setup Grid Test"
-  $CMD once 24 Setup # Independent of ReqSize
+test_create_grid_timeseries() {
+  echo "EXTRA: Setup Grid Test -> CreateGridTimereis"
   $CMD once 24 CreateGridTimeseries # Independent of ReqSize
-  echo "EXTRA: Done. Setup Grid \n"
+  echo "EXTRA: Done. Setup Grid -> CreateGridTimeseries \n"
 }
 test_grid() {
   REQ_SIZE=$1
