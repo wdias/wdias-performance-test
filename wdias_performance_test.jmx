@@ -2792,10 +2792,10 @@ vars.put(&quot;lon2&quot;, (Math.min(lon + width/2, 180)).toString())
               <stringProp name="1629">30</stringProp>
               <stringProp name="53">5</stringProp>
             </collectionProp>
-            <collectionProp name="-2000905086">
+            <collectionProp name="-1944975568">
               <stringProp name="1629">30</stringProp>
               <stringProp name="49">1</stringProp>
-              <stringProp name="53">5</stringProp>
+              <stringProp name="1629">30</stringProp>
             </collectionProp>
           </collectionProp>
         </kg.apc.jmeter.timers.VariableThroughputTimer>
