@@ -17,7 +17,6 @@ declare -a locations=("attidiya" "battaramulla" "ibattara" "kottawa" "waga")
 
 setup_cleanup() {
     echo "Clean up"
-    echo "Clean 123"
 
     for dd in "${locations[@]}"
     do
@@ -41,7 +40,7 @@ setup_populate() {
             sed -i '' "/${date}/!d" "${date}_${dd}.csv"
             lines=$(head -n 96 "${date}_${dd}.csv")
             echo "$lines" > "${date}_${dd}.csv"
-            sed -i '' "/${1:-:00Z}/!d" 2019-07-01_attidiya.csv
+            sed -i '' "/${1:-:00Z}/!d" "${date}_${dd}.csv"
         done
         cd ..
     done
@@ -62,7 +61,6 @@ setup_prepare() {
     # $TAR -czf 15_min.tar.gz --include='*.tar.gz' 15_min/*
     find 15_min -name '*.tar.gz' | $TAR -czf 15_min.tar.gz --files-from -
     find 15_min -name '*.tar.gz' -delete
-    exit 0
 
     echo "Processing 30_min"
     cd 30_min
