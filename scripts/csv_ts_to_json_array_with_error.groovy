@@ -15,6 +15,7 @@ class Point {
 List<Point> pointList = new ArrayList<>()
 
 def reqSize = vars.get("reqSize") as Integer
+String date = vars.get("date").trim() as String
 //log.info("Req Size:" + reqSizeMap.get(reqSize))
 def file = new File("./data/${reqSizeMap.get(reqSize)}.csv")
 file.eachLine { line, number ->
@@ -23,7 +24,8 @@ file.eachLine { line, number ->
     String[] str = line.split(',')
     if (str.length != 2)
         return
-    pointList.add(new Point(time: str[0].trim(), value: Float.parseFloat(str[1].trim())))
+    time = "${date}T${str[0].trim().split('T')[1]}"
+    pointList.add(new Point(time: time, value: Float.parseFloat(str[1].trim())))
 }
 
 def jsonBuilder = new JsonBuilder()

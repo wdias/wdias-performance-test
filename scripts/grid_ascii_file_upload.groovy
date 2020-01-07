@@ -14,7 +14,7 @@ def dateMap = [
 
 int id = vars.get("id") as Integer
 int reqSize = vars.get("reqSize") as Integer
-String date = JMeterUtils.getPropDefault("date", "2017-01-01").trim()
+String date = vars.get("date").trim()
 boolean realData = vars.get("realData") as Boolean
 
 int noHr = 24

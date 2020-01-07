@@ -55,7 +55,7 @@
           </elementProp>
           <elementProp name="date" elementType="Argument">
             <stringProp name="Argument.name">date</stringProp>
-            <stringProp name="Argument.value">${__P(date,2017-01-01)}</stringProp>
+            <stringProp name="Argument.value">${__P(date,2018-01-01)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="svc_metadata" elementType="Argument">
@@ -338,7 +338,7 @@
         <hashTree/>
       </hashTree>
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="WDIAS-CreateTimeseries Thread Group" enabled="false">
-        <stringProp name="ThreadGroup.on_sample_error">stoptestnow</stringProp>
+        <stringProp name="ThreadGroup.on_sample_error">stoptest</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
           <stringProp name="LoopController.loops">100</stringProp>

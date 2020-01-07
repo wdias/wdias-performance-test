@@ -29,7 +29,7 @@ List<Point> pointList = new ArrayList<>()
 
 int id = vars.get("id") as Integer
 int reqSize = vars.get("reqSize") as Integer
-String date = JMeterUtils.getPropDefault("date", "2017-01-01").trim()
+String date = vars.get("date").trim() as String
 boolean realData = vars.get("realData") as Boolean
 
 //log.info("Req Size:" + reqSizeMap.get(reqSize))
@@ -45,7 +45,8 @@ file.eachLine { line, number ->
     String[] str = line.split(',')
     if (str.length != 2)
         return
-    pointList.add(new Point(time: str[0].trim(), value: Float.parseFloat(str[1].trim())))
+    time = "${date}T${str[0].trim().split('T')[1]}"
+    pointList.add(new Point(time: time, value: Float.parseFloat(str[1].trim())))
 }
 
 def jsonBuilder = new JsonBuilder()

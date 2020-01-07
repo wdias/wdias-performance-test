@@ -16,7 +16,7 @@ def gridTimeStepMap = [
 int reqSize = vars.get("reqSize") as Integer
 def DataType = vars.get("valueType").trim()
 int id = vars.get("id") as Integer
-String dateStr = JMeterUtils.getPropDefault("date","2017-01-01").trim() as String
+String dateStr = vars.get("date").trim() as String
 
 def jsonSlurper = new JsonSlurper()
 def jsonBuilder = new JsonBuilder()
