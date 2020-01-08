@@ -2875,9 +2875,9 @@ vars.put(&quot;lon2&quot;, (Math.min(lon + width/2, 180)).toString())
               <stringProp name="48780">150</stringProp>
               <stringProp name="48687">120</stringProp>
             </collectionProp>
-            <collectionProp name="-579048337">
+            <collectionProp name="1153831265">
               <stringProp name="48780">150</stringProp>
-              <stringProp name="49">1</stringProp>
+              <stringProp name="1567">10</stringProp>
               <stringProp name="1815">90</stringProp>
             </collectionProp>
           </collectionProp>
@@ -5092,8 +5092,8 @@ if(timeseriesId.length() != 64){
         <hashTree/>
         <kg.apc.jmeter.timers.VariableThroughputTimer guiclass="kg.apc.jmeter.timers.VariableThroughputTimerGui" testclass="kg.apc.jmeter.timers.VariableThroughputTimer" testname="tst-timer-grid_prod" enabled="false">
           <collectionProp name="load_profile">
-            <collectionProp name="1815752366">
-              <stringProp name="1">1</stringProp>
+            <collectionProp name="1874247475">
+              <stringProp name="53">5</stringProp>
               <stringProp name="1567">10</stringProp>
               <stringProp name="1722">60</stringProp>
             </collectionProp>
