@@ -1593,8 +1593,8 @@ if(timeseriesId.length() != 64){
         <hashTree/>
         <kg.apc.jmeter.timers.VariableThroughputTimer guiclass="kg.apc.jmeter.timers.VariableThroughputTimerGui" testclass="kg.apc.jmeter.timers.VariableThroughputTimer" testname="tst-timer-extension_dev" enabled="false">
           <collectionProp name="load_profile">
-            <collectionProp name="1759787457">
-              <stringProp name="1">1</stringProp>
+            <collectionProp name="1818282566">
+              <stringProp name="53">5</stringProp>
               <stringProp name="1567">10</stringProp>
               <stringProp name="53">5</stringProp>
             </collectionProp>
@@ -1638,9 +1638,9 @@ if(timeseriesId.length() != 64){
               <stringProp name="1629">30</stringProp>
               <stringProp name="53">5</stringProp>
             </collectionProp>
-            <collectionProp name="-2000905086">
+            <collectionProp name="-2000876287">
               <stringProp name="1629">30</stringProp>
-              <stringProp name="49">1</stringProp>
+              <stringProp name="53">5</stringProp>
               <stringProp name="53">5</stringProp>
             </collectionProp>
           </collectionProp>
@@ -1648,60 +1648,75 @@ if(timeseriesId.length() != 64){
         <hashTree/>
         <kg.apc.jmeter.timers.VariableThroughputTimer guiclass="kg.apc.jmeter.timers.VariableThroughputTimerGui" testclass="kg.apc.jmeter.timers.VariableThroughputTimer" testname="tst-timer-extension_prod" enabled="false">
           <collectionProp name="load_profile">
-            <collectionProp name="1815685870">
-              <stringProp name="1">1</stringProp>
-              <stringProp name="1567">10</stringProp>
-              <stringProp name="1567">10</stringProp>
-            </collectionProp>
-            <collectionProp name="-297917389">
-              <stringProp name="1567">10</stringProp>
-              <stringProp name="1567">10</stringProp>
-              <stringProp name="53">5</stringProp>
-            </collectionProp>
-            <collectionProp name="-240812109">
+            <collectionProp name="-240746580">
               <stringProp name="1567">10</stringProp>
               <stringProp name="1691">50</stringProp>
-              <stringProp name="1572">15</stringProp>
+              <stringProp name="1722">60</stringProp>
             </collectionProp>
-            <collectionProp name="-259328589">
+            <collectionProp name="-203399071">
               <stringProp name="1691">50</stringProp>
               <stringProp name="1691">50</stringProp>
-              <stringProp name="53">5</stringProp>
-            </collectionProp>
-            <collectionProp name="-715114951">
-              <stringProp name="1691">50</stringProp>
-              <stringProp name="48625">100</stringProp>
-              <stringProp name="1572">15</stringProp>
-            </collectionProp>
-            <collectionProp name="546596851">
-              <stringProp name="48625">100</stringProp>
-              <stringProp name="48625">100</stringProp>
-              <stringProp name="53">5</stringProp>
-            </collectionProp>
-            <collectionProp name="635808521">
-              <stringProp name="48625">100</stringProp>
-              <stringProp name="49586">200</stringProp>
-              <stringProp name="1572">15</stringProp>
-            </collectionProp>
-            <collectionProp name="1668488544">
-              <stringProp name="49586">200</stringProp>
-              <stringProp name="49586">200</stringProp>
-              <stringProp name="1567">10</stringProp>
-            </collectionProp>
-            <collectionProp name="-1874842981">
-              <stringProp name="49586">200</stringProp>
-              <stringProp name="50547">300</stringProp>
-              <stringProp name="1572">15</stringProp>
-            </collectionProp>
-            <collectionProp name="-49000537">
-              <stringProp name="50547">300</stringProp>
-              <stringProp name="50547">300</stringProp>
-              <stringProp name="1572">15</stringProp>
-            </collectionProp>
-            <collectionProp name="-323437651">
-              <stringProp name="50547">300</stringProp>
-              <stringProp name="1567">10</stringProp>
               <stringProp name="1629">30</stringProp>
+            </collectionProp>
+            <collectionProp name="-715049422">
+              <stringProp name="1691">50</stringProp>
+              <stringProp name="48625">100</stringProp>
+              <stringProp name="1722">60</stringProp>
+            </collectionProp>
+            <collectionProp name="602526369">
+              <stringProp name="48625">100</stringProp>
+              <stringProp name="48625">100</stringProp>
+              <stringProp name="1629">30</stringProp>
+            </collectionProp>
+            <collectionProp name="603911053">
+              <stringProp name="48625">100</stringProp>
+              <stringProp name="48780">150</stringProp>
+              <stringProp name="1815">90</stringProp>
+            </collectionProp>
+            <collectionProp name="644596097">
+              <stringProp name="48780">150</stringProp>
+              <stringProp name="48780">150</stringProp>
+              <stringProp name="1629">30</stringProp>
+            </collectionProp>
+            <collectionProp name="676663713">
+              <stringProp name="48780">150</stringProp>
+              <stringProp name="49586">200</stringProp>
+              <stringProp name="1815">90</stringProp>
+            </collectionProp>
+            <collectionProp name="1668519649">
+              <stringProp name="49586">200</stringProp>
+              <stringProp name="49586">200</stringProp>
+              <stringProp name="1629">30</stringProp>
+            </collectionProp>
+            <collectionProp name="-839762132">
+              <stringProp name="49586">200</stringProp>
+              <stringProp name="49741">250</stringProp>
+              <stringProp name="48687">120</stringProp>
+            </collectionProp>
+            <collectionProp name="1734483681">
+              <stringProp name="49741">250</stringProp>
+              <stringProp name="49741">250</stringProp>
+              <stringProp name="1629">30</stringProp>
+            </collectionProp>
+            <collectionProp name="-26286048">
+              <stringProp name="49741">250</stringProp>
+              <stringProp name="50547">300</stringProp>
+              <stringProp name="48687">120</stringProp>
+            </collectionProp>
+            <collectionProp name="-48935008">
+              <stringProp name="50547">300</stringProp>
+              <stringProp name="50547">300</stringProp>
+              <stringProp name="1722">60</stringProp>
+            </collectionProp>
+            <collectionProp name="-832567423">
+              <stringProp name="50547">300</stringProp>
+              <stringProp name="48780">150</stringProp>
+              <stringProp name="1722">60</stringProp>
+            </collectionProp>
+            <collectionProp name="1153796651">
+              <stringProp name="48780">150</stringProp>
+              <stringProp name="1567">10</stringProp>
+              <stringProp name="1722">60</stringProp>
             </collectionProp>
           </collectionProp>
         </kg.apc.jmeter.timers.VariableThroughputTimer>
@@ -1725,7 +1740,7 @@ if(timeseriesId.length() != 64){
               <subresults>true</subresults>
               <responseData>false</responseData>
               <samplerData>false</samplerData>
-              <xml>true</xml>
+              <xml>false</xml>
               <fieldNames>true</fieldNames>
               <responseHeaders>false</responseHeaders>
               <requestHeaders>false</requestHeaders>
@@ -1777,7 +1792,7 @@ if(timeseriesId.length() != 64){
               <connectTime>true</connectTime>
             </value>
           </objProp>
-          <stringProp name="filename"></stringProp>
+          <stringProp name="filename">./logs/wdias_extension.jtl</stringProp>
         </ResultCollector>
         <hashTree/>
         <kg.apc.jmeter.vizualizers.CorrectedResultCollector guiclass="kg.apc.jmeter.vizualizers.HitsPerSecondGui" testclass="kg.apc.jmeter.vizualizers.CorrectedResultCollector" testname="jp@gc - Hits per Second" enabled="true">
@@ -1814,7 +1829,52 @@ if(timeseriesId.length() != 64){
               <connectTime>true</connectTime>
             </value>
           </objProp>
-          <stringProp name="filename"></stringProp>
+          <stringProp name="filename">./logs/wdias_extension.jtl</stringProp>
+          <longProp name="interval_grouping">1000</longProp>
+          <boolProp name="graph_aggregated">false</boolProp>
+          <stringProp name="include_sample_labels"></stringProp>
+          <stringProp name="exclude_sample_labels"></stringProp>
+          <stringProp name="start_offset"></stringProp>
+          <stringProp name="end_offset"></stringProp>
+          <boolProp name="include_checkbox_state">false</boolProp>
+          <boolProp name="exclude_checkbox_state">false</boolProp>
+        </kg.apc.jmeter.vizualizers.CorrectedResultCollector>
+        <hashTree/>
+        <kg.apc.jmeter.vizualizers.CorrectedResultCollector guiclass="kg.apc.jmeter.vizualizers.TransactionsPerSecondGui" testclass="kg.apc.jmeter.vizualizers.CorrectedResultCollector" testname="jp@gc - Transactions per Second" enabled="true">
+          <boolProp name="ResultCollector.error_logging">false</boolProp>
+          <objProp>
+            <name>saveConfig</name>
+            <value class="SampleSaveConfiguration">
+              <time>true</time>
+              <latency>true</latency>
+              <timestamp>true</timestamp>
+              <success>true</success>
+              <label>true</label>
+              <code>true</code>
+              <message>true</message>
+              <threadName>true</threadName>
+              <dataType>true</dataType>
+              <encoding>false</encoding>
+              <assertions>true</assertions>
+              <subresults>true</subresults>
+              <responseData>false</responseData>
+              <samplerData>false</samplerData>
+              <xml>false</xml>
+              <fieldNames>true</fieldNames>
+              <responseHeaders>false</responseHeaders>
+              <requestHeaders>false</requestHeaders>
+              <responseDataOnError>false</responseDataOnError>
+              <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+              <assertionsResultsToSave>0</assertionsResultsToSave>
+              <bytes>true</bytes>
+              <sentBytes>true</sentBytes>
+              <url>true</url>
+              <threadCounts>true</threadCounts>
+              <idleTime>true</idleTime>
+              <connectTime>true</connectTime>
+            </value>
+          </objProp>
+          <stringProp name="filename">./logs/wdias_extension.jtl</stringProp>
           <longProp name="interval_grouping">1000</longProp>
           <boolProp name="graph_aggregated">false</boolProp>
           <stringProp name="include_sample_labels"></stringProp>
