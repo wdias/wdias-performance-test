@@ -3183,18 +3183,36 @@ vars.put(&quot;lon2&quot;, (Math.min(lon + width/2, 180)).toString())
         </kg.apc.jmeter.vizualizers.CorrectedResultCollector>
         <hashTree/>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="WDIAS-Query Thread Group" enabled="false">
-        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+      <kg.apc.jmeter.threads.UltimateThreadGroup guiclass="kg.apc.jmeter.threads.UltimateThreadGroupGui" testclass="kg.apc.jmeter.threads.UltimateThreadGroup" testname="WDIAS-Query Ultimate Thread Group" enabled="false">
+        <collectionProp name="ultimatethreadgroupdata">
+          <collectionProp name="1474045787">
+            <stringProp name="100">100</stringProp>
+            <stringProp name="0">0</stringProp>
+            <stringProp name="1722">60</stringProp>
+            <stringProp name="49617">210</stringProp>
+            <stringProp name="1629">30</stringProp>
+          </collectionProp>
+          <collectionProp name="794087565">
+            <stringProp name="100">100</stringProp>
+            <stringProp name="1815">90</stringProp>
+            <stringProp name="1722">60</stringProp>
+            <stringProp name="48687">120</stringProp>
+            <stringProp name="1629">30</stringProp>
+          </collectionProp>
+          <collectionProp name="-357118131">
+            <stringProp name="100">100</stringProp>
+            <stringProp name="48873">180</stringProp>
+            <stringProp name="1722">60</stringProp>
+            <stringProp name="1629">30</stringProp>
+            <stringProp name="1629">30</stringProp>
+          </collectionProp>
+        </collectionProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
-          <stringProp name="LoopController.loops">100</stringProp>
+          <intProp name="LoopController.loops">-1</intProp>
         </elementProp>
-        <stringProp name="ThreadGroup.num_threads">100</stringProp>
-        <stringProp name="ThreadGroup.ramp_time">10</stringProp>
-        <boolProp name="ThreadGroup.scheduler">true</boolProp>
-        <stringProp name="ThreadGroup.duration">60</stringProp>
-        <stringProp name="ThreadGroup.delay"></stringProp>
-      </ThreadGroup>
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+      </kg.apc.jmeter.threads.UltimateThreadGroup>
       <hashTree>
         <ConfigTestElement guiclass="HttpDefaultsGui" testclass="ConfigTestElement" testname="HTTP Request Defaults" enabled="true">
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
@@ -3771,7 +3789,7 @@ vars.put(&quot;lon2&quot;, (Math.min(lon + width/2, 180)).toString())
               <subresults>true</subresults>
               <responseData>false</responseData>
               <samplerData>false</samplerData>
-              <xml>true</xml>
+              <xml>false</xml>
               <fieldNames>true</fieldNames>
               <responseHeaders>false</responseHeaders>
               <requestHeaders>false</requestHeaders>
@@ -5127,8 +5145,8 @@ if(timeseriesId.length() != 64){
         <hashTree/>
         <kg.apc.jmeter.timers.VariableThroughputTimer guiclass="kg.apc.jmeter.timers.VariableThroughputTimerGui" testclass="kg.apc.jmeter.timers.VariableThroughputTimer" testname="tst-timer-grid_dev" enabled="false">
           <collectionProp name="load_profile">
-            <collectionProp name="82835067">
-              <stringProp name="1">1</stringProp>
+            <collectionProp name="141257140">
+              <stringProp name="51">3</stringProp>
               <stringProp name="53">5</stringProp>
               <stringProp name="1567">10</stringProp>
             </collectionProp>
@@ -5167,15 +5185,15 @@ if(timeseriesId.length() != 64){
               <stringProp name="1598">20</stringProp>
               <stringProp name="1598">20</stringProp>
             </collectionProp>
-            <collectionProp name="-238613341">
+            <collectionProp name="-238643318">
               <stringProp name="1598">20</stringProp>
-              <stringProp name="1572">15</stringProp>
+              <stringProp name="1567">10</stringProp>
               <stringProp name="1598">20</stringProp>
             </collectionProp>
-            <collectionProp name="-1973969291">
-              <stringProp name="1572">15</stringProp>
-              <stringProp name="49">1</stringProp>
+            <collectionProp name="-1974868626">
               <stringProp name="1567">10</stringProp>
+              <stringProp name="51">3</stringProp>
+              <stringProp name="1598">20</stringProp>
             </collectionProp>
           </collectionProp>
         </kg.apc.jmeter.timers.VariableThroughputTimer>
@@ -5232,9 +5250,9 @@ if(timeseriesId.length() != 64){
               <stringProp name="1691">50</stringProp>
               <stringProp name="48687">120</stringProp>
             </collectionProp>
-            <collectionProp name="1580054559">
+            <collectionProp name="-152796244">
               <stringProp name="1691">50</stringProp>
-              <stringProp name="1567">10</stringProp>
+              <stringProp name="53">5</stringProp>
               <stringProp name="48780">150</stringProp>
             </collectionProp>
           </collectionProp>
@@ -5259,10 +5277,10 @@ if(timeseriesId.length() != 64){
               <subresults>true</subresults>
               <responseData>false</responseData>
               <samplerData>false</samplerData>
-              <xml>true</xml>
+              <xml>false</xml>
               <fieldNames>true</fieldNames>
               <responseHeaders>false</responseHeaders>
-              <requestHeaders>true</requestHeaders>
+              <requestHeaders>false</requestHeaders>
               <responseDataOnError>false</responseDataOnError>
               <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
               <assertionsResultsToSave>0</assertionsResultsToSave>
