@@ -5,7 +5,8 @@ export MASTER_NAME=$(kubectl get pods -l wdias=jmeter-master -o jsonpath='{.item
 
 # Setup test cases
 misc_setup() {
-  kubectl exec -it $MASTER_NAME -- bash -c "./test-plan/test_plan.sh /jmeter setup 1440"
+  export MASTER_NAME=$(kubectl get pods -l wdias=jmeter-master -o jsonpath='{.items[*].metadata.name}') && \
+  kubectl exec -it $MASTER_NAME -- bash -c "./test-plan/test_plan.sh /jmeter setup 1440" && \
   kubectl exec -it $MASTER_NAME -- bash -c "./test-plan/test_plan.sh /jmeter create_timeseries 1440"
 }
 
