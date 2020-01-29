@@ -2860,8 +2860,8 @@ vars.put(&quot;lon2&quot;, (Math.min(lon + width/2, 180)).toString())
         <hashTree/>
         <kg.apc.jmeter.timers.VariableThroughputTimer guiclass="kg.apc.jmeter.timers.VariableThroughputTimerGui" testclass="kg.apc.jmeter.timers.VariableThroughputTimer" testname="tst-timer-all_dev" enabled="false">
           <collectionProp name="load_profile">
-            <collectionProp name="1815685870">
-              <stringProp name="1">1</stringProp>
+            <collectionProp name="1874180979">
+              <stringProp name="53">5</stringProp>
               <stringProp name="1567">10</stringProp>
               <stringProp name="1567">10</stringProp>
             </collectionProp>
@@ -2890,9 +2890,9 @@ vars.put(&quot;lon2&quot;, (Math.min(lon + width/2, 180)).toString())
               <stringProp name="1629">30</stringProp>
               <stringProp name="53">5</stringProp>
             </collectionProp>
-            <collectionProp name="-1944975568">
+            <collectionProp name="-1944946769">
               <stringProp name="1629">30</stringProp>
-              <stringProp name="49">1</stringProp>
+              <stringProp name="53">5</stringProp>
               <stringProp name="1629">30</stringProp>
             </collectionProp>
           </collectionProp>
