@@ -11,8 +11,12 @@ export MASTER_NAME=$(kubectl get pods -l wdias=jmeter-master -o jsonpath='{.item
 misc_setup() {
   export MASTER_NAME=$(kubectl get pods -l wdias=jmeter-master -o jsonpath='{.items[*].metadata.name}')
   kubectl exec -it $MASTER_NAME -- bash -c "./test-plan/test_plan.sh /jmeter setup 1440"
+  echo "Copy jmeter output wdias_setup.jtl >> wdias_setup.jtl"
+  kubectl get pods | grep 'wdias-performance-test-master' | awk '{print $1}' | xargs -o -I {} kubectl cp default/{}:/jmeter/logs/wdias_setup.jtl ./logs/wdias_setup.jtl
   sleep 3 && echo -e "\n\n"
   kubectl exec -it $MASTER_NAME -- bash -c "./test-plan/test_plan.sh /jmeter create_timeseries 1440"
+  echo "Copy jmeter output wdias_create_timeseries.jtl >> wdias_create_timeseries.jtl"
+  kubectl get pods | grep 'wdias-performance-test-master' | awk '{print $1}' | xargs -o -I {} kubectl cp default/{}:/jmeter/logs/wdias_create_timeseries.jtl ./logs/wdias_create_timeseries.jtl
   echo "Setup the MISC test complete. Exit"
   exit 0
 }
