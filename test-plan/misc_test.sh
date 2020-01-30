@@ -4,6 +4,7 @@ set -e
 # ./misc_test.sh
 # ./misc_test.sh setup
 
+CMD="~/wdias/wdias/bin/macos/test-dev"
 export MASTER_NAME=$(kubectl get pods -l wdias=jmeter-master -o jsonpath='{.items[*].metadata.name}')
 
 # Setup test cases
@@ -26,6 +27,9 @@ misc_run() {
   kubectl get pods | grep 'wdias-performance-test-master' | awk '{print $1}' | xargs -o -I {} kubectl cp default/{}:/jmeter/logs/wdias_${TEST_CASE}.jtl ./logs/wdias_${TEST_CASE}_${REQ_SIZE}.jtl
   echo "Copy SQLite database wdias.db >> wdias_${TEST_CASE}_${REQ_SIZE}.db"
   kubectl get pods | grep 'wdias-data-collector' | awk '{print $1}' | xargs -o -I {} kubectl cp default/{}:/go/src/app/wdias.db ./db/wdias_${TEST_CASE}_${REQ_SIZE}.db
+  echo "Clean up wdias-data-collector"
+  kubectl get pods | grep 'wdias-data-collector' | awk '{print $1}' | xargs -o -I {} kubectl delete pod {}
+  sleep 5
 }
 
 misc_run all 24
