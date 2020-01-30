@@ -12,6 +12,8 @@ misc_setup() {
   export MASTER_NAME=$(kubectl get pods -l wdias=jmeter-master -o jsonpath='{.items[*].metadata.name}')
   kubectl exec -it $MASTER_NAME -- bash -c "./test-plan/test_plan.sh /jmeter setup 1440" && sleep 3 && echo "\n\n" \
   kubectl exec -it $MASTER_NAME -- bash -c "./test-plan/test_plan.sh /jmeter create_timeseries 1440"
+  echo "Setup the MISC test. Exit"
+  exit 0
 }
 
 if [ "${1}" = "setup" ]; then
