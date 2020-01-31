@@ -18,16 +18,11 @@ misc_setup() {
   echo "Copy jmeter output wdias_create_timeseries.jtl >> wdias_create_timeseries.jtl"
   kubectl get pods | grep 'wdias-performance-test-master' | awk '{print $1}' | xargs -o -I {} kubectl cp default/{}:/jmeter/logs/wdias_create_timeseries.jtl ./logs/wdias_create_timeseries.jtl
   echo "Setup the MISC test complete. Exit"
-  exit 0
 }
 
-if [ "${1}" = "setup" ]; then
-  misc_setup
-fi
-
-misc_run() {
+misc_cleanup() {
   TEST_CASE=$1
-  REQ_SIZE=$2
+  SLEEP=${2:-30}
   # Do the cleanups before run test cases
   echo "Clean up wdias-data-collector"
   kubectl get pods | grep 'wdias-data-collector' | awk '{print $1}' | xargs -o -I {} nohup kubectl delete pod {} > /tmp/misc_logs.out 2>&1 &
@@ -36,14 +31,18 @@ misc_run() {
   kubectl get pods | grep 'import-ascii-grid-upload' | awk '{print $1}' | xargs -o -I {} nohup kubectl delete pod {} > /tmp/misc_logs.out 2>&1 &
   echo "Flush InfluxDBs"
   kubectl get pods | grep 'adapter-scalar' | awk '{print $1}' | xargs -o -I {} nohup kubectl delete pod {} > /tmp/misc_logs.out 2>&1 &
+  kubectl get pods | grep 'adapter-vector' | awk '{print $1}' | xargs -o -I {} nohup kubectl delete pod {} > /tmp/misc_logs.out 2>&1 &
   kubectl get pods | grep 'adapter-redis' | awk '{print $1}' | xargs -o -I {} nohup kubectl delete pod {} > /tmp/misc_logs.out 2>&1 &
   if [ -f ./logs/wdias_${TEST_CASE}.jtl ] ; then
     kubectl exec -it $MASTER_NAME -- bash -c "rm ./logs/wdias_${TEST_CASE}.jtl"
   fi
   echo -e "Removed jmeter log in order to avoid prepend\n> > > > >\n"
-  kubectl get pods | grep 'adapter-vector' | awk '{print $1}' | xargs -o -I {} kubectl delete pod {}
-  sleep 1
+  sleep $SLEEP
+}
 
+misc_run() {
+  TEST_CASE=$1
+  REQ_SIZE=$2
   echo -e "\n\nRunning test: ${TEST_CASE} for reqSize: ${REQ_SIZE}"
   kubectl exec -it $MASTER_NAME -- bash -c "./test-plan/test_plan.sh /jmeter ${TEST_CASE} ${REQ_SIZE}"
   echo "Copy jmeter output wdias_${TEST_CASE}.jtl >> wdias_${TEST_CASE}_${REQ_SIZE}.jtl"
@@ -52,12 +51,41 @@ misc_run() {
   kubectl get pods | grep 'wdias-data-collector' | awk '{print $1}' | xargs -o -I {} kubectl cp default/{}:/go/src/app/wdias.db ./db/wdias_${TEST_CASE}_${REQ_SIZE}.db
 }
 
-misc_run all 24
-misc_run all 288
-misc_run all 1440
+misc_all() {
+  misc_cleanup all && misc_run all 24
+  misc_cleanup all && misc_run all 288
+  misc_cleanup all && misc_run all 1440
+}
 
-misc_run import 1440
-misc_run create_extensions 1440
-misc_run extension 1440
-misc_run "export" 1440
-misc_run query 1440
+misc_other() {
+  misc_run import 1440
+  misc_run create_extensions 1440
+  misc_run extension 1440
+  misc_run "export" 1440
+  misc_run query 1440
+}
+
+test_help() {
+  progName=`basename "$0"`
+  echo "-h | --help: Usage
+  $progName <COMMAND>
+    - COMMAND: setup | all | other | cleanup
+  "
+}
+
+
+misc_cmd=$1
+case $misc_cmd in
+  "" | "-h" | "--help")
+    misc_help
+    ;;
+  *)
+    shift
+    misc_${misc_cmd} $@
+    if [ $? = 127 ]; then
+      echo "'${misc_cmd}' command not found." >&2
+      echo "List available commands with '$progName --help'" >&2
+      exit 1
+    fi
+    ;;
+esac
