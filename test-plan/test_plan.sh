@@ -55,10 +55,10 @@ test_import() {
   echo "Done 1. Import: ${REQ_SIZE} \n"
 }
 
-test_create_extension() {
+test_create_extensions() {
   REQ_SIZE=$1
   echo "3.0 Create Extensions"
-  echo "NOTE: Make sure to setup before running create_extension"
+  echo "NOTE: Make sure to setup before running create_extensions"
   if [[ -z ${REQ_SIZE} ]]; then
     exec_all_once_req_size CreateExtensions
   else
@@ -124,7 +124,7 @@ test_query() {
 test_run() {
   echo "Start running all the test plan : $@"
   test_import $@
-  test_create_extension $@
+  test_create_extensions $@
   test_extension $@
   test_export $@
   test_all $@
@@ -165,18 +165,18 @@ test_help() {
   progName=`basename "$0"`
   echo "-h | --help: Usage
   $progName  <ROOT_DIR> <COMMAND> <REQ_SIZE>
-    - COMMAND: setup | import | create_extension | extension | export | all | query
+    - COMMAND: setup | import | create_extensions | extension | export | all | query
     - REQ_SIZE (optional): 24(1) | 288(2) | 1440(3)
   NOTE: Modify test.conf as necessary
   e.g.
   $progName ~/wdias/wdias-performance-test run 2
-  - Run all the steps in order of setup, import, create_extension, extension, export, all, query
+  - Run all the steps in order of setup, import, create_extensions, extension, export, all, query
   $progName ~/wdias/wdias-performance-test run
   - Run all steps for all REQ_SIZE
 
   $progName ~/wdias/wdias-performance-test setup
   $progName ~/wdias/wdias-performance-test import 24
-  $progName ~/wdias/wdias-performance-test create_extension 24
+  $progName ~/wdias/wdias-performance-test create_extensions 24
   $progName ~/wdias/wdias-performance-test extension 24
   $progName ~/wdias/wdias-performance-test export 24
   $progName ~/wdias/wdias-performance-test all 24

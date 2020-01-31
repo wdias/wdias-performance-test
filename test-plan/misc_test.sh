@@ -37,6 +37,7 @@ misc_run() {
   echo "Flush InfluxDBs"
   kubectl get pods | grep 'adapter-scalar' | awk '{print $1}' | xargs -o -I {} nohup kubectl delete pod {} > /tmp/misc_logs.out 2>&1 &
   kubectl get pods | grep 'adapter-vector' | awk '{print $1}' | xargs -o -I {} nohup kubectl delete pod {} > /tmp/misc_logs.out 2>&1 &
+  kubectl get pods | grep 'adapter-redis' | awk '{print $1}' | xargs -o -I {} nohup kubectl delete pod {} > /tmp/misc_logs.out 2>&1 &
   kubectl exec -it $MASTER_NAME -- bash -c "rm ./logs/wdias_${TEST_CASE}.jtl"
   echo -e "Removed jmeter log in order to avoid prepend\n> > > > >\n"
   sleep 10
@@ -54,7 +55,7 @@ misc_run all 288
 misc_run all 1440
 
 misc_run import 1440
-misc_run create_extension 1440
+misc_run create_extensions 1440
 misc_run extension 1440
 misc_run "export" 1440
 misc_run query 1440
