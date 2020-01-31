@@ -71,7 +71,7 @@ misc_other() {
   misc_run query 1440
 }
 
-test_help() {
+misc_help() {
   progName=`basename "$0"`
   echo "-h | --help: Usage
   $progName <COMMAND>
