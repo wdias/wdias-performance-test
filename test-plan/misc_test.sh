@@ -26,12 +26,9 @@ misc_wait_for_pod() {
   echo "${POD_NAME} is ready"
 }
 
-misc_cleanup() {
-  TEST_CASE=$1
+
+misc_free_pods() {
   SLEEP=${2:-15}
-  # Do the cleanups before run test cases
-  echo "Clean up wdias-data-collector"
-  kubectl get pods | grep 'wdias-data-collector' | awk '{print $1}' | xargs -o -I {} nohup kubectl delete pod {} > /tmp/misc_logs.out 2>&1 &
   echo "Clean memory leaks of netCDF"
   kubectl get pods | grep 'adapter-grid' | awk '{print $1}' | xargs -o -I {} nohup kubectl delete pod {} > /tmp/misc_logs.out 2>&1 &
   kubectl get pods | grep 'import-ascii-grid-upload' | awk '{print $1}' | xargs -o -I {} nohup kubectl delete pod {} > /tmp/misc_logs.out 2>&1 &
@@ -39,11 +36,21 @@ misc_cleanup() {
   kubectl get pods | grep 'adapter-scalar' | awk '{print $1}' | xargs -o -I {} nohup kubectl delete pod {} > /tmp/misc_logs.out 2>&1 &
   kubectl get pods | grep 'adapter-vector' | awk '{print $1}' | xargs -o -I {} nohup kubectl delete pod {} > /tmp/misc_logs.out 2>&1 &
   kubectl get pods | grep 'adapter-redis' | awk '{print $1}' | xargs -o -I {} nohup kubectl delete pod {} > /tmp/misc_logs.out 2>&1 &
-  kubectl exec -it $MASTER_NAME -- bash -c "rm -f ./logs/wdias_${TEST_CASE}.jtl"
-  echo "Removed jmeter log in order to avoid prepend\n> > > > >"
   sleep $SLEEP
   misc_wait_for_pod adapter-scalar-influxdb
   misc_wait_for_pod adapter-vector-influxdb
+}
+
+misc_cleanup() {
+  TEST_CASE=$1
+  # Do the cleanups before run test cases
+  echo "Clean up wdias-data-collector"
+  kubectl get pods | grep 'wdias-data-collector' | awk '{print $1}' | xargs -o -I {} nohup kubectl delete pod {} > /tmp/misc_logs.out 2>&1 &
+  kubectl exec -it $MASTER_NAME -- bash -c "rm -f ./logs/wdias_${TEST_CASE}.jtl"
+  echo "Removed jmeter log in order to avoid prepend\n> > > > >"
+  if [[ "${2}" == "pod" ]]; then
+    misc_free_pods
+  fi
 }
 
 misc_run() {
@@ -58,17 +65,17 @@ misc_run() {
 }
 
 misc_all() {
-  misc_cleanup all && misc_run all 24
-  misc_cleanup all && misc_run all 288
-  misc_cleanup all && misc_run all 1440
+  misc_cleanup all pod && misc_run all 24
+  misc_cleanup all pod && misc_run all 288
+  misc_cleanup all pod && misc_run all 1440
 }
 
 misc_other() {
-  misc_run import 1440
-  misc_run create_extensions 1440
-  misc_run extension 1440
-  misc_run "export" 1440
-  misc_run query 1440
+  misc_cleanup import pod && misc_run import 1440
+  misc_cleanup create_extensions pod && misc_run create_extensions 1440
+  misc_cleanup create_extensions && misc_run extension 1440
+  misc_cleanup create_extensions && misc_run "export" 1440
+  misc_cleanup create_extensions && misc_run query 1440
 }
 
 misc_help() {
