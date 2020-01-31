@@ -22,7 +22,7 @@ misc_setup() {
 
 misc_wait_for_pod() {
   POD_NAME=$1
-  while [[ $(kubectl get pods -l app=$POD_NAME -o 'jsonpath={..status.conditions[?(@.type=="Ready")].status}') != "True" ]]; do echo "waiting for pod ${POD_NAME}" && sleep 1; done
+  while [ $(kubectl get pods -l app=$POD_NAME -o 'jsonpath={..status.conditions[?(@.type=="Ready")].status}') != "True" ]; do echo "waiting for pod ${POD_NAME}" && sleep 1; done
   echo "${POD_NAME} is ready"
 }
 
