@@ -36,13 +36,13 @@ misc_run() {
   kubectl get pods | grep 'import-ascii-grid-upload' | awk '{print $1}' | xargs -o -I {} nohup kubectl delete pod {} > /tmp/misc_logs.out 2>&1 &
   echo "Flush InfluxDBs"
   kubectl get pods | grep 'adapter-scalar' | awk '{print $1}' | xargs -o -I {} nohup kubectl delete pod {} > /tmp/misc_logs.out 2>&1 &
-  kubectl get pods | grep 'adapter-vector' | awk '{print $1}' | xargs -o -I {} nohup kubectl delete pod {} > /tmp/misc_logs.out 2>&1 &
   kubectl get pods | grep 'adapter-redis' | awk '{print $1}' | xargs -o -I {} nohup kubectl delete pod {} > /tmp/misc_logs.out 2>&1 &
   if [ -f ./logs/wdias_${TEST_CASE}.jtl ] ; then
     kubectl exec -it $MASTER_NAME -- bash -c "rm ./logs/wdias_${TEST_CASE}.jtl"
   fi
   echo -e "Removed jmeter log in order to avoid prepend\n> > > > >\n"
-  sleep 10
+  kubectl get pods | grep 'adapter-vector' | awk '{print $1}' | xargs -o -I {} kubectl delete pod {}
+  sleep 1
 
   echo -e "\n\nRunning test: ${TEST_CASE} for reqSize: ${REQ_SIZE}"
   kubectl exec -it $MASTER_NAME -- bash -c "./test-plan/test_plan.sh /jmeter ${TEST_CASE} ${REQ_SIZE}"
