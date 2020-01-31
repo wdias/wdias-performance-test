@@ -47,8 +47,8 @@ misc_cleanup() {
   echo "Clean up wdias-data-collector"
   kubectl get pods | grep 'wdias-data-collector' | awk '{print $1}' | xargs -o -I {} nohup kubectl delete pod {} > /tmp/misc_logs.out 2>&1 &
   kubectl exec -it $MASTER_NAME -- bash -c "rm -f ./logs/wdias_${TEST_CASE}.jtl"
-  echo "Removed jmeter log in order to avoid prepend\n> > > > >"
-  if [[ "${2}" == "pod" ]]; then
+  echo "Removed jmeter log in order to avoid prepend > > > > >"
+  if [ "${2}" = "pod" ]; then
     misc_free_pods
   fi
 }
