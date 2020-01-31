@@ -73,9 +73,9 @@ misc_all() {
 misc_other() {
   misc_cleanup import pod && misc_run import 1440
   misc_cleanup create_extensions pod && misc_run create_extensions 1440
-  misc_cleanup create_extensions && misc_run extension 1440
-  misc_cleanup create_extensions && misc_run "export" 1440
-  misc_cleanup create_extensions && misc_run query 1440
+  misc_cleanup extension && misc_run extension 1440
+  misc_cleanup "export" && misc_run "export" 1440
+  misc_cleanup query && misc_run query 1440
 }
 
 misc_help() {
