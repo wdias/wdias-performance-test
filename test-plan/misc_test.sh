@@ -38,7 +38,9 @@ misc_run() {
   kubectl get pods | grep 'adapter-scalar' | awk '{print $1}' | xargs -o -I {} nohup kubectl delete pod {} > /tmp/misc_logs.out 2>&1 &
   kubectl get pods | grep 'adapter-vector' | awk '{print $1}' | xargs -o -I {} nohup kubectl delete pod {} > /tmp/misc_logs.out 2>&1 &
   kubectl get pods | grep 'adapter-redis' | awk '{print $1}' | xargs -o -I {} nohup kubectl delete pod {} > /tmp/misc_logs.out 2>&1 &
-  kubectl exec -it $MASTER_NAME -- bash -c "[ -e ./logs/wdias_${TEST_CASE}.jtl ] && rm ./logs/wdias_${TEST_CASE}.jtl"
+  if [ -f ./logs/wdias_${TEST_CASE}.jtl ] ; then
+    kubectl exec -it $MASTER_NAME -- bash -c "rm ./logs/wdias_${TEST_CASE}.jtl"
+  fi
   echo -e "Removed jmeter log in order to avoid prepend\n> > > > >\n"
   sleep 10
 
