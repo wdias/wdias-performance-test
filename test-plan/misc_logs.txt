@@ -1,0 +1,10 @@
+wdias_setup
+wdias_create_timeseries
+wdias_all_24
+wdias_all_288
+wdias_all_1440
+wdias_import_1440
+wdias_export_1440
+wdias_create_extensions_1440
+wdias_extension_1440
+wdias_query_1440
