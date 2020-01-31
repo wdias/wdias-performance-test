@@ -20,9 +20,14 @@ misc_setup() {
   echo "Setup the MISC test complete. Exit"
 }
 
+misc_wait_for_pod() {
+  POD_NAME=$1
+  while [[ $(kubectl get pods -l app=$POD_NAME -o 'jsonpath={..status.conditions[?(@.type=="Ready")].status}') != "True" ]]; do echo "waiting for pod ${POD_NAME}" && sleep 1; done
+  echo "${POD_NAME} is ready"
+}
+
 misc_cleanup() {
   TEST_CASE=$1
-  SLEEP=${2:-30}
   # Do the cleanups before run test cases
   echo "Clean up wdias-data-collector"
   kubectl get pods | grep 'wdias-data-collector' | awk '{print $1}' | xargs -o -I {} nohup kubectl delete pod {} > /tmp/misc_logs.out 2>&1 &
@@ -37,7 +42,8 @@ misc_cleanup() {
     kubectl exec -it $MASTER_NAME -- bash -c "rm ./logs/wdias_${TEST_CASE}.jtl"
   fi
   echo -e "Removed jmeter log in order to avoid prepend\n> > > > >\n"
-  sleep $SLEEP
+  misc_wait_for_pod adapter-scalar-influxdb
+  misc_wait_for_pod adapter-vector-influxdb
 }
 
 misc_run() {
