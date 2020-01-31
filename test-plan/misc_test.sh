@@ -36,7 +36,10 @@ misc_run() {
   kubectl get pods | grep 'wdias-data-collector' | awk '{print $1}' | xargs -o -I {} kubectl cp default/{}:/go/src/app/wdias.db ./db/wdias_${TEST_CASE}_${REQ_SIZE}.db
   echo "Clean up wdias-data-collector"
   kubectl get pods | grep 'wdias-data-collector' | awk '{print $1}' | xargs -o -I {} kubectl delete pod {}
-  sleep 5
+  echo "Clean memory leaks of netCDF"
+  kubectl get pods | grep 'adapter-grid' | awk '{print $1}' | xargs -o -I {} kubectl delete pod {}
+  kubectl get pods | grep 'import-ascii-grid-upload' | awk '{print $1}' | xargs -o -I {} kubectl delete pod {}
+  sleep 3
 }
 
 misc_run all 24
