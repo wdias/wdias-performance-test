@@ -747,7 +747,7 @@ if(timeseriesId.length() != 64){
           <stringProp name="script"></stringProp>
         </JSR223PostProcessor>
         <hashTree/>
-        <kg.apc.jmeter.timers.VariableThroughputTimer guiclass="kg.apc.jmeter.timers.VariableThroughputTimerGui" testclass="kg.apc.jmeter.timers.VariableThroughputTimer" testname="tst-timer-wdias_prod_backup" enabled="false">
+        <kg.apc.jmeter.timers.VariableThroughputTimer guiclass="kg.apc.jmeter.timers.VariableThroughputTimerGui" testclass="kg.apc.jmeter.timers.VariableThroughputTimer" testname="tst-timer-wdias_backup_prod" enabled="false">
           <collectionProp name="load_profile">
             <collectionProp name="1305206028">
               <stringProp name="1">1</stringProp>
