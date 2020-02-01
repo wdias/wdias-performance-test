@@ -14,3 +14,5 @@ precipitation/60_min/
 water_level_grid/15_min/
 water_level_grid/30_min/
 water_level_grid/60_min/
+db/
+misc/
