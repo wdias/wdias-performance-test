@@ -8,7 +8,7 @@ ROOT_DIR=${2-$DIR}
 echo "Set ROOT_DIR=$ROOT_DIR"
 cd $ROOT_DIR/water_level_grid
 TAR=$(which tar)
-if [ "${IS_UNIX:-0}" == "0" ]; then
+if [ "${IS_UNIX:-0}" = "0" ]; then
     # https://superuser.com/a/318810
     TAR=$(which gtar)
 fi
