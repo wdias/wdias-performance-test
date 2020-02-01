@@ -35,7 +35,8 @@ misc_free_pods() {
   echo "Flush InfluxDBs"
   kubectl get pods | grep 'adapter-scalar' | awk '{print $1}' | xargs -o -I {} nohup kubectl delete pod {} > /tmp/misc_logs.out 2>&1 &
   kubectl get pods | grep 'adapter-vector' | awk '{print $1}' | xargs -o -I {} nohup kubectl delete pod {} > /tmp/misc_logs.out 2>&1 &
-  kubectl get pods | grep 'adapter-redis' | awk '{print $1}' | xargs -o -I {} nohup kubectl delete pod {} > /tmp/misc_logs.out 2>&1 &
+  # Avoid flushing redis: adapter-metadata unable to reconnect
+  # kubectl get pods | grep 'adapter-redis' | awk '{print $1}' | xargs -o -I {} nohup kubectl delete pod {} > /tmp/misc_logs.out 2>&1 &
   sleep $SLEEP
   misc_wait_for_pod adapter-scalar-influxdb
   misc_wait_for_pod adapter-vector-influxdb
