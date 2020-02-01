@@ -1646,6 +1646,51 @@ if(timeseriesId.length() != 64){
           </collectionProp>
         </kg.apc.jmeter.timers.VariableThroughputTimer>
         <hashTree/>
+        <kg.apc.jmeter.timers.VariableThroughputTimer guiclass="kg.apc.jmeter.timers.VariableThroughputTimerGui" testclass="kg.apc.jmeter.timers.VariableThroughputTimer" testname="tst-timer-extension_10" enabled="false">
+          <collectionProp name="load_profile">
+            <collectionProp name="1032156426">
+              <stringProp name="1567">10</stringProp>
+              <stringProp name="48625">100</stringProp>
+              <stringProp name="48687">120</stringProp>
+            </collectionProp>
+            <collectionProp name="602526369">
+              <stringProp name="48625">100</stringProp>
+              <stringProp name="48625">100</stringProp>
+              <stringProp name="1629">30</stringProp>
+            </collectionProp>
+            <collectionProp name="-1874504498">
+              <stringProp name="48625">100</stringProp>
+              <stringProp name="49586">200</stringProp>
+              <stringProp name="48687">120</stringProp>
+            </collectionProp>
+            <collectionProp name="1668519649">
+              <stringProp name="49586">200</stringProp>
+              <stringProp name="49586">200</stringProp>
+              <stringProp name="1629">30</stringProp>
+            </collectionProp>
+            <collectionProp name="-90153313">
+              <stringProp name="49586">200</stringProp>
+              <stringProp name="50547">300</stringProp>
+              <stringProp name="48780">150</stringProp>
+            </collectionProp>
+            <collectionProp name="-48970399">
+              <stringProp name="50547">300</stringProp>
+              <stringProp name="50547">300</stringProp>
+              <stringProp name="1629">30</stringProp>
+            </collectionProp>
+            <collectionProp name="-832567423">
+              <stringProp name="50547">300</stringProp>
+              <stringProp name="48780">150</stringProp>
+              <stringProp name="1722">60</stringProp>
+            </collectionProp>
+            <collectionProp name="1153765736">
+              <stringProp name="48780">150</stringProp>
+              <stringProp name="1567">10</stringProp>
+              <stringProp name="1665">45</stringProp>
+            </collectionProp>
+          </collectionProp>
+        </kg.apc.jmeter.timers.VariableThroughputTimer>
+        <hashTree/>
         <kg.apc.jmeter.timers.VariableThroughputTimer guiclass="kg.apc.jmeter.timers.VariableThroughputTimerGui" testclass="kg.apc.jmeter.timers.VariableThroughputTimer" testname="tst-timer-extension_prod" enabled="false">
           <collectionProp name="load_profile">
             <collectionProp name="-240746580">
